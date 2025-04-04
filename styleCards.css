@@ -1,0 +1,56 @@
+/* Estilo base de la card */
+.font-card {
+    background: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 300px;
+    color: #f7f7f7;
+    width: 60%;
+  
+  }
+  body .light-mode .font-card{
+    color: black;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  .font-card:hover{
+    cursor: pointer;
+    box-shadow:  -5px 5px 15px #7a00b3,
+5px -5px 15px #ff0000;
+transform-box: translateY(10px);
+  }
+  /* Nombre de la fuente */
+  .font-name {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  /* Área de texto editable (previsualización) */
+  .font-preview {
+    font-size: 24px;
+    padding: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-top:none;
+    border-left:none;
+    border-right: none;
+    border-bottom-color: red;
+    margin-bottom: 15px;
+    min-height: 60px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none; /* Elimina el borde azul al seleccionar */
+  }
+  
+  /* Detalles de la fuente */
+  .font-details {
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
+  
+  
+ .Ajustes{
+  margin: 20px;
+
+ }
