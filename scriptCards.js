@@ -9,11 +9,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const newSize = fontSizeRange.value + "px";
 
     fontPreviews.forEach(preview => {
-      preview.textContent = newText;
+      if(newText!== ""){
+      preview.textContent = newText; }
       preview.style.fontSize = newSize;
     });
+ 
   }
-
   textInput.addEventListener("input", updateCards);
   fontSizeRange.addEventListener("input", updateCards);
 

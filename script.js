@@ -53,4 +53,27 @@ document.addEventListener("click", function(event) {
         const searchContainer = document.querySelector('.search-container');
         searchContainer.classList.toggle('active');
       });
+
+      const downloadButton = document.querySelector('.download-btn'); 
+      downloadButton.addEventListener("click", function () {
+        const content = "Esto es un archivo de Fuente ejemplo Por DaFont\n" +
+        "lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
+        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n";
+        const fileName = "Font.txt";
+    
+        // Crear un blob con el contenido
+        const blob = new Blob([content], { type: "text/plain" });
+    
+        // Crear un enlace de descarga
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+    
+        // Simular clic en el enlace
+        link.click();
+    
+        // Liberar la URL del objeto
+        URL.revokeObjectURL(link.href);
+    });
 });
+

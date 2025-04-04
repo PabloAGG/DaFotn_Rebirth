@@ -23,7 +23,7 @@
             <ul class="nav-links" id="navMenu">
                 <button id="closeMenu"><i class="fa fa-close"></i></button>
                 <li class="dropdown">
-                    <button  class="category-btn" name="Fantasia" style= "font-family:Henny Penny, system-ui;">Fantasia</button>
+                    <button  class="category-btn" name="Fantasia">Fantasia</button>
                     <ul class="submenu">
                         <li><a href="#">Mágico</a></li>
                         <li><a href="#">Épico</a></li>
@@ -31,7 +31,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <button class="category-btn" id="Paises" style="font-family: Iansui, cursive;">Paises</button>
+                    <button class="category-btn" id="Paises">Paises</button>
                     <ul class="submenu">
                         <li><a href="#">Europeo</a></li>
                         <li><a href="#">Latino</a></li>
@@ -47,7 +47,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <button class="category-btn" name="Gotico" style="font-family: UnifrakturMaguntia, cursive;">Gotico</button>
+                    <button class="category-btn" name="Gotico">Gotico</button>
                     <ul class="submenu">
                         <li><a href="#">Europeo</a></li>
                         <li><a href="#">Latino</a></li>
@@ -55,7 +55,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <button class="category-btn" name="Basico" style="font-family: 'Times New Roman', Times, serif;">Basico</button>
+                    <button class="category-btn" name="Basico" >Basico</button>
                     <ul class="submenu">
                         <li><a href="#">Mágico</a></li>
                         <li><a href="#">Épico</a></li>
@@ -63,7 +63,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <button class="category-btn" name="Script" style=" font-family: Meddon, cursive">Script</button>
+                    <button class="category-btn" name="Script" >Script</button>
                     <ul class="submenu">
                         <li><a href="#">Europeo</a></li>
                         <li><a href="#">Latino</a></li>
@@ -71,7 +71,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <button class="category-btn" name="Dingbats" style="font-family: Eater, serif;">Glifos</button>
+                    <button class="category-btn" name="Dingbats">Glifos</button>
                     <ul class="submenu">
                         <li><a href="#">Mágico</a></li>
                         <li><a href="#">Épico</a></li>
@@ -79,7 +79,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <button class="category-btn" name="Festividades" style="font-family: Creepster, system-ui;">Festivo </button>
+                    <button class="category-btn" name="Festividades">Festivo </button>
                     <ul class="submenu">
                         <li><a href="#">Europeo</a></li>
                         <li><a href="#">Latino</a></li>
@@ -105,99 +105,103 @@
     </nav>
 </header>
 <main>
- <div class="Ajustes">  <input type="text" id="text-input" placeholder="Escribe algo..." value="Aprender a un grupo">
-  <input type="range" id="font-size-range" min="10" max="72" value="24"></div><br>
+  <nav id="breadcrumb">
+    <span><a href="DaFont_index.html">Inicio</a></span> 
+</nav>
+
+ <div class="Ajustes">  <input type="text" id="text-input" placeholder="Escribe algo..."><br>
+  <input type="range" class="slider" id="font-size-range" min="10" max="100" value="24"></div><br>
    
       <div class="font-card">
-        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Popstar B de Cat B</h2>
-        <div class="font-preview">Aprender a un grupo</div>
+        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Henny Penny</h2>
+        <div class="font-preview" style= "font-family:Henny Penny, system-ui;">Henny Penny</div>
         <div class="font-details">
           <span class="downloads">23.746 descargas (3.488 ayer)</span>
           <button class="btn"><i class="fa fa-heart-o" ></i></button>
           <span class="license">Gratis para uso personal</span>
         </div>
-        <button class="download-btn"><i class="fa fa-download"></i></button>
+        <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
       </div>
       
       <div class="font-card">
-        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Popstar B de Cat B</h2>
-        <div class="font-preview">Aprender a un grupo</div>
+        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Iansui</h2>
+        <div class="font-preview" style="font-family: Iansui, cursive;">Iansui</div>
         <div class="font-details">
           <span class="downloads">23.746 descargas (3.488 ayer)</span>
           <button class="btn"><i class="fa fa-heart-o" ></i></button>
           <span class="license">Gratis para uso personal</span>
         </div>
-        <button class="download-btn"><i class="fa fa-download"></i></button>
-      </div>
-      
-
-      <div class="font-card">
-        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Popstar B de Cat B</h2>
-        <div class="font-preview">Aprender a un grupo</div>
-        <div class="font-details">
-          <span class="downloads">23.746 descargas (3.488 ayer)</span>
-          <button class="btn"><i class="fa fa-heart-o" ></i></button>
-          <span class="license">Gratis para uso personal</span>
-        </div>
-        <button class="download-btn"><i class="fa fa-download"></i></button>
+        <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
       </div>
       
 
       <div class="font-card">
-        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Popstar B de Cat B</h2>
-        <div class="font-preview">Aprender a un grupo</div>
+        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Audiowide</h2>
+        <div class="font-preview" style=" font-family: Audiowide, sans-serif;">Audiowide</div>
         <div class="font-details">
           <span class="downloads">23.746 descargas (3.488 ayer)</span>
           <button class="btn"><i class="fa fa-heart-o" ></i></button>
           <span class="license">Gratis para uso personal</span>
         </div>
-        <button class="download-btn"><i class="fa fa-download"></i></button>
-      </div>
-      
-      <div class="font-card">
-        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Popstar B de Cat B</h2>
-        <div class="font-preview">Aprender a un grupo</div>
-        <div class="font-details">
-          <span class="downloads">23.746 descargas (3.488 ayer)</span>
-          <button class="btn"><i class="fa fa-heart-o" ></i></button>
-          <span class="license">Gratis para uso personal</span>
-        </div>
-        <button class="download-btn"><i class="fa fa-download"></i></button>
-      </div>
-      
-      <div class="font-card">
-        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Popstar B de Cat B</h2>
-        <div class="font-preview">Aprender a un grupo</div>
-        <div class="font-details">
-          <span class="downloads">23.746 descargas (3.488 ayer)</span>
-          <button class="btn"><i class="fa fa-heart-o" ></i></button>
-          <span class="license">Gratis para uso personal</span>
-        </div>
-        <button class="download-btn"><i class="fa fa-download"></i></button>
+        <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
       </div>
       
 
       <div class="font-card">
-        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Popstar B de Cat B</h2>
-        <div class="font-preview">Aprender a un grupo</div>
+        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">UnifrakturMaguntia</h2>
+        <div class="font-preview" style="font-family: UnifrakturMaguntia, cursive;">UnifrakturMaguntia</div>
         <div class="font-details">
           <span class="downloads">23.746 descargas (3.488 ayer)</span>
           <button class="btn"><i class="fa fa-heart-o" ></i></button>
           <span class="license">Gratis para uso personal</span>
         </div>
-        <button class="download-btn"><i class="fa fa-download"></i></button>
+        <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
+      </div>
+      
+      <div class="font-card">
+        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Times New Roman</h2>
+        <div class="font-preview" style="font-family: 'Times New Roman', Times, serif;">Times New Roman</div>
+        <div class="font-details">
+          <span class="downloads">23.746 descargas (3.488 ayer)</span>
+          <button class="btn"><i class="fa fa-heart-o" ></i></button>
+          <span class="license">Gratis para uso personal</span>
+        </div>
+        <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
+      </div>
+      
+      <div class="font-card">
+        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Meddon</h2>
+        <div class="font-preview" style=" font-family: Meddon, cursive">Meddon</div>
+        <div class="font-details">
+          <span class="downloads">23.746 descargas (3.488 ayer)</span>
+          <button class="btn"><i class="fa fa-heart-o" ></i></button>
+          <span class="license">Gratis para uso personal</span>
+        </div>
+        <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
       </div>
       
 
       <div class="font-card">
-        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Popstar B de Cat B</h2>
-        <div class="font-preview">Aprender a un grupo</div>
+        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Eater</h2>
+        <div class="font-preview" style="font-family: Eater, serif;">Eater</div>
         <div class="font-details">
           <span class="downloads">23.746 descargas (3.488 ayer)</span>
           <button class="btn"><i class="fa fa-heart-o" ></i></button>
           <span class="license">Gratis para uso personal</span>
         </div>
-        <button class="download-btn"><i class="fa fa-download"></i></button>
+        <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
+      </div>
+      
+
+      <div class="font-card">
+        <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Creepster</h2>
+        <div class="font-preview" style="font-family: Creepster, system-ui;">Creepster</div>
+        <div class="font-details">
+          <span class="downloads">23.746 descargas (3.488 ayer)</span>
+          <button class="btn"><i class="fa fa-heart-o" ></i></button>
+          <span class="license">Gratis para uso personal</span>
+        </div>
+        <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
       </div>
 
 </main>
@@ -210,5 +214,6 @@
 <!-- </div> -->
     <script src="script.js"></script>
     <script src="scriptCards.js"></script>
+    <script src="breadcrumbing.js"></script>
 </body>
 </html>

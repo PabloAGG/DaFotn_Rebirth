@@ -4,20 +4,17 @@
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
     padding: 20px;
-    margin-bottom: 20px;
-    width: 300px;
-    color: #f7f7f7;
+    margin-bottom: 45px;
     width: 60%;
-  
   }
-  body .light-mode .font-card{
-    color: black;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  body.light-mode .font-card{
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   }
   .font-card:hover{
     cursor: pointer;
-    box-shadow:  -5px 5px 15px #7a00b3,
-5px -5px 15px #ff0000;
+    box-shadow:  -5px 5px 15px #ff2200,
+                  5px -5px 15px #ff2200;
 transform-box: translateY(10px);
   }
   /* Nombre de la fuente */
@@ -52,5 +49,22 @@ transform-box: translateY(10px);
   
  .Ajustes{
   margin: 20px;
+
+ }
+
+ @media screen and (max-width: 768px) {
+.font-card {
+    width: 90%;
+    margin: 20px auto; /* Centra la card en pantallas pequeñas */
+  }
+  .font-preview {
+    font-size: 18px; 
+  }
+  .font-name {
+    font-size: 16px; 
+  }
+  .font-details {
+    font-size: 10px;
+  }
 
  }
