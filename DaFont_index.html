@@ -10,6 +10,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
         </style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=tune" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=person" />
 </head>
 <body>
@@ -105,13 +106,21 @@
     </nav>
 </header>
 <main>
+
   <nav id="breadcrumb">
     <span><a href="DaFont_index.html">Inicio</a></span> 
 </nav>
-
- <div class="Ajustes">  <input type="text" id="text-input" placeholder="Escribe algo..."><br>
-  <input type="range" class="slider" id="font-size-range" min="10" max="100" value="24"></div><br>
-   
+<button class="btn-filtros" id="btn-filtros">
+    <i class="fa fa-sliders"></i> 
+  </button>
+<aside class="Filtros">
+    <button class="hideMenu"><i class="fa fa-close"></i></button>
+ <div class="Ajustes">  
+  <input type="text" id="text-input" placeholder="Escribe algo..."><br>
+  <input type="range" class="slider" id="font-size-range" min="10" max="100"  value="24"></div><br>
+  
+   </aside>
+   <div class="FontContainer">
       <div class="font-card">
         <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Henny Penny</h2>
         <div class="font-preview" style= "font-family:Henny Penny, system-ui;">Henny Penny</div>
@@ -203,7 +212,7 @@
         </div>
         <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
       </div>
-
+</div>
 </main>
 
 

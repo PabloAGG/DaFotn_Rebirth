@@ -1,23 +1,25 @@
+/*  */
+main{
+    display: block;
+}
 #FormLogin{
     display: flex;
     flex-direction: column;
 justify-content: space-around;
 align-items: center;
     width: 40%;
-    max-width: 500px; /* Evita que crezca demasiado en pantallas grandes */
-    min-height: 400px; /* Hace que el formulario tenga más altura */
+    max-width: 500px; 
+    min-height: 400px; 
     padding: 2rem;
     margin: 0 auto;
+  
 }
-.Login{
-    display: flex;
- justify-content: center;
 
-}
 h1{
 margin-left:30px ;
 }
 #NombreUsuario{
+    margin-top: 30px;
     display: flex;
     flex-direction: row;
 }
