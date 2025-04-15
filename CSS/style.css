@@ -422,8 +422,9 @@ body.light-mode .menu-hamburguesa span {
     width: 80px;
 }
 body.light-mode  #navImg{
-    content: url(IMG/Dafont1-Light.png);
+    content:url(Dafont1-Light.png);
 }
+
 /* Ocultar submenús por defecto */
  .submenu {
     display: none;
