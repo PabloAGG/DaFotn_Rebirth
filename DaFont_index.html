@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DaFont</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="styleCards.css">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/styleCards.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
@@ -19,7 +19,7 @@
 <header>
     <nav class="navbar">
         <div>
-     <a href="DaFont_index.html" class="logo"><img id="navImg"  src="Dafont1-Dark.png" alt="Logo pagina Dafont"></a></div>
+     <a href="DaFont_index.html" class="logo"><img id="navImg"  src="IMG/Dafont1-Dark.png" alt="Logo pagina Dafont"></a></div>
       
             <ul class="nav-links" id="navMenu">
                 <button id="closeMenu"><i class="fa fa-close"></i></button>
@@ -94,7 +94,7 @@
                   </div>
                 </li>
 
-                <li><button id="dkmode"><i class="fa fa-adjust"></i></button></li>
+                <!-- <li><button id="dkmode"><i class="fa fa-adjust"></i></button></li> -->
    </ul>
        <button id="btnSesion" onclick="window.location.href='Dafont_Log.html'"><span class="material-symbols-outlined"> person</span></button>
      
@@ -113,12 +113,18 @@
 <button class="btn-filtros" id="btn-filtros">
     <i class="fa fa-sliders"></i> 
   </button>
+
 <aside class="Filtros">
     <button class="hideMenu"><i class="fa fa-close"></i></button>
  <div class="Ajustes">  
-  <input type="text" id="text-input" placeholder="Escribe algo..."><br>
+  <div>
+  <label for="text-input">Texto de Prueba:</label>
+  <input type="text" name="text-input" id="text-input" placeholder="Escribe algo..."></div><br>
+  <div>
+  <label for="font-select">Tamaño de Fuente:</label>
   <input type="range" class="slider" id="font-size-range" min="10" max="100"  value="24"></div><br>
-  
+  <button id="dkmode"><i class="fa fa-adjust"></i></button>
+</div><br>
    </aside>
    <div class="FontContainer">
       <div class="font-card">
@@ -221,8 +227,9 @@
     </p> <p><a href="">FAQ</a></p>
   </footer>
 <!-- </div> -->
-    <script src="script.js"></script>
-    <script src="scriptCards.js"></script>
-    <script src="breadcrumbing.js"></script>
+ <script src="JS/scriptIndex.js"></script>
+    <script src="JS/script.js"></script>
+    <script src="JS/scriptCards.js"></script>
+    <script src="JS/breadcrumbing.js"></script>
 </body>
 </html>

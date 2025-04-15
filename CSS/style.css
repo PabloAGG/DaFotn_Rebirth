@@ -40,9 +40,6 @@ body.light-mode header {
 main{
     padding-top: 200px;
     display: grid;
-    grid-template-columns:1fr 250px;
-    gap: 1rem;
-    grid-template-rows: 70px auto ;
     color: #ffffff;
     margin-bottom: 60px;
     margin-left: 25px;
@@ -50,11 +47,13 @@ main{
   }
   
 .FontContainer{
-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 main button {
     --bg: #1f1e1e;
-    --hover-bg: #5c0057;
+    --hover-bg: #b80303;
     --hover-text: #ffffff;
     color: #fff;
     cursor: pointer;
@@ -66,7 +65,7 @@ main button {
   }
   body.light-mode main button{
       --bg: #000000;
-      --hover-bg: #5c0057;
+      --hover-bg: #b80303;
       --hover-text: #000;
       color: #ffffff;
   }
@@ -126,11 +125,11 @@ body.light-mode #breadcrumb a {
     cursor: pointer;
    }
 .btn-filtros{
-    display: none;
+    display: block;
     position: fixed;
-    top: 140px;
-    left: 10px;
-    z-index: 1000;
+    top: 160px;
+    right: 15px;
+    z-index: 900;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -140,10 +139,30 @@ body.light-mode #breadcrumb a {
 }
 
 aside{
-    padding: 1rem;
+    position: fixed;
+    left: -100%;
+    background-color: rgba(0, 0, 0,.92);
+backdrop-filter: blur(8px);
+    top: 135px;
+    width: 70%;
+    height: 100%;
+    z-index: 1000;    padding: 1rem;
     transition: left 0.3s ease-in-out;
 
 }
+
+body.light-mode aside {
+    background-color: rgba(252, 252, 247,.92);
+  }
+  aside.active {
+    left: 0;
+  }
+  aside.active .hideMenu {
+  display: block;
+  }
+body.light-mode aside.active .hideMenu {
+    color: black;
+  }
 #text-input {
     border: solid 1.5px #9e9e9e;
     border-radius: 1rem;
@@ -325,6 +344,8 @@ body.light-mode .category-btn::after{
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
+    transition: right 0.5s ease-in-out;
+    z-index: 1001;
 }
 
 .nav-links li {
@@ -373,6 +394,7 @@ body.light-mode .category-btn::after{
   
   .search-container.active .search-button {
     transform: translateX(-10px);
+    margin: 15px;
   }
   
 
@@ -400,7 +422,7 @@ body.light-mode .menu-hamburguesa span {
     width: 80px;
 }
 body.light-mode  #navImg{
-    content: url(Dafont1-Light.png);
+    content: url(IMG/Dafont1-Light.png);
 }
 /* Ocultar submenús por defecto */
  .submenu {
@@ -506,6 +528,7 @@ body.light-mode .submenu a:hover {
       }
       .btn-filtros {
         display: block;
+      
       }
     .nav-links {
         display: none;

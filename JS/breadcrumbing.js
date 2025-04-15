@@ -10,12 +10,23 @@ document.addEventListener("DOMContentLoaded", function() {
   
     // Ejemplo 1: Cuando se selecciona una categoría (ej: Fantasía > Épico)
     document.querySelectorAll(".submenu a").forEach(link => {
+      // window.location.href = "DaFont_index.html";
       link.addEventListener("click", function(e) {
         e.preventDefault();
         updateBreadcrumb(
           { name: "Inicio", link: "DaFont_index.html" },
           { name: this.parentElement.parentElement.previousElementSibling.textContent, link: "DaFont_index.html" }, // Categoría padre (ej: Fantasía)
           { name: this.textContent, link: "DaFont_index.html" } // Subcategoría (ej: Épico)
+        );
+      });
+    });
+    document.querySelectorAll(".category-btn").forEach(link => {
+      // window.location.href = "DaFont_index.html";
+      link.addEventListener("click", function(e) {
+        e.preventDefault();
+        updateBreadcrumb(
+          { name: "Inicio", link: "DaFont_index.html" },
+          { name: this.textContent, link: "DaFont_index.html" } // categoria (ej: Épico)
         );
       });
     });
