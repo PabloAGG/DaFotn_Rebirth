@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DaFont-Perfil</DaFont-Perfil></title>
+    <title>DaFont-Perfil</title>
     <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/styleCards.css">
+    <link rel="stylesheet" href="CSS/authors.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
@@ -18,7 +20,7 @@
     <header>
         <nav class="navbar">
             <div>
-         <a href="DaFont_index.html" class="logo"><img id="navImg"  src="Dafont1-Dark.png" alt="Logo pagina Dafont"></a></div>
+         <a href="DaFont_index.html" class="logo"><img id="navImg"  src="Dafont1-Dark1.png" alt="Logo pagina Dafont"></a></div>
           
                 <ul class="nav-links" id="navMenu">
                     <button id="closeMenu"><i class="fa fa-close"></i></button>
@@ -106,7 +108,121 @@
     </header>
 
 <main>
+    <button class="btn-filtros" id="btn-filtros">
+        <i class="fa fa-sliders"></i> 
+      </button>
+    
+    <aside class="Filtros">
+        <button class="hideMenu"><i class="fa fa-close"></i></button>
+     <div class="Ajustes">  
+      <div>
+      <label for="text-input">Texto de Prueba:</label>
+      <input type="text" name="text-input" id="text-input" placeholder="Escribe algo..."></div><br>
+      <div>
+      <label for="font-select">Tamaño de Fuente:</label>
+      <input type="range" class="slider" id="font-size-range" min="10" max="100"  value="24"></div><br>
+      <button id="dkmode"><i class="fa fa-adjust"></i></button>
+    </div><br>
+       </aside>
+<div class="author-id">
+    <div class="presentacion">
+<img src="IMG/autor.jpg" alt="imagen del perfil del autor"> <h2>Arlender21</h2></div>
+<a href="https://www.twitch.tv/arlender21/about">Pagina oficial</a>
+</div>
+<div class="FontContainer">
+    <h1>Sus Fuentes...</h1><br>
+    <div class="font-card">
+      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Henny Penny</h2>
+      <div class="font-preview" style= "font-family:Henny Penny, system-ui;">Henny Penny</div>
+      <div class="font-details">
+        <span class="downloads">23.746 descargas (3.488 ayer)</span>
+        <button class="btn"><i class="fa fa-heart-o" ></i></button>
+        <span class="license">Gratis para uso personal</span>
+      </div>
+      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
+    </div>
+    
+    <div class="font-card">
+      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Iansui</h2>
+      <div class="font-preview" style="font-family: Iansui, cursive;">Iansui</div>
+      <div class="font-details">
+        <span class="downloads">23.746 descargas (3.488 ayer)</span>
+        <button class="btn"><i class="fa fa-heart-o" ></i></button>
+        <span class="license">Gratis para uso personal</span>
+      </div>
+      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
+    </div>
+    
 
+    <div class="font-card">
+      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Audiowide</h2>
+      <div class="font-preview" style=" font-family: Audiowide, sans-serif;">Audiowide</div>
+      <div class="font-details">
+        <span class="downloads">23.746 descargas (3.488 ayer)</span>
+        <button class="btn"><i class="fa fa-heart-o" ></i></button>
+        <span class="license">Gratis para uso personal</span>
+      </div>
+      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
+    </div>
+    
+
+    <div class="font-card">
+      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">UnifrakturMaguntia</h2>
+      <div class="font-preview" style="font-family: UnifrakturMaguntia, cursive;">UnifrakturMaguntia</div>
+      <div class="font-details">
+        <span class="downloads">23.746 descargas (3.488 ayer)</span>
+        <button class="btn"><i class="fa fa-heart-o" ></i></button>
+        <span class="license">Gratis para uso personal</span>
+      </div>
+      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
+    </div>
+    
+    <div class="font-card">
+      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Times New Roman</h2>
+      <div class="font-preview" style="font-family: 'Times New Roman', Times, serif;">Times New Roman</div>
+      <div class="font-details">
+        <span class="downloads">23.746 descargas (3.488 ayer)</span>
+        <button class="btn"><i class="fa fa-heart-o" ></i></button>
+        <span class="license">Gratis para uso personal</span>
+      </div>
+      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
+    </div>
+    
+    <div class="font-card">
+      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Meddon</h2>
+      <div class="font-preview" style=" font-family: Meddon, cursive">Meddon</div>
+      <div class="font-details">
+        <span class="downloads">23.746 descargas (3.488 ayer)</span>
+        <button class="btn"><i class="fa fa-heart-o" ></i></button>
+        <span class="license">Gratis para uso personal</span>
+      </div>
+      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
+    </div>
+    
+
+    <div class="font-card">
+      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Eater</h2>
+      <div class="font-preview" style="font-family: Eater, serif;">Eater</div>
+      <div class="font-details">
+        <span class="downloads">23.746 descargas (3.488 ayer)</span>
+        <button class="btn"><i class="fa fa-heart-o" ></i></button>
+        <span class="license">Gratis para uso personal</span>
+      </div>
+      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
+    </div>
+    
+
+    <div class="font-card">
+      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Creepster</h2>
+      <div class="font-preview" style="font-family: Creepster, system-ui;">Creepster</div>
+      <div class="font-details">
+        <span class="downloads">23.746 descargas (3.488 ayer)</span>
+        <button class="btn"><i class="fa fa-heart-o" ></i></button>
+        <span class="license">Gratis para uso personal</span>
+      </div>
+      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
+    </div>
+</div>
 </main>
 
 <footer>

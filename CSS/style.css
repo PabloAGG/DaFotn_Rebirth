@@ -38,7 +38,7 @@ body.light-mode header {
     background-color: #FCFCF7;
 }
 main{
-    padding-top: 200px;
+    padding-top: 150px;
     display: grid;
     color: #ffffff;
     margin-bottom: 60px;
@@ -81,9 +81,23 @@ main button {
     box-shadow: none;
   }
 
+ main a{
+    color:#a307db; 
+    text-decoration: none;
+}
+main a:hover{
+    color: red;
+    text-decoration: underline;
+    cursor: pointer;
+}
+main a:visited{
+    color: #db0707; 
+    text-decoration: none;
+}
+
   #breadcrumb {
     font-size: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     color: #666;
 }
 
@@ -127,8 +141,8 @@ body.light-mode #breadcrumb a {
 .btn-filtros{
     display: block;
     position: fixed;
-    top: 160px;
-    right: 15px;
+    top: 150px;
+    right: 25px;
     z-index: 900;
     color: white;
     border: none;
@@ -235,6 +249,20 @@ body.light-mode footer{
    
     color: black;
 }
+
+footer a{
+    color:#a307db; 
+    text-decoration: none;
+}
+footer a:hover{
+    color: red;
+    text-decoration: underline;
+    cursor: pointer;
+}
+footer a:visited{
+    color: #db0707; 
+    text-decoration: none;
+}
 /* Barra de navegación */
 .navbar {
     display: flex;
@@ -292,7 +320,8 @@ cursor: pointer;
 .category-btn {
     font-size: 12px;
     color: #e1e1e1;
-    margin: 10px;
+    margin: 5px;
+    padding: 10px 20px;
     cursor: pointer;
     position: relative;
     border: none;
@@ -417,13 +446,11 @@ body.light-mode .menu-hamburguesa span {
     background: black;
 }
 #navImg{
-    border-radius: 50%;
-    height: 80px;
-    width: 80px;
+    /* border-radius: 50%; */
+    height: 50px;
+    width: 53px;
 }
-body.light-mode  #navImg{
-    content:url(Dafont1-Light.png);
-}
+
 
 /* Ocultar submenús por defecto */
  .submenu {
@@ -484,6 +511,7 @@ body.light-mode .submenu a:hover {
     color: rgb(0, 0, 0);
     cursor: pointer;
 }
+
 .dropdown:hover .submenu {
     display: block;
     height: 30dvh;
@@ -496,6 +524,7 @@ body.light-mode .submenu a:hover {
     opacity: 1;
     transform: translateY(0);
 }
+
 
 /* Estilos para móviles */
 @media screen and (max-width: 768px) {

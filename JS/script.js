@@ -58,23 +58,25 @@ document.addEventListener("click", function(event) {
             this.parentElement.classList.toggle("active");
         });
     });
-    const botonModo = document.getElementById("dkmode");
+    const toggleBtn = document.getElementById("dkmode");
     const body = document.body;
+    const navImg = document.getElementById("navImg");
 
-    // Verificar si hay una preferencia guardada en localStorage
-    if (localStorage.getItem("modo-claro") === "activado") {
+    // Detectar si ya hay un modo guardado
+    if (localStorage.getItem("modo-oscuro") === "desactivado") {
         body.classList.add("light-mode");
+        navImg.src = "Dafont1-Light1.png";
     }
 
-    // Cambiar de modo al hacer clic en el botón
-    botonModo.addEventListener("click", function() {
+    toggleBtn.addEventListener("click", () => {
         body.classList.toggle("light-mode");
 
-        // Guardar la preferencia en localStorage
         if (body.classList.contains("light-mode")) {
-            localStorage.setItem("modo-claro", "activado");
+            navImg.src = "Dafont1-Light1.png";
+            localStorage.setItem("modo-oscuro", "desactivado");
         } else {
-            localStorage.setItem("modo-claro", "desactivado");
+            navImg.src = "Dafont1-Dark1.png";
+            localStorage.setItem("modo-oscuro", "activado");
         }
     });
     document.querySelector('.search-button').addEventListener('click', function() {
