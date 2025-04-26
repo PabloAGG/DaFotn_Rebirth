@@ -1,9 +1,13 @@
 <?php
 session_start();
 require 'BACK/DB_connection.php';
+$user_id = null;
+$user_name = null;
+$user_img = null;
+if (isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $user_name = $_SESSION['user_name'];
-$user_img = $_SESSION['user_img'];
+$user_img = $_SESSION['user_img'];}
 ?>
 
 <!DOCTYPE html>
@@ -14,20 +18,17 @@ $user_img = $_SESSION['user_img'];
     <title>DaFont</title>
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/styleCards.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
         </style>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=tune" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=person" />
-</head>
+     <script src="https://kit.fontawesome.com/093074d40c.js" crossorigin="anonymous"></script></head>
 <body>
 
     <!-- <div class="contenedorPrincipal"> -->
 <header>
     <nav class="navbar">
         <div>
-     <a href="DaFont_index.html" class="logo"><img id="navImg"  src="Dafont1-Dark1.png" alt="Logo pagina Dafont" ></a></div>
+     <a href="DaFont_index.php" class="logo"><img id="navImg"  src="Dafont1-Dark1.png" alt="Logo pagina Dafont" ></a></div>
       
             <ul class="nav-links" id="navMenu">
                 <button id="closeMenu"><i class="fa fa-close"></i></button>
@@ -104,11 +105,13 @@ $user_img = $_SESSION['user_img'];
 
                 <!-- <li><button id="dkmode"><i class="fa fa-adjust"></i></button></li> -->
    </ul>
-       <button id="btnSesion" onclick="window.location.href='Dafont_Log.html'"><?php echo $user_name ?>
-       <?php if($user_img===null){ ?>
-       <span class="material-symbols-outlined"> person</span></button>
+       <button id="btnSesion" 
+       <?php if($user_id===null){ ?>
+        onclick="window.location.href='Dafont_Log.php'">
+        <i class="fa-solid fa-circle-user"></i></button>
         <?php }else{ ?>
-        <img src="<?php echo $user_img ?>" alt="Imagen de usuario" class="user-img"></button>
+          onclick="window.location.href='Dafont_Profile.php'">
+        <?php echo $user_name ?></button>
         <?php } ?>
      
         <div class="menu-hamburguesa">
@@ -124,11 +127,11 @@ $user_img = $_SESSION['user_img'];
     <span><a href="DaFont_index.html">Inicio</a></span> 
 </nav>
 <button class="btn-filtros" id="btn-filtros">
-    <i class="fa fa-sliders"></i> 
+<i class="fa-solid fa-sliders"></i>
   </button>
 
 <aside class="Filtros">
-    <button class="hideMenu"><i class="fa fa-close"></i></button>
+    <button class="hideMenu"><i class="fa-solid fa-angles-left"></i></button>
  <div class="Ajustes">  
   <div>
   <label for="text-input">Texto de Prueba:</label>
@@ -136,7 +139,10 @@ $user_img = $_SESSION['user_img'];
   <div>
   <label for="font-select">Tamaño de Fuente:</label>
   <input type="range" class="slider" id="font-size-range" min="10" max="100"  value="24"></div><br>
-  <button id="dkmode"><i class="fa fa-adjust"></i></button>
+  <button id="dkmode"><i class="fa-solid fa-circle-half-stroke"></i></button>
+  <?php if($user_id !== null){ ?>
+  <button onclick="window.location.href='BACK/LogOut.php'"><i class="fa-solid fa-right-from-bracket"></i></button>
+  <?php } ?>
 </div><br>
    </aside>
 
@@ -147,10 +153,10 @@ $user_img = $_SESSION['user_img'];
         <div class="font-preview" style= "font-family:Henny Penny, system-ui;">Henny Penny</div>
         <div class="font-details">
           <span class="downloads">23.746 descargas (3.488 ayer)</span>
-          <button class="btn"><i class="fa fa-heart-o" ></i></button>
+          <button class="btn"><i class="fa-solid fa-heart-circle-plus"></i></button>
           <span class="license">Gratis para uso personal</span>
         </div>
-        <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
+        <button class="download-btn" id="download-btn"><i class="fa-solid fa-download"></i></button>
       </div>
       
       <div class="font-card">
@@ -242,6 +248,7 @@ $user_img = $_SESSION['user_img'];
     </p> <p><a href="">FAQ</a></p>
   </footer>
 <!-- </div> -->
+<script src="JS/app.js"></script>
  <script src="JS/scriptIndex.js"></script>
     <script src="JS/script.js"></script>
     <script src="JS/scriptCards.js"></script>

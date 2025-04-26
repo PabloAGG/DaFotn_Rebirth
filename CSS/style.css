@@ -25,12 +25,13 @@ header{
     backdrop-filter: blur(8px);
     position: fixed; /* Fijar el header en la pantalla */
     width: 100%; /* Que ocupe todo el ancho */
-    padding: 10px 10px;
+    padding: 5px 10px;
     border-radius: 1px;
 box-shadow:  -5px 5px 35px #b30000,
 5px -5px 35px #ff0000;
     border-width: 1px;
     border-style: solid;
+    min-height: 60px;
     border-bottom-color: red;
     z-index: 1000;
 }
@@ -38,14 +39,16 @@ body.light-mode header {
     background-color: #FCFCF7;
 }
 main{
-    padding-top: 150px;
     display: grid;
     color: #ffffff;
     margin-bottom: 60px;
     margin-left: 25px;
     margin-right: 25px;
   }
-  
+  main > *:first-child {
+    margin-top: 0;
+}
+
 .FontContainer{
     display: flex;
     flex-direction: column;
@@ -279,7 +282,10 @@ footer a:visited{
     font-size: 15px;
     transition: .03s;
    height: 50px;
-   width: 50px;
+   min-height: 20px;
+   min-width: 20px;
+   width: auto;
+   font-family: Audiowide, sans-serif;
  }
  body.light-mode #btnSesion{
     color: #0c0c0c;
