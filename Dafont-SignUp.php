@@ -108,36 +108,40 @@
 <main>
 
 
-    <form action="" id="FormLogin">
+    <form action="BACK/Registro.php" method="POST" id="FormLogin">
         <div>
         <h1>Crea tu cuenta Dafont</h1><br>
         <p>Solo necesitas de tu cuenta para acceder a todas las funciones.</p></div>
         <div id="NombreUsuario">
         <div class="input-group">
-            <input required="" type="text" name="text" autocomplete="off" class="input">
+            <input required="" type="text" name="nombre" autocomplete="off" class="input">
             <label class="user-label">Nombre(s)</label>
           </div>
           <div class="input-group">
-            <input required="" type="text" name="text" autocomplete="off" class="input">
+            <input required="" type="text" name="apellido" autocomplete="off" class="input">
             <label class="user-label">Apellidos</label>
           </div>
         </div>
           <div class="input-group">
-            <input required="" type="text" name="text" autocomplete="off" class="input">
+            <input required="" type="email" name="email_usuario" autocomplete="off" class="input">
             <label class="user-label">Correo</label>
           </div>
           <div class="input-group">
             <label >Fecha de Nacimiento</label><br>
-             <input required="" type="date" name="text" autocomplete="off" class="input">
+             <input required="" type="date" name="fecha_usuario" autocomplete="off" class="input">
            
           </div>
         <div class="input-group">
-            <input required="" type="text" name="text" autocomplete="off" class="input">
+            <input required="" type="text" name="nombre_usuario" autocomplete="off" class="input">
             <label class="user-label">Usuario</label>
           </div>
           <div class="input-group">
-            <input required="" type="text" name="text" autocomplete="off" class="input">
+            <input required="" type="Password" name="contraseña_usuario" autocomplete="off" class="input">
             <label class="user-label">Contraseña</label>
+          </div>
+          <div class="input-group">
+            <input required="" type="Password" name="contraseña_Check" autocomplete="off" class="input">
+            <label class="user-label">Confirma tu contraseña</label>
           </div>
 
           <div id="botones"><button id="btn-REG">Registrarme</button> <button id="btn-Cnl">Cancelar</button></div>
@@ -154,6 +158,7 @@
 
   </footer>
 <!-- </div> -->  <script src="JS/script.js"></script>
+ <script src="JS/SingUp.js"></script>
     <script src="JS/scriptCards.js"></script>
     <script src="JS/breadcrumbing.js"></script>
 </body>

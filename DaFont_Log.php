@@ -109,20 +109,20 @@
         <h1>Inicia Sesión para Guardar tus Fuentes Favoritas</h1><br>
  <div class="Login">
 
-    <form action="" id="FormLogin">
+    <form action="BACK/Login.php" id="FormLogin" method="POST">
         <h3>Inicia Sesión en DaFont</h3><br>
 
           <div class="input-group">
-            <input required="" type="text" name="text" autocomplete="off" class="input">
+            <input required="" type="text" name="user_name" autocomplete="off" class="input">
             <label class="user-label">Usuario</label>
           </div>
           <div class="input-group">
-            <input required="" type="text" name="text" autocomplete="off" class="input">
+            <input required="" type="password" name="password_user" autocomplete="off" class="input">
             <label class="user-label">Contraseña</label>
           </div>
 
     <button>Ingresa</button>
-    <span>¿Aún no tienes Cuenta?  <a href="Dafont-SignUp.html">Crea una ahora!</a></span>
+    <span>¿Aún no tienes Cuenta?  <a href="Dafont-SignUp.php">Crea una ahora!</a></span>
       <!-- <span>O incia Sesion con
  
       <button><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48">
@@ -142,7 +142,7 @@
 
   </footer>
 <!-- </div> -->  <script src="JS/script.js"></script>
-  
+  <script src="JS/Login.js"></script>
     <script src="JS/breadcrumbing.js"></script>
 </body>
 </html>

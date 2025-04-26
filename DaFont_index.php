@@ -1,3 +1,11 @@
+<?php
+session_start();
+require 'BACK/DB_connection.php';
+$user_id = $_SESSION['user_id'];
+$user_name = $_SESSION['user_name'];
+$user_img = $_SESSION['user_img'];
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -96,7 +104,12 @@
 
                 <!-- <li><button id="dkmode"><i class="fa fa-adjust"></i></button></li> -->
    </ul>
-       <button id="btnSesion" onclick="window.location.href='Dafont_Log.html'"><span class="material-symbols-outlined"> person</span></button>
+       <button id="btnSesion" onclick="window.location.href='Dafont_Log.html'"><?php echo $user_name ?>
+       <?php if($user_img===null){ ?>
+       <span class="material-symbols-outlined"> person</span></button>
+        <?php }else{ ?>
+        <img src="<?php echo $user_img ?>" alt="Imagen de usuario" class="user-img"></button>
+        <?php } ?>
      
         <div class="menu-hamburguesa">
             <span></span>

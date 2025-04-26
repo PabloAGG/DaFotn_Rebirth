@@ -1,5 +1,7 @@
 Create database Dafont;
 use Dafont;
+alter table Usuario modify contraseña nvarchar(255);
+select*from Usuario;
 
 CREATE TABLE Usuario(
 idUsuario int auto_increment primary key,
@@ -9,8 +11,8 @@ contraseña nvarchar(50),
 nombres nvarchar(50),
 apellidos nvarchar(50),
 natal date,
-imgPath nvarchar(255),
-pagina nvarchar(255)
+imgPath nvarchar(255) NULL,
+pagina nvarchar(255) NULL
 );
 
 CREATE TABLE Fonts(
