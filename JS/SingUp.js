@@ -1,15 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Manejo de errores desde URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const error = urlParams.get('error');
 
-    if (error === 'user_not_created') {
-        alert('El usuario no se pudo crear. Por favor, intenta nuevamente.');
-    } else if (error === 'user_exists') {
-        alert('El usuario ya existe. Por favor, elige otro nombre de usuario.');
-    } else if (error === 'email_exists') {
-        alert('El correo electrónico ya está registrado. Por favor, utiliza otro correo.');
-    }
 
     // Elementos del formulario
     const nombre = document.querySelector("input[name='nombre']");

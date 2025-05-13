@@ -107,6 +107,9 @@
 </header>
 
 <main>
+    <div id="notification-area" class="notification-area" style="display: none;">
+    </div>
+
         <h1>Inicia Sesión para Guardar tus Fuentes Favoritas</h1><br>
  <div class="Login">
 
@@ -146,5 +149,6 @@
   <script src="JS/Login.js"></script>
     <script src="JS/breadcrumbing.js"></script>
     <script src="JS/app.js"></script>
+    <script src="JS/ALERTS.js"></script>
 </body>
 </html>

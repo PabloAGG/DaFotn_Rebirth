@@ -1,19 +1,26 @@
 <?php
 session_start();
 require 'BACK/DB_connection.php';
-$user_id = null;
-$user_name = null;
-$user_img = null;
-if (isset($_SESSION['user_id'])) {
-$user_id = $_SESSION['user_id'];
-$user_name = $_SESSION['user_name'];
-$user_img = $_SESSION['user_img'];}
 
 // Verificar si el usuario ha iniciado sesión
-if (!isset($user_id)) {
+if (!isset($_SESSION['user_id'])) {
     header('Location: DaFont_Log.php'); // Redirigir al inicio de sesión si no está autenticado
     exit();
+}else {
+$user_id = $_SESSION['user_id'];
+$user_img = $_SESSION['user_img'];
 }
+
+$query = "SELECT * FROM Usuario WHERE idUsuario = ?";
+$stmt = mysqli_prepare($conn, $query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$resultado = mysqli_stmt_get_result($stmt);
+$row = mysqli_fetch_assoc($resultado);
+if ($row) {
+   $user_page = $row['pagina'];
+   $user_name = $row['usuario'];
+} 
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +30,7 @@ if (!isset($user_id)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DaFont-Perfil</DaFont-Perfil></title>
     <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/Perfil.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
         </style>
@@ -113,12 +121,11 @@ if (!isset($user_id)) {
        <button id="btnSesion" 
        <?php if($user_id===null){ ?>
         onclick="window.location.href='Dafont_Log.php'">
-        <i class="fa-solid fa-circle-user"></i></button>
+        <i class="fa-solid fa-circle-user"></i>
         <?php }else{ ?>
-          onclick="window.location.href='Dafont_Profile.php'">
-        <?php echo $user_name ?></button>
-        <?php } ?>
-     
+          onclick="window.location.href='Dafont_Profile.php'"><?php echo $user_name?> 
+      <?php  } ?>
+     </button>
         <div class="menu-hamburguesa">
             <span></span>
             <span></span>
@@ -128,12 +135,51 @@ if (!isset($user_id)) {
 </header>
 
 <main>
+        <div id="notification-area" class="notification-area" style="display: none;">
+    </div>
+<button class="btn-filtros" id="btn-filtros">
+        <i class="fa fa-sliders"></i> 
+      </button>
+    
+    <aside class="Filtros">
+        <button class="hideMenu"><i class="fa fa-close"></i></button>
+     <div class="Ajustes">  
+      <div>
+      <label for="text-input">Texto de Prueba:</label>
+      <input type="text" name="text-input" id="text-input" placeholder="Escribe algo..."></div><br>
+      <div>
+      <label for="font-select">Tamaño de Fuente:</label>
+      <input type="range" class="slider" id="font-size-range" min="10" max="100"  value="24"></div><br>
+      <label for="">Modo CLaro/Oscuro</label>
+      <button id="dkmode"><i class="fa fa-adjust"></i></button><br>
+      <?php if($user_id!==null){ ?>
+          <button><i class="fa-solid fa-right-from-bracket"></i></button>
+          <?php } ?>
+ 
+    </div>
+    <br>
+       </aside>
+
+
 <div class="ContDatos">
-    <div class="DatosUs">
-    <img src="" alt="">
-    <h2>USUARIO</h2>
+<h1>Tus Perfil</h1>    
+<div class="DatosUs">
+    <?php if($user_img===null){ ?>
+        <img src="IMG/image_default.png" alt="Imagen de perfil" >
+    <?php }else{ ?>
+    <img src="<?php echo $user_img ?>" alt="Imagen de perfil" >
+    <?php } ?>
+    <h2>Nombre de usuario</h2>
+    <h2><?php echo $user_name?></h2>
+   <?php if(isset($user_page) && $user_page !== '') {?>
+    <a href="<?php echo $user_page?>">Pagina oficial</a>
+   <?php } else {?>
+        <h6>Aun no tienes pagina oficial</h6>
+    <?php } ?>
+
 </div>
-<button class="EditarDatos">Modificar Datos</button>
+<button class="EditarDatos" onclick="window.location.href='DaFont_Editar.php'">Modificar Datos</button>
+
 <div class="FuentesFav">
 
 </div>
@@ -151,5 +197,7 @@ if (!isset($user_id)) {
     <script src="JS/scriptCards.js"></script>
     <script src="JS/breadcrumbing.js"></script>
     <script src="JS/app.js"></script>
+    <script src="JS/scriptIndex.js"></script>
+        <script src="JS/ALERTS.js"></script>
 </body>
 </html>

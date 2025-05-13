@@ -108,7 +108,8 @@
 </header>
 
 <main>
-
+    <div id="notification-area" class="notification-area" style="display: none;">
+    </div>
 
     <form action="BACK/Registro.php" method="POST" id="FormLogin">
         <div>
@@ -164,5 +165,6 @@
     <script src="JS/scriptCards.js"></script>
     <script src="JS/breadcrumbing.js"></script>
     <script src="JS/app.js"></script>
+        <script src="JS/ALERTS.js"></script>
 </body>
 </html>

@@ -51,12 +51,40 @@ document.addEventListener("click", function(event) {
     }
 });
 
-    // Hacer que los submenús se desplieguen en móviles al tocar
-    document.querySelectorAll(".dropdown > button").forEach(button => {
+    const dropdownButtons = document.querySelectorAll(".dropdown > button.category-btn");
+    const dropdowns = document.querySelectorAll(".dropdown"); // Selecciona los contenedores li.dropdown
+
+    dropdownButtons.forEach(button => {
         button.addEventListener("click", function(event) {
-            event.stopPropagation();
-            this.parentElement.classList.toggle("active");
+            event.stopPropagation(); 
+            const currentDropdown = this.parentElement; 
+
+            // Cierra todos los demás submenús antes de abrir/cerrar el actual
+            dropdowns.forEach(otherDropdown => {
+                if (otherDropdown !== currentDropdown) {
+                    otherDropdown.classList.remove("active");
+                }
+            });
+
+            currentDropdown.classList.toggle("active");
         });
+    });
+
+    // Cerrar submenús si se hace clic fuera de ellos
+    document.addEventListener("click", function(event) {
+        let clickedInsideDropdown = false;
+        dropdowns.forEach(dropdown => {
+            if (dropdown.contains(event.target)) {
+                clickedInsideDropdown = true;
+            }
+        });
+
+        // Si no se hizo clic dentro de un dropdown, cierra todos
+        if (!clickedInsideDropdown) {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove("active");
+            });
+        }
     });
     const toggleBtn = document.getElementById("dkmode");
     const body = document.body;
@@ -126,3 +154,4 @@ document.addEventListener("click", function(event) {
 // // Ejecutamos al cargar y al cambiar el tamaño de la pantalla
 // window.addEventListener('load', adjustSliderMax);
 // window.addEventListener('resize', adjustSliderMax);
+

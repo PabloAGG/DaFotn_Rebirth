@@ -282,9 +282,11 @@ footer a:visited{
     font-size: 15px;
     transition: .03s;
    height: 50px;
+
+   width:fit-content;
    min-height: 20px;
    min-width: 20px;
-   width: auto;
+
    font-family: Audiowide, sans-serif;
  }
  body.light-mode #btnSesion{
@@ -518,7 +520,7 @@ body.light-mode .submenu a:hover {
     cursor: pointer;
 }
 
-.dropdown:hover .submenu {
+/* .dropdown:hover .submenu {
     display: block;
     height: 30dvh;
     width: 100%;
@@ -529,7 +531,43 @@ body.light-mode .submenu a:hover {
 
     opacity: 1;
     transform: translateY(0);
+} */
+.dropdown.active > .submenu { 
+    display: block; 
+    opacity: 1;
+    transform: translateY(0);
+    position: absolute; 
+    left: 0;
+    width: 100%; 
+    background: rgba(0, 0, 0,.99);
+    list-style: none;
+    padding: 20px 0;
+    margin: 0;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-bottom-color: red;
+    transition: opacity 0.3s ease, transform 0.6s ease;
+    z-index:1000;
 }
+
+/* También puedes querer animar los 'li' cuando el menú se active */
+ .dropdown.active .submenu li {
+    opacity: 1;
+    transform: translateY(0);
+
+    padding: 5px 10px;
+    transition: opacity 0.3s ease 0.1s, transform 0.6s ease 0.2s;
+ }
+
+ body.light-mode .dropdown.active .submenu {
+    background:rgba(252, 252, 247,.99);
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom-color: red;}
+
+
 
 
 /* Estilos para móviles */
@@ -552,6 +590,9 @@ body.light-mode .submenu a:hover {
       }
     body.light-mode aside {
         background-color: rgba(252, 252, 247,.92);
+      }
+   .btn-filtros {
+    top: 130px;
       }
       aside.active {
         left: 0;
@@ -653,3 +694,66 @@ body.light-mode .submenu a:hover {
         padding: 10px 0;
     } */
 
+.notification-area {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    position: relative;
+    border: 1px solid transparent;
+    color: #fff; /* Color de texto por defecto */
+    font-size: 0.9em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilos específicos por tipo */
+.notification-area.success {
+    background-color: #28a745; /* Verde */
+    border-color: #28a745;
+}
+
+.notification-area.error {
+    background-color: #dc3545; /* Rojo */
+    border-color: #dc3545;
+}
+
+.notification-area.info { /* Para mensajes informativos */
+    background-color: #17a2b8; /* Azul */
+    border-color: #17a2b8;
+}
+
+/* Estilos para modo claro */
+body.light-mode .notification-area {
+     color: #333; /* Color de texto oscuro */
+}
+body.light-mode .notification-area.success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+body.light-mode .notification-area.error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+ body.light-mode .notification-area.info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+/* Botón opcional para cerrar */
+.notification-area .close-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.7;
+    padding: 0 5px;
+}
+.notification-area .close-btn:hover {
+    opacity: 1;
+}
