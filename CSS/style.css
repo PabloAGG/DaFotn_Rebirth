@@ -160,7 +160,7 @@ aside{
     left: -100%;
     background-color: rgba(0, 0, 0,.92);
 backdrop-filter: blur(8px);
-    top: 135px;
+    top: 95px;
     width: 70%;
     height: 100%;
     z-index: 1000;    padding: 1rem;

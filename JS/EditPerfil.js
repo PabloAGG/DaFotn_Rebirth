@@ -31,8 +31,9 @@ apellidoInput.addEventListener('input', () => {
 }
 );
 PaginaInput.addEventListener('input', () => {
-    const paginaRegex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}([\/\w \.-]*)*\/?$/;
-    validarCampo(PaginaInput, paginaRegex, "Ingrese un link valido. ");
+     const paginaRegex = /^https?:\/\/(www\.)?[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}([\/\w\-\.\?=&#%]*)*\/?$/;
+    validarCampo(PaginaInput, paginaRegex, "Debe ser un link completo (ej: https://www.google.com/url?sa=E&source=gmail&q=https://www.ejemplo.com)");
+
 }   
 );
 
