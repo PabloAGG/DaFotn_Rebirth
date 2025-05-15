@@ -8,8 +8,15 @@ border-radius: 50%;
 display: flex;
 flex-direction: row;
 justify-content: space-evenly;
-}
 
+}
+.ContDatos{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px 20px;
+
+}
 .presentacion{
     display: flex;
     flex-direction: row;
@@ -21,3 +28,245 @@ justify-content: space-evenly;
 .presentacion img {
 margin: 15px;
 }
+
+.radio-inputs {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0.5rem;
+  background-color: #362626;
+  box-sizing: border-box;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+  padding: 0.25rem;
+  width: 300px;
+  font-size: 14px;
+}
+body.light-mode .radio-inputs {
+  background-color: #eae9e9;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+}
+
+.radio-inputs .radio {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.radio-inputs .radio input {
+  display: none;
+}
+
+.radio-inputs .radio .name {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.5rem 0;
+  color: rgb(142, 52, 52);
+  transition: all 0.15s ease-in-out;
+}
+
+.radio-inputs .radio input:checked + .name {
+  background-color: #141414;
+  color: red;
+  font-weight: 600;
+}
+
+body.light-mode .radio-inputs .radio input:checked + .name {
+  background-color: #c0c0c0;
+
+}
+/* Hover effect */
+.radio-inputs .radio:hover .name {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Animation */
+.radio-inputs .radio input:checked + .name {
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: select 0.3s ease;
+}
+
+@keyframes select {
+  0% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Particles */
+.radio-inputs .radio input:checked + .name::before,
+.radio-inputs .radio input:checked + .name::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #3b82f6;
+  opacity: 0;
+  animation: particles 0.5s ease forwards;
+}
+
+.radio-inputs .radio input:checked + .name::before {
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.radio-inputs .radio input:checked + .name::after {
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes particles {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(var(--direction));
+  }
+}
+
+.radio-inputs .radio input:checked + .name::before {
+  --direction: -10px;
+}
+
+.radio-inputs .radio input:checked + .name::after {
+  --direction: 10px;
+}
+
+.contenedor-fuentes{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 20px;
+}
+
+
+.font-card {
+    background: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    margin-bottom: 45px;
+    width: 60%;
+    
+  }
+
+  body.light-mode .font-card{
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+  body.light-mode .font-card:hover{
+    cursor: pointer;
+    box-shadow:  -5px 5px 15px #ff2200,
+                  5px -5px 15px #ff2200;
+transform-box: translateY(10px);
+  }
+  .font-card:hover{
+    cursor: pointer;
+    box-shadow:  -5px 5px 15px #ff2200,
+                  5px -5px 15px #ff2200;
+transform-box: translateY(10px);
+  }
+  /* Nombre de la fuente */
+  .font-name {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  /* Área de texto editable (previsualización) */
+  .font-preview {
+    font-size: 24px;
+    padding: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-top:none;
+    border-left:none;
+    border-right: none;
+    border-bottom-color: red;
+    margin-bottom: 15px;
+    min-height: 60px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none; /* Elimina el borde azul al seleccionar */
+  }
+  
+  /* Detalles de la fuente */
+  .font-details {
+    font-size: 12px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  
+ .Ajustes{
+  margin: 20px;
+
+ }
+ .presentacion{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+ }
+#autorPerfil{
+  color: white;
+ }
+ body.light-mode #autorPerfil{
+  color: black;
+ }
+  body.light-mode  #autorPerfil:hover{
+  color: red;
+  cursor: pointer;
+ }
+ #autorPerfil:hover{
+  color: red;
+  cursor: pointer;
+ }
+.fuentes-listado {
+    display: none; 
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.fuentes-listado.active-listado {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+ @media screen and (max-width: 768px) {
+.font-card {
+    width: 90%;
+    max-width: 450px; /* Evita que crezca demasiado en pantallas grandes */
+    margin: 20px auto; /* Centra la card en pantallas pequeñas */
+  }
+  .font-preview {
+    font-size: 18px; 
+  }
+  .font-name {
+    font-size: 16px; 
+  }
+  .font-details {
+    font-size: 10px;
+  }
+
+ }

@@ -163,7 +163,7 @@ if ($result_fonts && mysqli_num_rows($result_fonts) > 0) {
    <div class="FontContainer">
     <?php if (!empty($fonts)): ?>
         <?php foreach ($fonts as $font): ?>
-            <div class="font-card">
+            <div class="font-card" onclick="window.location.href='Dafont_FontDetails.php?id=<?php echo $font['idFont']; ?>'">
               <div class="presentacion">
                 <h2 class="font-name" onclick="window.location.href='Dafont_FontDetails.php?id=<?php echo $font['idFont']; ?>'"><?php echo htmlspecialchars($font['fontName']); ?></h2>
                   <span class="author">

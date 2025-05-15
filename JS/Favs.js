@@ -37,6 +37,7 @@ if (data.success) {
         this.setAttribute('data-isfavorite', 'false'); // Actualiza el estado
         this.title = 'Añadir a favoritos'; // Actualiza el tooltip
     }
+    
 } else {
 
     if (data.action === 'redirect_login') { // Manejar la redirección

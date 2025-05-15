@@ -58,7 +58,68 @@ if ($stmt) {
     echo "Error al cargar el perfil. Por favor, inténtalo más tarde.";
     exit();
 }
-mysqli_close($conn); // Cerrar la conexión a la BD aquí, ya que no se necesita más abajo.
+
+
+$fav_fonts = [];
+if ($user_id) { // Solo si el usuario está logueado
+    // La subconsulta para currentUserHasFavorited no es necesaria aquí, ya que todas estas son favoritas.
+    $sql_fav_fonts = "SELECT
+                        f.idFont, f.fontName, f.fontFamilyCSS, f.fontStyleFallback,
+                        f.descargas, f.licenciaDescripcion,
+                        u.usuario AS nombreAutor, u.idUsuario AS idAutor,
+                        (SELECT AVG(c.estrellas) FROM calificaciones c WHERE c.idFont = f.idFont) AS promedioEstrellas,
+                        (SELECT COUNT(c.idCalf) FROM calificaciones c WHERE c.idFont = f.idFont) AS totalCalificaciones,
+                        1 AS currentUserHasFavorited -- Todas estas son favoritas del usuario actual
+                      FROM Fonts f
+                      JOIN FavFonts ff ON f.idFont = ff.idFont
+                      LEFT JOIN Usuario u ON f.fontAutor = u.idUsuario
+                      WHERE ff.idUsuario = ?
+                      ORDER BY ff.fechaAgregado DESC"; // O por nombre de fuente, etc.
+
+    $stmt_fav = mysqli_prepare($conn, $sql_fav_fonts);
+    if ($stmt_fav) {
+        mysqli_stmt_bind_param($stmt_fav, "i", $user_id);
+        mysqli_stmt_execute($stmt_fav);
+        $result_fav_fonts = mysqli_stmt_get_result($stmt_fav);
+        while ($row = mysqli_fetch_assoc($result_fav_fonts)) {
+            $fav_fonts[] = $row;
+        }
+        mysqli_stmt_close($stmt_fav);
+    } else {
+        error_log("Error al preparar la consulta de fuentes favoritas: " . mysqli_error($conn));
+    }
+}
+
+// --- Obtener Fuentes Publicadas por el Usuario ---
+$published_fonts = [];
+if ($user_id) { // Solo si el usuario está logueado
+    // Para las fuentes publicadas por el usuario, necesitamos saber si ÉL MISMO las ha marcado como favoritas.
+    $sql_published_fonts = "SELECT
+                                f.idFont, f.fontName, f.fontFamilyCSS, f.fontStyleFallback,
+                                f.descargas, f.licenciaDescripcion,
+                                u.usuario AS nombreAutor, u.idUsuario AS idAutor, -- Aquí idAutor siempre será $user_id
+                                (SELECT AVG(c.estrellas) FROM calificaciones c WHERE c.idFont = f.idFont) AS promedioEstrellas,
+                                (SELECT COUNT(c.idCalf) FROM calificaciones c WHERE c.idFont = f.idFont) AS totalCalificaciones,
+                                (SELECT COUNT(*) FROM FavFonts ff WHERE ff.idFont = f.idFont AND ff.idUsuario = ?) AS currentUserHasFavorited
+                              FROM Fonts f
+                              LEFT JOIN Usuario u ON f.fontAutor = u.idUsuario -- El join es para mantener la estructura, pero u.idUsuario será $user_id
+                              WHERE f.fontAutor = ? -- Fuentes donde el autor es el usuario actual
+                              ORDER BY f.fechaSubida DESC";
+
+    $stmt_pub = mysqli_prepare($conn, $sql_published_fonts);
+    if ($stmt_pub) {
+        mysqli_stmt_bind_param($stmt_pub, "ii", $user_id, $user_id); // El $user_id se usa dos veces
+        mysqli_stmt_execute($stmt_pub);
+        $result_published_fonts = mysqli_stmt_get_result($stmt_pub);
+        while ($row = mysqli_fetch_assoc($result_published_fonts)) {
+            $published_fonts[] = $row;
+        }
+        mysqli_stmt_close($stmt_pub);
+    } else {
+        error_log("Error al preparar la consulta de fuentes publicadas: " . mysqli_error($conn));
+    }
+}
+
 
 ?>
 
@@ -198,21 +259,117 @@ mysqli_close($conn); // Cerrar la conexión a la BD aquí, ya que no se necesita
             <button class="EditarDatos" onclick="window.location.href='DaFont_Editar.php'">Modificar Datos</button>
 
         </div>
-        
-            <h3>Mis Fuentes Favoritas</h3>
-            <p><em>Próximamente...</em></p>
+
+    </div>
+
+    <div class="contenedor-fuentes">
+         <div class="radio-inputs">
+            <label class="radio">
+                <input type="radio" name="radio" id="radioFacil" value="MisFavs" checked />
+                <span class="name">Favoritas</span>
+            </label>
+            <label class="radio">
+                <input type="radio" name="radio" id="radioDificil" value="MisPub" />
+                <span class="name">Mis fuentes</span>
+            </label>
+        </div>
+    </div>
+
+    <div id="seccionFavoritas" class="fuentes-listado">
+            <h3>Tus Fuentes Favoritas</h3>
+            <?php if (!empty($fav_fonts)): ?>
+                <?php foreach ($fav_fonts as $font): ?>
+                    <div class="font-card">
+                        <div class="presentacion">
+                            <h2 class="font-name" onclick="window.location.href='Dafont_FontDetails.php?id=<?php echo $font['idFont']; ?>'"><?php echo htmlspecialchars($font['fontName']); ?></h2>
+                            <span class="author">
+                                Autor:
+                                <?php if ($font['idAutor']): ?>
+                                    <a id="autorPerfil" href="DaFont-AuthorProfile.php?id=<?php echo $font['idAutor']; ?>"><?php echo htmlspecialchars($font['nombreAutor'] ?? 'Desconocido'); ?></a>
+                                <?php else: ?>
+                                    <?php echo htmlspecialchars($font['nombreAutor'] ?? 'N/A'); ?>
+                                <?php endif; ?>
+                            </span>
+                        </div>
+                        <br>
+                        <div class="font-preview" style="font-family: '<?php echo htmlspecialchars($font['fontFamilyCSS']); ?>', <?php echo htmlspecialchars($font['fontStyleFallback']); ?>;"><?php echo htmlspecialchars($font['fontName']); ?></div>
+                        <div class="font-details">
+                            <span class="downloads"><?php echo number_format($font['descargas']); ?> descargas </span> <span class="license"><?php echo htmlspecialchars($font['licenciaDescripcion']); ?></span>
+                            <div class="stars-display" data-font-id="<?php echo $font['idFont']; ?>">
+                                <?php
+                                $promedio = round($font['promedioEstrellas'] ?? 0);
+                                $totalVotos = (int) ($font['totalCalificaciones'] ?? 0);
+                                for ($i = 1; $i <= 5; $i++): ?>
+                                    <span class="star <?php echo ($i <= $promedio) ? 'filled' : ''; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
+                                <?php endfor; ?>
+                                <span class="rating-average">(<?php echo number_format($font['promedioEstrellas'] ?? 0, 1); ?> de <?php echo $totalVotos; ?> votos)</span>
+                            </div>
+                        </div>
+                        <?php
+                     
+                        $isFavorite = true;
+                        $favIconClass = "fa-solid fa-heart";
+                        ?>
+                        <button class="btn btn-favorite" title="Quitar de favoritos" data-fontid="<?php echo $font['idFont']; ?>" data-isfavorite="true"><i class="<?php echo $favIconClass;?>"></i></button>
+                        <button class="download-btn" title="Descargar fuente (ejemplo TXT)" data-font-id="<?php echo $font['idFont']; ?>"><i class="fa-solid fa-download"></i></button>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Aún no has añadido ninguna fuente a tus favoritas.</p>
+            <?php endif; ?>
+        </div>
+
+        <div id="seccionPublicadas" class="fuentes-listado">
+            <h3>Tus Fuentes Publicadas</h3>
+            <?php if (!empty($published_fonts)): ?>
+                <?php foreach ($published_fonts as $font): ?>
+                    <div class="font-card">
+                        <div class="presentacion">
+                            <h2 class="font-name" onclick="window.location.href='Dafont_FontDetails.php?id=<?php echo $font['idFont']; ?>'"><?php echo htmlspecialchars($font['fontName']); ?></h2>
+                            <span class="author">Publicada por ti</span>
+                        </div>
+                        <br>
+                        <div class="font-preview" style="font-family: '<?php echo htmlspecialchars($font['fontFamilyCSS']); ?>', <?php echo htmlspecialchars($font['fontStyleFallback']); ?>;"><?php echo htmlspecialchars($font['fontName']); ?></div>
+                        <div class="font-details">
+                             <span class="downloads"><?php echo number_format($font['descargas']); ?> descargas </span> <span class="license"><?php echo htmlspecialchars($font['licenciaDescripcion']); ?></span>
+                            <div class="stars-display" data-font-id="<?php echo $font['idFont']; ?>">
+                                <?php
+                                $promedio = round($font['promedioEstrellas'] ?? 0);
+                                $totalVotos = (int) ($font['totalCalificaciones'] ?? 0);
+                                for ($i = 1; $i <= 5; $i++): ?>
+                                    <span class="star <?php echo ($i <= $promedio) ? 'filled' : ''; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
+                                <?php endfor; ?>
+                                <span class="rating-average">(<?php echo number_format($font['promedioEstrellas'] ?? 0, 1); ?> de <?php echo $totalVotos; ?> votos)</span>
+                            </div>
+                        </div>
+                        <?php
+                  
+                        $isFavorite = ($font['currentUserHasFavorited'] > 0);
+                        $favIconClass = $isFavorite ? "fa-solid fa-heart" : "fa-regular fa-heart";
+                        ?>
+                        <!-- <button class="btn btn-favorite" title="<?php echo $isFavorite ? 'Quitar de favoritos' : 'Añadir a favoritos'; ?>" data-fontid="<?php echo $font['idFont']; ?>" data-isfavorite="<?php echo $isFavorite ? 'true' : 'false'; ?>"><i class="<?php echo $favIconClass;?>"></i></button> -->
+                        <button class="download-btn" title="Descargar fuente (ejemplo TXT)" data-font-id="<?php echo $font['idFont']; ?>"><i class="fa-solid fa-download"></i></button>
+                        </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Aún no has publicado ninguna fuente.</p>
+            <?php endif; ?>
         </div>
     </div>
 </main>
 
 <footer>
     <p>Las fuentes presentadas en este sitio web son propiedad de sus autores, y son freeware, shareware, demos o dominio público. La licencia mencionada encima del botón de descarga es sólo una indicación. Por favor, mira en los ficheros "Readme" en los zip o comprueba lo que se indica en la web del autor para los detalles, y contacta con él/ella en caso de duda. Si no hay autor/licencia indicados, es porque no tenemos la información, lo que no significa que sea gratis.</p>
-    <p><a href="#">FAQ</a></p> </footer>
+    <p><a href="#">FAQ</a></p> 
+</footer>
 
 <script src="JS/script.js"></script>
 <script src="JS/scriptCards.js"></script>
 <script src="JS/breadcrumbing.js"></script>
+<script src="JS/perfil.js"></script>
 <script src="JS/app.js"></script>
-<script src="JS/scriptIndex.js"></script> <script src="JS/ALERTS.js"></script>
+<script src="JS/scriptIndex.js"></script> 
+<script src="JS/ALERTS.js"></script>
+
 </body>
 </html>

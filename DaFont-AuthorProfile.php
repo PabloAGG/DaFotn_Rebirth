@@ -8,6 +8,41 @@ if (isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $user_name = $_SESSION['user_name'];
 $user_img = $_SESSION['user_img'];}
+
+$query="SELECT * FROM Usuario where idUsuario=1";
+$result = $conn->query($query);
+$row = $result->fetch_assoc();
+        $autor_id = $row["idUsuario"];
+        $autor_name = $row["usuario"];
+        $autor_img = $row["imgPath"];
+        $autor_page = $row["pagina"];
+ 
+$user_id_actual_seguro = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0; 
+        $sql_fonts = "SELECT
+    f.idFont,
+    f.fontName,
+    f.fontFamilyCSS,
+    f.fontStyleFallback,
+    f.descargas,
+    f.licenciaDescripcion,
+    u.usuario AS nombreAutor,
+    u.idUsuario AS idAutor,
+    (SELECT AVG(c.estrellas) FROM calificaciones c WHERE c.idFont = f.idFont) AS promedioEstrellas,
+    (SELECT COUNT(c.idCalf) FROM calificaciones c WHERE c.idFont = f.idFont) AS totalCalificaciones,
+    (SELECT COUNT(*) FROM FavFonts ff WHERE ff.idFont = f.idFont AND ff.idUsuario = $user_id_actual_seguro) AS currentUserHasFavorited
+FROM Fonts f 
+LEFT JOIN Usuario u ON f.fontAutor = u.idUsuario where f.fontAutor = 1
+ORDER BY f.fechaSubida DESC";
+
+// Ejecutar la consulta
+$result_fonts = mysqli_query($conn, $sql_fonts);
+
+$fonts = [];
+if ($result_fonts && mysqli_num_rows($result_fonts) > 0) {
+    while ($row = mysqli_fetch_assoc($result_fonts)) {
+        $fonts[] = $row;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -128,102 +163,49 @@ $user_img = $_SESSION['user_img'];}
        </aside>
 <div class="author-id">
     <div class="presentacion">
-<img src="IMG/autor.jpg" alt="imagen del perfil del autor"> <h2>Arlender21</h2></div>
-<a href="https://www.twitch.tv/arlender21/about">Pagina oficial</a>
+      <?php if($autor_img!==null){ ?>
+<img src="<?php echo htmlspecialchars($autor_img)?>" alt="imagen del perfil del autor">
+<?php }else{ ?>
+<img src="img/DefaultProfile.png" alt="imagen del perfil del autor">S
+<?php } ?>
+<h2><?php echo$autor_name?></h2></div>
+<a href=">}<?php echo$autor_page;?>">Pagina oficial</a>
 </div>
 <div class="FontContainer">
     <h1>Sus Fuentes...</h1><br>
-    <div class="font-card">
-      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Henny Penny</h2>
-      <div class="font-preview" style= "font-family:Henny Penny, system-ui;">Henny Penny</div>
-      <div class="font-details">
-        <span class="downloads">23.746 descargas (3.488 ayer)</span>
-        <button class="btn"><i class="fa fa-heart-o" ></i></button>
-        <span class="license">Gratis para uso personal</span>
-      </div>
-      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
-    </div>
-    
-    <div class="font-card">
-      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Iansui</h2>
-      <div class="font-preview" style="font-family: Iansui, cursive;">Iansui</div>
-      <div class="font-details">
-        <span class="downloads">23.746 descargas (3.488 ayer)</span>
-        <button class="btn"><i class="fa fa-heart-o" ></i></button>
-        <span class="license">Gratis para uso personal</span>
-      </div>
-      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
-    </div>
-    
+    <?php if (!empty($fonts)): ?>
+        <?php foreach ($fonts as $font): ?>
+            <div class="font-card">
+              <div class="presentacion">
+                <h2 class="font-name" onclick="window.location.href='Dafont_FontDetails.php?id=<?php echo $font['idFont']; ?>'"><?php echo htmlspecialchars($font['fontName']); ?></h2>
+              </div>
+                    <br>
+                    <div class="font-preview" style="font-family: '<?php echo htmlspecialchars($font['fontFamilyCSS']); ?>', <?php echo htmlspecialchars($font['fontStyleFallback']); ?>;"><?php echo htmlspecialchars($font['fontName']); // O el texto de prueba del input ?></div>
+                <div class="font-details">
+                
+                    <span class="downloads"><?php echo number_format($font['descargas']); ?> descargas </span> <span class="license"><?php echo htmlspecialchars($font['licenciaDescripcion']); ?></span>
 
-    <div class="font-card">
-      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Audiowide</h2>
-      <div class="font-preview" style=" font-family: Audiowide, sans-serif;">Audiowide</div>
-      <div class="font-details">
-        <span class="downloads">23.746 descargas (3.488 ayer)</span>
-        <button class="btn"><i class="fa fa-heart-o" ></i></button>
-        <span class="license">Gratis para uso personal</span>
-      </div>
-      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
-    </div>
-    
-
-    <div class="font-card">
-      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">UnifrakturMaguntia</h2>
-      <div class="font-preview" style="font-family: UnifrakturMaguntia, cursive;">UnifrakturMaguntia</div>
-      <div class="font-details">
-        <span class="downloads">23.746 descargas (3.488 ayer)</span>
-        <button class="btn"><i class="fa fa-heart-o" ></i></button>
-        <span class="license">Gratis para uso personal</span>
-      </div>
-      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
-    </div>
-    
-    <div class="font-card">
-      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Times New Roman</h2>
-      <div class="font-preview" style="font-family: 'Times New Roman', Times, serif;">Times New Roman</div>
-      <div class="font-details">
-        <span class="downloads">23.746 descargas (3.488 ayer)</span>
-        <button class="btn"><i class="fa fa-heart-o" ></i></button>
-        <span class="license">Gratis para uso personal</span>
-      </div>
-      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
-    </div>
-    
-    <div class="font-card">
-      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Meddon</h2>
-      <div class="font-preview" style=" font-family: Meddon, cursive">Meddon</div>
-      <div class="font-details">
-        <span class="downloads">23.746 descargas (3.488 ayer)</span>
-        <button class="btn"><i class="fa fa-heart-o" ></i></button>
-        <span class="license">Gratis para uso personal</span>
-      </div>
-      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
-    </div>
-    
-
-    <div class="font-card">
-      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Eater</h2>
-      <div class="font-preview" style="font-family: Eater, serif;">Eater</div>
-      <div class="font-details">
-        <span class="downloads">23.746 descargas (3.488 ayer)</span>
-        <button class="btn"><i class="fa fa-heart-o" ></i></button>
-        <span class="license">Gratis para uso personal</span>
-      </div>
-      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
-    </div>
-    
-
-    <div class="font-card">
-      <h2 class="font-name" onclick="window.location.href='Dafont_Log.html'">Creepster</h2>
-      <div class="font-preview" style="font-family: Creepster, system-ui;">Creepster</div>
-      <div class="font-details">
-        <span class="downloads">23.746 descargas (3.488 ayer)</span>
-        <button class="btn"><i class="fa fa-heart-o" ></i></button>
-        <span class="license">Gratis para uso personal</span>
-      </div>
-      <button class="download-btn" id="download-btn"><i class="fa fa-download"></i></button>
-    </div>
+                    <div class="stars-display" data-font-id="<?php echo $font['idFont']; ?>">
+                        <?php
+                        $promedio = round($font['promedioEstrellas'] ?? 0);
+                        $totalVotos = (int) ($font['totalCalificaciones'] ?? 0);
+                        for ($i = 1; $i <= 5; $i++): ?>
+                            <span class="star <?php echo ($i <= $promedio) ? 'filled' : ''; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
+                        <?php endfor; ?>
+                        <span class="rating-average">(<?php echo number_format($font['promedioEstrellas'] ?? 0, 1); ?> de <?php echo $totalVotos; ?> votos)</span>
+                    </div>
+                    </div>
+                <?php
+                $isFavorite= ($font['currentUserHasFavorited'] > 0)?true:false; // Verifica si el usuario actual ya ha marcado la fuente como favorita
+                $favIconClass = $isFavorite ? "fa-solid fa-heart" : "fa-regular fa-heart";
+                ?>
+                <button class="btn btn-favorite" title="Añadir a favoritos" data-fontid="<?php echo $font['idFont']; ?>" ><i class="<?php echo $favIconClass;?>"></i></button>
+                <button class="download-btn" id="download-btn" title="Descargar fuente (ejemplo TXT)" data-font-id="<?php echo $font['idFont']; ?>"><i class="fa-solid fa-download"></i></button>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No hay fuentes disponibles para mostrar.</p>
+    <?php endif; ?>
 </div>
 </main>
 
@@ -237,5 +219,6 @@ $user_img = $_SESSION['user_img'];}
     <script src="JS/scriptCards.js"></script>
     <script src="JS/breadcrumbing.js"></script>
     <script src="JS/app.js"></script>
+    <script src="JS/Favs.js"></script>
 </body>
 </html>
