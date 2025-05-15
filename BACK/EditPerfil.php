@@ -119,28 +119,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // --- Manejar subida de imagen si se proporciona ---
-    $rutaFinalImagen = null;
-    if (isset($_FILES['imgRuta']) && $_FILES['imgRuta']['error'] == UPLOAD_ERR_OK) {
-        $rutaDestino = "../IMG/Avatares/"; // Asegúrate que esta carpeta exista y tenga permisos de escritura
-        if (!is_dir($rutaDestino)) {
-            mkdir($rutaDestino, 0777, true);
-        }
-        $nombreArchivo = basename($_FILES["imgRuta"]["name"]);
-        // Generar un nombre de archivo único para evitar colisiones
-        $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-        $nombreUnico = uniqid('avatar_', true) . '.' . $extension;
-        $rutaFinalImagen = $rutaDestino . $nombreUnico;
+    $directorioBaseImagenes = "IMG/Avatares/"; // Ruta desde la RAÍZ de tu proyecto web
+$rutaDestinoServidor = "../" . $directorioBaseImagenes; // Para move_uploaded_file (relativa al script actual)
 
-        if (move_uploaded_file($_FILES["imgRuta"]["tmp_name"], $rutaFinalImagen)) {
-            $update_fields[] = "imgPath = ?";
-            $params_types .= "s";
-            $params_values[] = $rutaFinalImagen; // Guardas la ruta, no el contenido binario como en ModProfile
-            $_SESSION['user_img'] = $rutaFinalImagen; // Actualizar imagen en la sesión
-        } else {
-            header("Location: ../DaFont_Editar.php?error=image_upload_failed");
-            exit();
-        }
-    }
+// Asegúrate que esta carpeta exista y tenga permisos de escritura
+if (!is_dir($rutaDestinoServidor)) {
+    mkdir($rutaDestinoServidor, 0777, true);
+}
+
+$nombreArchivo = basename($_FILES["imgRuta"]["name"]);
+$extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+$nombreUnico = uniqid('avatar_', true) . '.' . $extension;
+
+$rutaCompletaServidor = $rutaDestinoServidor . $nombreUnico; // Ej: ../IMG/Avatares/avatar_123.jpg
+$rutaParaBD = $directorioBaseImagenes . $nombreUnico;       // Ej: IMG/Avatares/avatar_123.jpg (ESTA ES LA QUE GUARDAS)
+
+if (move_uploaded_file($_FILES["imgRuta"]["tmp_name"], $rutaCompletaServidor)) {
+    $update_fields[] = "imgPath = ?";
+    $params_types .= "s";
+    $params_values[] = $rutaParaBD; // Guardas la ruta relativa a la raíz del sitio
+    $_SESSION['user_img'] = $rutaParaBD;
+} else {
+    header("Location: ../DaFont_Editar.php?error=image_upload_failed");
+    exit();
+}
 
     // --- Ejecutar la consulta UPDATE solo si hay campos para actualizar ---
     if (!empty($update_fields)) {

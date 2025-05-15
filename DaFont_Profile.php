@@ -127,24 +127,21 @@ if ($row) {
         <i class="fa fa-sliders"></i> 
       </button>
     
-    <aside class="Filtros">
-        <button class="hideMenu"><i class="fa fa-close"></i></button>
-     <div class="Ajustes">  
-      <div>
-      <label for="text-input">Texto de Prueba:</label>
-      <input type="text" name="text-input" id="text-input" placeholder="Escribe algo..."></div><br>
-      <div>
-      <label for="font-select">Tamaño de Fuente:</label>
-      <input type="range" class="slider" id="font-size-range" min="10" max="100"  value="24"></div><br>
-      <label for="">Modo CLaro/Oscuro</label>
-      <button id="dkmode"><i class="fa fa-adjust"></i></button><br>
-      <?php if($user_id!==null){ ?>
-          <button><i class="fa-solid fa-right-from-bracket"></i></button>
-          <?php } ?>
- 
-    </div>
-    <br>
-       </aside>
+<aside class="Filtros">
+    <button class="hideMenu"><i class="fa-solid fa-angles-left"></i></button>
+ <div class="Ajustes">  
+  <div>
+  <label for="text-input">Texto de Prueba:</label>
+  <input type="text" name="text-input" id="text-input" placeholder="Escribe algo..."></div><br>
+  <div>
+  <label for="font-select">Tamaño de Fuente:</label>
+  <input type="range" class="slider" id="font-size-range" min="10" max="100"  value="24"></div><br>
+  <button id="dkmode"><i class="fa-solid fa-circle-half-stroke"></i></button>
+  <?php if($user_id !== null){ ?>
+  <button onclick="window.location.href='BACK/LogOut.php'"><i class="fa-solid fa-right-from-bracket"></i></button>
+  <?php } ?>
+</div><br>
+   </aside>
 
 
 <div class="ContDatos">
@@ -155,22 +152,21 @@ if ($row) {
     <?php }else{ ?>
     <img src="<?php echo $user_img ?>" alt="Imagen de perfil" >
     <?php } ?>
-    <h2>Nombre de usuario</h2>
+
     <h2><?php echo $user_name?></h2>
    <?php if(isset($user_page) && $user_page !== '') {?>
     <a href="<?php echo $user_page?>">Pagina oficial</a>
    <?php } else {?>
         <h6>Aun no tienes pagina oficial</h6>
     <?php } ?>
-
-</div>
 <button class="EditarDatos" onclick="window.location.href='DaFont_Editar.php'">Modificar Datos</button>
+</div>
+
 
 <div class="FuentesFav">
 
 </div>
 
-</div>
 </main>
 
 <footer>
