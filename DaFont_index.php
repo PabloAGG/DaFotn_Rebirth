@@ -137,7 +137,7 @@ if ($result_fonts && mysqli_num_rows($result_fonts) > 0) {
 <main>
 
   <nav id="breadcrumb">
-    <span><a href="DaFont_index.html">Inicio</a></span> 
+    <span><a href="DaFont_index.php">Inicio</a></span> 
 </nav>
 <button class="btn-filtros" id="btn-filtros">
 <i class="fa-solid fa-sliders"></i>
