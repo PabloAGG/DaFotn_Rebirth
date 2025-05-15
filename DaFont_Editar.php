@@ -43,24 +43,17 @@ $userData = mysqli_fetch_assoc($resultado);
                 <a href="DaFont_index.php" class="logo"><img id="navImg" src="Dafont1-Dark1.png" alt="Logo pagina Dafont"></a>
             </div>
 
-            <ul class="nav-links" id="navMenu">
+         <ul class="nav-links" id="navMenu">
                 <button id="closeMenu"><i class="fa fa-close"></i></button>
                 <li class="dropdown">
-                    <button class="category-btn" name="Fantasia">Fantasia</button>
+                    <button  class="category-btn" name="Fantasia">Fantasia</button>
                     <ul class="submenu">
                         <li><a href="#">Mágico</a></li>
                         <li><a href="#">Épico</a></li>
                         <li><a href="#">Oscuro</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <button class="category-btn" id="Paises">Paises</button>
-                    <ul class="submenu">
-                        <li><a href="#">Europeo</a></li>
-                        <li><a href="#">Latino</a></li>
-                        <li><a href="#">Asiático</a></li>
-                    </ul>
-                </li>
+        
                 <li class="dropdown">
                     <button class="category-btn" name="Tecno" style=" font-family: Audiowide, sans-serif;">Tecno</button>
                     <ul class="submenu">
@@ -78,7 +71,7 @@ $userData = mysqli_fetch_assoc($resultado);
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <button class="category-btn" name="Basico">Basico</button>
+                    <button class="category-btn" name="Basico" >Basico</button>
                     <ul class="submenu">
                         <li><a href="#">Mágico</a></li>
                         <li><a href="#">Épico</a></li>
@@ -86,7 +79,7 @@ $userData = mysqli_fetch_assoc($resultado);
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <button class="category-btn" name="Script">Script</button>
+                    <button class="category-btn" name="Script" >Script</button>
                     <ul class="submenu">
                         <li><a href="#">Europeo</a></li>
                         <li><a href="#">Latino</a></li>
@@ -94,30 +87,23 @@ $userData = mysqli_fetch_assoc($resultado);
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <button class="category-btn" name="Dingbats">Glifos</button>
+                    <button class="category-btn" name="Dingbats">Display</button>
                     <ul class="submenu">
                         <li><a href="#">Mágico</a></li>
                         <li><a href="#">Épico</a></li>
                         <li><a href="#">Oscuro</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <button class="category-btn" name="Festividades">Festivo </button>
-                    <ul class="submenu">
-                        <li><a href="#">Europeo</a></li>
-                        <li><a href="#">Latino</a></li>
-                        <li><a href="#">Asiático</a></li>
-                    </ul>
-                </li>
+            
                 <li>
                     <div class="search-container">
-                        <input type="text" class="search-bar" placeholder="Buscar...">
-                        <button class="search-button"><i class="fa fa-search"></i></button>
-                    </div>
+                    <input type="text" class="search-bar" placeholder="Buscar...">
+                    <button class="search-button"><i class="fa fa-search"></i></button>
+                  </div>
                 </li>
 
                 <!-- <li><button id="dkmode"><i class="fa fa-adjust"></i></button></li> -->
-            </ul>
+   </ul>
             <button id="btnSesion"
                 <?php if ($user_id === null) { ?>
                 onclick="window.location.href='Dafont_Log.php'">
@@ -146,45 +132,45 @@ $userData = mysqli_fetch_assoc($resultado);
 
                 <div id="NombreUsuario">
                     <div class="input-group">
-                        <input required="" type="text" name="nombre" autocomplete="off" class="input" value="<?php echo isset($userData['nombres']) ? htmlspecialchars($userData['nombres']) : ''; ?>">
+                        <input  type="text" name="nombre" autocomplete="off" class="input" value="<?php echo isset($userData['nombres']) ? htmlspecialchars($userData['nombres']) : ''; ?>">
                         <label class="user-label">Nombre(s)</label>
                     </div>
 
                     <div class="input-group">
-                        <input required="" type="text" name="apellido" autocomplete="off" class="input" value="<?php echo isset($userData['apellidos']) ? htmlspecialchars($userData['apellidos']) : ''; ?>">
+                        <input  type="text" name="apellido" autocomplete="off" class="input" value="<?php echo isset($userData['apellidos']) ? htmlspecialchars($userData['apellidos']) : ''; ?>">
                         <label class="user-label">Apellidos</label>
                     </div>
                 </div>
                 <div class="input-group">
-                    <input required="" type="email" name="email_usuario" autocomplete="off" class="input" value="<?php echo isset($userData['correo']) ? htmlspecialchars($userData['correo']) : ''; ?>">
+                    <input  type="email" name="email_usuario" autocomplete="off" class="input" value="<?php echo isset($userData['correo']) ? htmlspecialchars($userData['correo']) : ''; ?>">
                     <label class="user-label">Correo</label>
                 </div>
 
                 <div class="input-group">
-                    <input required="" type="text" name="Pagina_usuario" autocomplete="off" class="input" value="<?php echo isset($userData['pagina']) ? htmlspecialchars($userData['pagina']) : ''; ?>">
+                    <input  type="text" name="Pagina_usuario" autocomplete="off" class="input" value="<?php echo isset($userData['pagina']) ? htmlspecialchars($userData['pagina']) : ''; ?>">
                     <label class="user-label">Pagina</label>
                 </div>
 
                 <div class="input-group">
                     <label>Fecha de Nacimiento</label><br>
-                    <input required="" type="date" name="fecha_usuario" autocomplete="off" class="input" value="<?php echo isset($userData['natal']) ? htmlspecialchars($userData['natal']) : ''; ?>">
+                    <input  type="date" name="fecha_usuario" autocomplete="off" class="input" value="<?php echo isset($userData['natal']) ? htmlspecialchars($userData['natal']) : ''; ?>">
                 </div>
 
                 <div class="input-group">
-                    <input required="" type="text" name="nombre_usuario" autocomplete="off" class="input" value="<?php echo isset($userData['usuario']) ? htmlspecialchars($userData['usuario']) : ''; ?>">
+                    <input  type="text" name="nombre_usuario" autocomplete="off" class="input" value="<?php echo isset($userData['usuario']) ? htmlspecialchars($userData['usuario']) : ''; ?>">
                     <label class="user-label">Usuario</label>
                 </div>
                 <div class="input-group" id="psw-contenedor">
-                    <input required="" type="Password" name="contraseña_usuario" autocomplete="off" class="input">
+                    <input  type="Password" name="contraseña_usuario" autocomplete="off" class="input">
                     <label class="user-label">Contraseña</label>
                 </div>
                 <div class="input-group" id="psw-contenedor2">
-                    <input required="" type="Password" name="contraseña_Check" autocomplete="off" class="input">
+                    <input  type="Password" name="contraseña_Check" autocomplete="off" class="input">
                     <label class="user-label">Confirma tu contraseña</label>
                 </div>
 
                 <div class="input-group">
-                    <!-- <input required="" type="image" name="image" class="input" onchange="previewImage()"> -->
+                    <!-- <input  type="image" name="image" class="input" onchange="previewImage()"> -->
                     <label class="user-label">Imagen de perfil</label>
                     <br>
                     <img id="imgPerfil" src="#" alt="Vista previa de la imagen" style="display: none; width: 100px;">
@@ -206,13 +192,14 @@ $userData = mysqli_fetch_assoc($resultado);
 
 
     </footer>
+        <script src="JS/ALERTS.js"></script>
     <script src="JS/EditPerfil.js"></script>
     <script src="JS/app.js"></script>
     <!-- </div> -->
     <!-- <script src="JS/scriptCards.js"></script> -->
     <script src="JS/breadcrumbing.js"></script>
 
-    <script src="JS/ALERTS.js"></script>
+
     <script src="JS/script.js"></script>
 </body>
 

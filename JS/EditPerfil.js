@@ -1,7 +1,9 @@
 const pswInput = document.querySelector("input[name='psw-change']");
 document.addEventListener('DOMContentLoaded', function() {
     togglePasswordVisibility(); // Llama a la función para establecer el estado inicial
-const nombreCompletoInput = document.querySelector("input[name='nombre_completo']");
+const nombreCompletoInput = document.querySelector("input[name='nombre']");
+const apellidoInput = document.querySelector("input[name='apellido']");
+const PaginaInput = document.querySelector("input[name='Pagina_usuario']");
 const contraseñaInput = document.querySelector("input[name='contraseña_usuario']");
 const contraseñacheck = document.querySelector("input[name='contraseña_Check']");
 const fechaNacimientoInput = document.querySelector("input[name='fecha_usuario']");
@@ -23,9 +25,19 @@ nombreCompletoInput.addEventListener('input', () => {
     const nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
     validarCampo(nombreCompletoInput, nombreRegex, "El nombre solo puede contener letras y espacios.");
 });
+apellidoInput.addEventListener('input', () => {
+    const nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+    validarCampo(apellidoInput, nombreRegex, "El apellido solo puede contener letras y espacios.");
+}
+);
+PaginaInput.addEventListener('input', () => {
+    const paginaRegex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}([\/\w \.-]*)*\/?$/;
+    validarCampo(PaginaInput, paginaRegex, "Ingrese un link valido. ");
+}   
+);
 
 if(pswInput.checked){
-if(contraseñaInput!==null && contraseñacheck!==null){
+
 
 contraseñaInput.addEventListener('input', () => {
     const contraseñaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
@@ -41,11 +53,6 @@ contraseñacheck.addEventListener('input', () => {
         contraseñacheck.setCustomValidity("");
     }
 });
-}else{
-alert("Ingrese una contraseña para continuar.");
-contraseñaInput.setCustomValidity("Ingrese una contraseña para continuar.");
-return;
-}
 }
 
 fechaNacimientoInput.addEventListener('input', () => {

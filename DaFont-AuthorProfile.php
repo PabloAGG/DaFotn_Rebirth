@@ -31,7 +31,7 @@ $user_img = $_SESSION['user_img'];}
         <div>
      <a href="DaFont_index.php" class="logo"><img id="navImg"  src="Dafont1-Dark1.png" alt="Logo pagina Dafont" ></a></div>
       
-            <ul class="nav-links" id="navMenu">
+          <ul class="nav-links" id="navMenu">
                 <button id="closeMenu"><i class="fa fa-close"></i></button>
                 <li class="dropdown">
                     <button  class="category-btn" name="Fantasia">Fantasia</button>
@@ -41,14 +41,7 @@ $user_img = $_SESSION['user_img'];}
                         <li><a href="#">Oscuro</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <button class="category-btn" id="Paises">Paises</button>
-                    <ul class="submenu">
-                        <li><a href="#">Europeo</a></li>
-                        <li><a href="#">Latino</a></li>
-                        <li><a href="#">Asiático</a></li>
-                    </ul>
-                </li>
+        
                 <li class="dropdown">
                     <button class="category-btn" name="Tecno" style=" font-family: Audiowide, sans-serif;">Tecno</button>
                     <ul class="submenu">
@@ -82,21 +75,14 @@ $user_img = $_SESSION['user_img'];}
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <button class="category-btn" name="Dingbats">Glifos</button>
+                    <button class="category-btn" name="Dingbats">Display</button>
                     <ul class="submenu">
                         <li><a href="#">Mágico</a></li>
                         <li><a href="#">Épico</a></li>
                         <li><a href="#">Oscuro</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <button class="category-btn" name="Festividades">Festivo </button>
-                    <ul class="submenu">
-                        <li><a href="#">Europeo</a></li>
-                        <li><a href="#">Latino</a></li>
-                        <li><a href="#">Asiático</a></li>
-                    </ul>
-                </li>
+            
                 <li>
                     <div class="search-container">
                     <input type="text" class="search-bar" placeholder="Buscar...">

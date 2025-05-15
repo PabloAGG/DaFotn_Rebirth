@@ -28,7 +28,7 @@ if ($row) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DaFont-Perfil</DaFont-Perfil></title>
+    <title>DaFont-Perfil</title>
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/Perfil.css">
     <style>
@@ -53,14 +53,7 @@ if ($row) {
                         <li><a href="#">Oscuro</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <button class="category-btn" id="Paises">Paises</button>
-                    <ul class="submenu">
-                        <li><a href="#">Europeo</a></li>
-                        <li><a href="#">Latino</a></li>
-                        <li><a href="#">Asiático</a></li>
-                    </ul>
-                </li>
+        
                 <li class="dropdown">
                     <button class="category-btn" name="Tecno" style=" font-family: Audiowide, sans-serif;">Tecno</button>
                     <ul class="submenu">
@@ -94,21 +87,14 @@ if ($row) {
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <button class="category-btn" name="Dingbats">Glifos</button>
+                    <button class="category-btn" name="Dingbats">Display</button>
                     <ul class="submenu">
                         <li><a href="#">Mágico</a></li>
                         <li><a href="#">Épico</a></li>
                         <li><a href="#">Oscuro</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <button class="category-btn" name="Festividades">Festivo </button>
-                    <ul class="submenu">
-                        <li><a href="#">Europeo</a></li>
-                        <li><a href="#">Latino</a></li>
-                        <li><a href="#">Asiático</a></li>
-                    </ul>
-                </li>
+            
                 <li>
                     <div class="search-container">
                     <input type="text" class="search-bar" placeholder="Buscar...">
