@@ -188,17 +188,17 @@ mysqli_close($conn); // Cerrar la conexión a la BD aquí, ya que no se necesita
                 <img src="<?php echo htmlspecialchars($imagen_final_a_mostrar); ?>" alt="Imagen de perfil de <?php echo htmlspecialchars($user_name); ?>">
             <?php endif; ?>
 
-            <h2>Nombre de usuario</h2>
+         
             <h2><?php echo htmlspecialchars($user_name); ?></h2>
 
             <?php if(isset($user_page) && $user_page !== ''): ?>
                 <a href="<?php echo htmlspecialchars($user_page); ?>" target="_blank" rel="noopener noreferrer">Página oficial</a> <?php else: ?>
                 <h6>Aún no tienes página oficial</h6>
             <?php endif; ?>
-        </div>
-        <button class="EditarDatos" onclick="window.location.href='DaFont_Editar.php'">Modificar Datos</button>
+            <button class="EditarDatos" onclick="window.location.href='DaFont_Editar.php'">Modificar Datos</button>
 
-        <div class="FuentesFav">
+        </div>
+        
             <h3>Mis Fuentes Favoritas</h3>
             <p><em>Próximamente...</em></p>
         </div>
