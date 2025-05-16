@@ -1,0 +1,202 @@
+/* Contenedor principal del FAQ con el "marco rojo" */
+.faq-container {
+    max-width: 900px;
+    margin: 40px auto; /* Más margen superior e inferior */
+    padding: 25px 35px; /* Padding interno */
+    background-color: #0a0a0a; /* Fondo muy oscuro, casi negro para modo oscuro */
+    border-radius: 10px; /* Bordes redondeados */
+    
+    /* El "marco rojo" usando box-shadow múltiple, similar al header */
+    box-shadow: 
+        0 0 15px rgba(200, 0, 0, 0.6), /* Sombra exterior roja más difusa */
+        0 0 5px rgba(255, 50, 50, 0.8), /* Un brillo rojo interior sutil */
+        inset 0 0 8px rgba(0, 0, 0, 0.5); /* Sombra interior oscura para dar profundidad */
+    
+    border: 1px solid #500000; /* Un borde rojo oscuro sutil que complementa la sombra */
+    position: relative; /* Para posibles pseudo-elementos si se necesitaran */
+}
+
+body.light-mode .faq-container {
+    background-color: #ffffff; /* Fondo blanco para modo claro */
+    border: 1px solid #d3d3d3; /* Borde gris claro */
+    box-shadow: 
+        0 0 15px rgba(150, 0, 0, 0.3), /* Sombra roja más suave */
+        0 0 5px rgba(200, 50, 50, 0.4),
+        inset 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Título de la página FAQ */
+.page-title-faq {
+    text-align: center;
+    font-size: 2.2em;
+    margin-bottom: 35px;
+    font-family: 'Audiowide', sans-serif;
+    color: #e0e0e0; /* Color de texto principal (blanco/gris claro) para modo oscuro */
+    text-shadow: 1px 1px 2px #cc0000; /* Sombra de texto roja */
+}
+
+body.light-mode .page-title-faq {
+    color: #333333; /* Negro o gris oscuro para modo claro */
+    text-shadow: 1px 1px 1px #ffcccc; /* Sombra de texto roja muy sutil */
+}
+
+/* Ítem individual del FAQ */
+.faq-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #444444; /* Separador gris oscuro */
+}
+
+body.light-mode .faq-item {
+    border-bottom-color: #cccccc; /* Separador gris claro */
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Pregunta del FAQ */
+.faq-question {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 1.4em;
+    color: #f0f0f0; /* Texto de pregunta blanco/gris muy claro */
+    margin-bottom: 0;
+    padding: 12px 0;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.2s ease;
+    border-bottom: 1px dashed transparent; /* Para efecto hover sutil */
+}
+
+body.light-mode .faq-question {
+    color: #1a1a1a; /* Texto de pregunta negro */
+}
+
+.faq-question:hover {
+    color: #ffffff; /* Blanco al pasar el cursor en modo oscuro */
+    border-bottom-color: #cc0000; /* Subrayado rojo al pasar el cursor */
+}
+
+body.light-mode .faq-question:hover {
+    color: #000000;
+    border-bottom-color: #aa0000;
+}
+
+/* Icono toggler (flecha) */
+.faq-toggler {
+    font-size: 0.8em;
+    margin-left: 10px;
+    transition: transform 0.3s ease-out;
+    color: #cc0000; /* Icono rojo */
+}
+
+body.light-mode .faq-toggler {
+    color: #880000; /* Icono rojo oscuro en modo claro */
+}
+
+.faq-question[aria-expanded="true"] .faq-toggler {
+    transform: rotate(180deg);
+}
+
+/* Respuesta del FAQ */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    font-size: 1em;
+    line-height: 1.7;
+    color: #cccccc; /* Texto de respuesta gris claro */
+    transition: max-height 0.35s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out, margin 0.3s ease-in-out;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    background-color: rgba(10, 10, 10, 0.3); /* Fondo sutil para la respuesta en modo oscuro */
+    border-left: 3px solid #cc0000; /* Borde izquierdo rojo para la respuesta */
+    border-radius: 0 0 5px 5px; /* Bordes redondeados abajo */
+}
+
+body.light-mode .faq-answer {
+    color: #333333; /* Texto de respuesta gris oscuro */
+    background-color: #fdf0f0; /* Fondo muy claro con tinte rojo */
+    border-left-color: #aa0000;
+}
+
+.faq-answer p {
+    margin-bottom: 1em;
+}
+.faq-answer p:last-child {
+    margin-bottom: 0;
+}
+
+.faq-answer ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 20px;
+    margin-bottom: 1em;
+}
+
+.faq-answer li {
+    margin-bottom: 0.6em;
+    position: relative;
+    padding-left: 20px;
+}
+
+.faq-answer li::before {
+    content: "\f054"; /* FontAwesome right chevron */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: #cc0000; /* Bullet rojo */
+    font-size: 0.8em;
+}
+
+body.light-mode .faq-answer li::before {
+    color: #880000; /* Bullet rojo oscuro */
+}
+
+.faq-answer strong {
+    color: #ffffff; /* Resaltar en blanco en modo oscuro */
+    font-weight: 600;
+}
+
+body.light-mode .faq-answer strong {
+    color: #000000; /* Resaltar en negro en modo claro */
+}
+
+.faq-answer a {
+    color: #ff8080; /* Enlaces en rojo claro */
+    text-decoration: underline;
+}
+body.light-mode .faq-answer a {
+    color: #c00000; /* Enlaces en rojo oscuro */
+}
+.faq-answer a:hover {
+    color: #ffb3b3; /* Rojo más claro al pasar el cursor */
+    text-decoration: none;
+}
+body.light-mode .faq-answer a:hover {
+    color: #a00000;
+}
+
+.faq-answer code {
+    background-color: #333333; /* Fondo gris oscuro para código */
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    color: #f0f0f0; /* Texto de código claro */
+    border: 1px solid #555;
+}
+body.light-mode .faq-answer code {
+    background-color: #f0f0f0; /* Fondo gris claro */
+    color: #333333; /* Texto de código oscuro */
+    border: 1px solid #ddd;
+}

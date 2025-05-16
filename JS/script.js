@@ -107,10 +107,48 @@ document.addEventListener("click", function(event) {
             localStorage.setItem("modo-oscuro", "activado");
         }
     });
-    document.querySelector('.search-button').addEventListener('click', function() {
-        const searchContainer = document.querySelector('.search-container');
-        searchContainer.classList.toggle('active');
-      });
+    
+    const searchButtonInForm = document.querySelector('.search-container-form .search-button'); // El botón de submit con la lupa
+    const searchContainerDiv = document.querySelector('.search-container-form .search-container'); // El div que contiene input y botón
+    const searchBarInputEl = document.querySelector('.search-container-form .search-bar'); // El campo de texto para buscar
+
+    if (searchButtonInForm && searchContainerDiv && searchBarInputEl) {
+        searchButtonInForm.addEventListener('click', function(event) {
+            // Si el contenedor de la barra de búsqueda (searchContainerDiv) NO está activo (visible)
+            if (!searchContainerDiv.classList.contains('active')) {
+                // Prevenimos la acción por defecto del botón (que sería enviar el formulario)
+                event.preventDefault();
+                // Hacemos visible el contenedor de la búsqueda
+                searchContainerDiv.classList.add('active');
+                // Ponemos el foco en el campo de texto para que el usuario pueda escribir inmediatamente
+                searchBarInputEl.focus();
+            }
+            // Si el contenedor YA está 'activo' (visible), no hacemos nada con event.preventDefault().
+            // El botón es type="submit", así que el navegador se encargará de enviar el formulario.
+            // Ya no usamos classList.toggle() aquí, lo que evita que la barra se oculte.
+        });
+
+        // Opcional: Si quieres que la barra de búsqueda se oculte si el usuario hace clic fuera de ella
+        // Y el campo de búsqueda está vacío.
+        document.addEventListener('click', function(event) {
+            if (searchContainerDiv.classList.contains('active') &&
+                !searchContainerDiv.contains(event.target) && /* El clic fue fuera del searchContainerDiv */
+                event.target !== searchButtonInForm && /* El clic no fue en el propio botón de búsqueda */
+                !searchButtonInForm.contains(event.target) /* El clic no fue en un hijo del botón (ej. el ícono) */
+                ) {
+                // Ocultar solo si el campo de búsqueda está vacío, como una conveniencia
+                if (searchBarInputEl.value.trim() === '') {
+                    searchContainerDiv.classList.remove('active');
+                }
+            }
+        });
+    }
+    
+    
+    // document.querySelector('.search-button').addEventListener('click', function() {
+    //     const searchContainer = document.querySelector('.search-container');
+    //     searchContainer.classList.toggle('active');
+    //   });
 
     //   const downloadButton = document.querySelector('.download-btn'); 
     //   downloadButton.addEventListener("click", function () {
