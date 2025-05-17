@@ -21,9 +21,14 @@ body{
     background-color: #000000;
     display: grid;
     min-height: 100dvh;
-grid-template-rows: auto 1fr auto;
-margin: 0;
 
+
+    grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+
+grid-template-rows:  1fr auto;
 }
 body.light-mode{
     background-color: #fcfcf7
@@ -32,10 +37,9 @@ body.light-mode{
 header{
     background-color: rgba(0, 0, 0,.92);
     backdrop-filter: blur(8px);
-    position: fixed; /* Fijar el header en la pantalla */
+    position: fixed ; /* Fijar el header en la pantalla */
     width: 100%; /* Que ocupe todo el ancho */
     padding: 5px 10px;
-
 box-shadow:  -5px 5px 35px #b30000,
 5px -5px 35px #ff0000;
     border-width: 1px;
@@ -50,13 +54,11 @@ body.light-mode header {
 main{
     /* display: grid; */
     color: #ffffff;
-    padding-bottom: 60px;
-    margin-left: 25px;
-    margin-right: 25px;
+    padding: 60px 20px;
+    /* margin-left: 25px;
+    margin-right: 25px; */
   }
-  /* main > *:first-child {
-    margin-top: 0;
-} */
+
 
 .FontContainer{
     display: flex;
@@ -243,8 +245,8 @@ body.light-mode aside.active .hideMenu {
 body.light-mode main{
     color:#0c0c0c;
 }
+
 footer{
-    display: grid;
     width: 100%; /* Que ocupe todo el ancho */
     padding: 5px 10px;
    border-width: 1px;
@@ -256,6 +258,11 @@ footer{
     border-top-color: red;
     color: white;
     min-height: 60px;
+    margin-bottom: 0;
+}
+.dat-Page{
+    justify-content: space-between;
+    align-items: center;
 }
 body.light-mode footer{
    
@@ -283,7 +290,8 @@ footer a:visited{
 .navbar {
     display: flex;
     justify-content:space-between;
-    align-items: flex-end;
+    justify-items: center;
+    align-items:flex-start;
     padding: 15px 20px;
     border-bottom-color: rgb(255, 0, 0);
 }
@@ -352,6 +360,7 @@ cursor: pointer;
     transition-duration: 400ms;
     transition-property: color;
     font-family: Audiowide, sans-serif;
+    text-decoration: none;
   }
   body.light-mode .category-btn{
     color: #0c0c0c;
@@ -444,7 +453,7 @@ body.light-mode .category-btn::after{
   
   .search-container.active .search-button {
     transform: translateX(-10px);
-    margin: 15px;
+    padding: 0px 15px;
   }
   
 

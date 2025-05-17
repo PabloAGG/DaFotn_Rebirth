@@ -14,27 +14,28 @@ $subcategory_param = isset($_GET['subcategory']) ? trim($_GET['subcategory']) : 
 if ($font_id_param > 0) {
     // Consulta SQL para obtener detalles de la fuente
     $sql_font_detail = "SELECT
-        f.idFont,
-        f.fontName,
-        f.fontFamilyCSS,
-        f.fontStyleFallback,
-        f.descargas,
-        f.licenciaDescripcion,
-        f.fechaSubida,
-        u.usuario AS nombreAutor,
-        u.idUsuario AS idAutor,
-        u.imgPath AS autorImgPath,
-        u.pagina AS autorPagina,
-        (SELECT AVG(c.estrellas) FROM calificaciones c WHERE c.idFont = f.idFont) AS promedioEstrellas,
-        (SELECT COUNT(c.idCalf) FROM calificaciones c WHERE c.idFont = f.idFont) AS totalCalificaciones,
-        (SELECT COUNT(*) FROM FavFonts ff WHERE ff.idFont = f.idFont AND ff.idUsuario = ?) AS currentUserHasFavorited
-    FROM Fonts f
-    LEFT JOIN Usuario u ON f.fontAutor = u.idUsuario
-    WHERE f.idFont = ?";
+    f.idFont,
+    f.fontName,
+    f.fontFamilyCSS,
+    f.fontStyleFallback,
+    f.descargas,
+    f.licenciaDescripcion,
+    f.fechaSubida,
+    u.usuario AS nombreAutor,
+    u.idUsuario AS idAutor,
+    u.imgPath AS autorImgPath,
+    u.pagina AS autorPagina,
+    (SELECT AVG(c.estrellas) FROM calificaciones c WHERE c.idFont = f.idFont) AS promedioEstrellas,
+    (SELECT COUNT(c.idCalf) FROM calificaciones c WHERE c.idFont = f.idFont) AS totalCalificaciones,
+    (SELECT c_user.estrellas FROM calificaciones c_user WHERE c_user.idFont = f.idFont AND c_user.idUsuario = ?) AS currentUserRating, /* Calificación del usuario actual */
+    (SELECT COUNT(*) FROM FavFonts ff WHERE ff.idFont = f.idFont AND ff.idUsuario = ?) AS currentUserHasFavorited /* Asumo que tienes esto para favoritos */
+FROM Fonts f
+LEFT JOIN Usuario u ON f.fontAutor = u.idUsuario
+WHERE f.idFont = ? ";
 
     $stmt = mysqli_prepare($conn, $sql_font_detail);
     if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "ii", $user_id_session, $font_id_param);
+        mysqli_stmt_bind_param($stmt, "iii", $user_id_session, $user_id_session, $font_id_param);
         mysqli_stmt_execute($stmt);
         $result_font_detail = mysqli_stmt_get_result($stmt);
         if ($result_font_detail && mysqli_num_rows($result_font_detail) > 0) {
@@ -49,6 +50,39 @@ if ($font_id_param > 0) {
 // Variable para el nombre de usuario en el encabezado (si está en sesión)
 $user_name_session = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : null;
 
+$comentarios_para_fuente = []; 
+if ($font_id_param > 0) { 
+   
+    $sql_comentarios = "SELECT
+                            c.idComentario,
+                            c.idUsuario,
+                            c.idFont,
+                            c.comentario AS textoComentario, 
+                            FormatearFecha(c.fechaComen) AS fechaComen,
+                            u.usuario AS nombreUsuarioComentador,
+                            u.imgPath AS imgPathComentador
+
+                        FROM coment c
+                        JOIN Usuario u ON c.idUsuario = u.idUsuario
+                        WHERE c.idFont = ?
+                        ORDER BY c.fechaComen DESC"; // Mostrar los más recientes primero
+
+    $stmt_comentarios = mysqli_prepare($conn, $sql_comentarios);
+    if ($stmt_comentarios) {
+        mysqli_stmt_bind_param($stmt_comentarios, "i", $font_id_param);
+        mysqli_stmt_execute($stmt_comentarios);
+        $result_comentarios = mysqli_stmt_get_result($stmt_comentarios);
+        while ($row_comentario = mysqli_fetch_assoc($result_comentarios)) {
+            // Formatear la fecha aquí si es necesario
+            $row_comentario['fecha_formateada'] = $row_comentario['fechaComen'];
+            $comentarios_para_fuente[] = $row_comentario;
+        }
+        mysqli_stmt_close($stmt_comentarios);
+    } else {
+        error_log("Error al preparar la consulta de comentarios para la fuente: " . mysqli_error($conn));
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -58,46 +92,16 @@ $user_name_session = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : nu
     <title><?php echo ($font && isset($font['fontName'])) ? htmlspecialchars($font['fontName']) : 'Detalles de Fuente'; ?> - DaFont</title>
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/styleCards.css">
+    <link rel="stylesheet" href="CSS/fontD.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
+      
         <?php if ($font && isset($font['fontFamilyCSS'])): /* Solo si $font y fontFamilyCSS existen */ ?>
         @font-face {
             font-family: '<?php echo htmlspecialchars($font['fontFamilyCSS']); ?>';
-            /* Si necesitas cargar el archivo de fuente: */
-            /* src: url('ruta/a/fuente/<?php echo htmlspecialchars($font['fontFamilyCSS']); ?>.ttf'); */
+         <?php echo htmlspecialchars($font['fontFamilyCSS']); ?>.ttf'); */
         }
         <?php endif; ?>
-        .font-detail-container { margin: 20px auto; padding: 20px; background: rgba(20,20,20,0.9); border-radius: 8px; max-width: 900px; }
-        body.light-mode .font-detail-container { background: rgba(240,240,240,0.9); color: #333; }
-        .font-preview-detailed {
-            font-size: 48px;
-            padding: 20px;
-            border: 2px dashed #555;
-            margin-bottom: 20px;
-            min-height: 150px;
-            width: 100%;
-            box-sizing: border-box;
-            color: #fff;
-            background-color: #2c2c2c;
-            line-height: 1.5;
-            overflow-wrap: break-word;
-            text-align: center;
-        }
-        body.light-mode .font-preview-detailed { color: #000; background-color: #f0f0f0; border-color: #ccc; }
-        .details-section { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #444; }
-        body.light-mode .details-section { border-bottom-color: #ddd; }
-        .details-section:last-child { border-bottom: none; }
-        .details-section h3 { margin-bottom: 8px; color: #ff7f50; font-size: 1.4em; }
-        body.light-mode .details-section h3 { color: #d9534f; }
-        .details-section p, .details-section span, .details-section a { font-size: 1.1em; line-height: 1.6; }
-        .author-info img { width: 60px; height: 60px; border-radius: 50%; vertical-align: middle; margin-right: 12px; border: 2px solid #ff7f50;}
-        .controls { margin-bottom: 25px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; padding: 15px; background-color: rgba(0,0,0,0.2); border-radius: 6px;}
-        body.light-mode .controls { background-color: rgba(255,255,255,0.3); }
-        .controls label { margin-right: 8px; font-weight: bold;}
-        .controls input[type="text"] { padding: 10px; border-radius: 4px; border: 1px solid #555; background-color: #333; color: #fff; flex-grow: 1; min-width: 250px;}
-        body.light-mode .controls input[type="text"] { background-color: #fff; color: #333; border-color: #ccc; }
-        .controls input[type="range"] { cursor: pointer; width: 200px;}
-        #font-size-value-detail { margin-left: 10px; font-weight: bold; min-width: 50px; text-align: right;}
+        
         .actions button { margin-right: 10px; }
     </style>
     <script src="https://kit.fontawesome.com/093074d40c.js" crossorigin="anonymous"></script>
@@ -190,8 +194,17 @@ $user_name_session = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : nu
 
     <?php if ($font): // Solo mostrar el resto si la fuente fue encontrada ?>
         <div class="font-detail-container">
+            <div class="font-header">
             <h1><?php echo htmlspecialchars($font['fontName']); ?></h1>
-
+ <div class="actions">
+                <?php
+                $isFavorite_detail = ($font['currentUserHasFavorited'] > 0);
+                $favIconClass_detail = $isFavorite_detail ? "fa-solid fa-heart" : "fa-regular fa-heart";
+                ?>
+                <button class="btn btn-favorite" title="<?php echo $isFavorite_detail ? 'Quitar de favoritos' : 'Añadir a favoritos'; ?>" data-fontid="<?php echo $font['idFont']; ?>" data-isfavorite="<?php echo $isFavorite_detail ? 'true' : 'false'; ?>"><i class="<?php echo $favIconClass_detail;?>"></i></button>
+                <button class="download-btn" title="Descargar fuente (ejemplo TXT)" data-font-id="<?php echo $font['idFont']; ?>"><i class="fa-solid fa-download"></i></button>
+            </div>
+        </div>
             <div class="controls">
                 <div>
                     <label for="text-input-detail">Texto de Prueba:</label>
@@ -202,6 +215,7 @@ $user_name_session = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : nu
                     <input type="range" class="slider" id="font-size-range-detail" min="10" max="150" value="48">
                     <span id="font-size-value-detail">48px</span>
                 </div>
+                 <button id="dkmode"><i class="fa-solid fa-circle-half-stroke"></i></button>
             </div>
 
             <div id="font-preview-detailed" class="font-preview-detailed" style="font-family: '<?php echo htmlspecialchars($font['fontFamilyCSS']); ?>', <?php echo htmlspecialchars($font['fontStyleFallback']); ?>;">
@@ -225,6 +239,7 @@ $user_name_session = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : nu
                         Autor Desconocido
                     <?php endif; ?>
                 </p>
+                
             </div>
 
             <div class="details-section">
@@ -242,32 +257,69 @@ $user_name_session = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : nu
                 <p><?php echo date("d/m/Y", strtotime($font['fechaSubida'])); ?></p>
             </div>
 
-            <div class="details-section">
-                <h3>Calificación</h3>
-                <div class="stars-display" data-font-id="<?php echo $font['idFont']; ?>">
-                    <?php
-                    $promedio_detail = round($font['promedioEstrellas'] ?? 0);
-                    $totalVotos_detail = (int) ($font['totalCalificaciones'] ?? 0);
-                    for ($i = 1; $i <= 5; $i++): ?>
-                        <span class="star <?php echo ($i <= $promedio_detail) ? 'filled' : ''; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
-                    <?php endfor; ?>
-                    <span class="rating-average">(<?php echo number_format($font['promedioEstrellas'] ?? 0, 1); ?> de <?php echo $totalVotos_detail; ?> votos)</span>
-                </div>
-            </div>
+           <div class="details-section">
+    <section id="stars">
+        <div class="stars-display" data-font-id="<?php echo $font['idFont']; ?>"> <h3>Calificación</h3>
+            <?php
+            $promedio_detail = round($font['promedioEstrellas'] ?? 0);
+            $totalVotos_detail = (int) ($font['totalCalificaciones'] ?? 0);
+            for ($i = 1; $i <= 5; $i++): ?>
+                <span class="star <?php echo ($i <= $promedio_detail) ? 'filled' : ''; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
+            <?php endfor; ?>
+            <span class="rating-average">(<?php echo number_format($font['promedioEstrellas'] ?? 0, 1); ?> de <?php echo $totalVotos_detail; ?> votos)</span> </div>
+       <?php if (isset($_SESSION['user_id'])): ?>
+    <div class="RateUs">
+        <h3>¡Califica esta fuente!</h3>
+       <div class="rating-interactive"
+             data-font-id="<?php echo $font['idFont']; ?>"
+             data-current-rating="<?php echo isset($font['currentUserRating']) ? (int)$font['currentUserRating'] : 0; ?>">
+              <span class="interactive-star" data-value="1" title="Mala">&#9733;</span>
+            <span class="interactive-star" data-value="2" title="Regular">&#9733;</span>
+            <span class="interactive-star" data-value="3" title="Buena">&#9733;</span>
+            <span class="interactive-star" data-value="4" title="Muy Buena">&#9733;</span>
+            <span class="interactive-star" data-value="5" title="Excelente!">&#9733;</span>
+        </div>
+        <div id="mensaje-calificacion" class="mensaje-ajax" style="display:none;"></div>
+        <p id="user-current-rating" style="font-size: 0.9em; margin-top: 5px;"></p> </div>
+<?php else: ?>
+    <p style="margin-top:15px;"><a href="DaFont_Log.php">Inicia sesión</a> para calificar esta fuente.</p>
+<?php endif; ?>
+    </section>
+</div>
             
-            <div class="actions">
-                <?php
-                $isFavorite_detail = ($font['currentUserHasFavorited'] > 0);
-                $favIconClass_detail = $isFavorite_detail ? "fa-solid fa-heart" : "fa-regular fa-heart";
-                ?>
-                <button class="btn btn-favorite" title="<?php echo $isFavorite_detail ? 'Quitar de favoritos' : 'Añadir a favoritos'; ?>" data-fontid="<?php echo $font['idFont']; ?>" data-isfavorite="<?php echo $isFavorite_detail ? 'true' : 'false'; ?>"><i class="<?php echo $favIconClass_detail;?>"></i></button>
-                <button class="download-btn" title="Descargar fuente (ejemplo TXT)" data-font-id="<?php echo $font['idFont']; ?>"><i class="fa-solid fa-download"></i></button>
-            </div>
+           
+                 <section class="comentarios-seccion">
+        <h3>Comentarios</h3>
+        <form id="form-comentario" onsubmit="guardarComentario(event); return false;">
+            <input type="hidden" name="font_id_comentario" value="<?php echo $font_id_param; ?>">
+            <textarea name="comentario" placeholder="Escribe un comentario..." required aria-label="Escribe un comentario"></textarea>
+            <br>
+            <div id="mensaje-comentario" class="mensaje-ajax" style="display:none;"></div>
+            <button type="submit" class="btn-ver-mas"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
 
-            <div class="details-section comments-section">
-                <h3>Comentarios</h3>
-                <p>La sección de comentarios aún no está implementada.</p>
+        <div id="lista-comentarios">
+                <?php if (empty($comentarios_para_fuente)): ?>
+                    <p id="no-comments-message">Sé el primero en comentar.</p>
+                <?php else: ?>
+                    <?php foreach ($comentarios_para_fuente as $coment): ?>
+                        <div class="comentario-item" id="comentario-<?php echo $coment['idComentario']; ?>">
+                            <div class="comenPresent">
+                                <div>
+                                <?php if (!empty($coment['imgPathComentador'])): ?>
+                                    <img class="img-cirUs" src="<?php echo htmlspecialchars($coment['imgPathComentador']); ?>" alt="Avatar de <?php echo htmlspecialchars($coment['nombreUsuarioComentador']); ?>">
+                                <?php else: ?>
+                                    <img src="IMG/image_default.png" alt="Avatar por defecto" class="img-cirUs"> <?php endif; ?>
+                                <strong><?php echo htmlspecialchars($coment['nombreUsuarioComentador']); ?></strong></div>
+                                <span> (<?php echo htmlspecialchars($coment['fecha_formateada']); ?>):</span>
+                            </div>
+                            <p><?php echo nl2br(htmlspecialchars($coment['textoComentario'])); ?></p>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
+    </section>
+        
 
         </div>
     <?php else: ?>
@@ -280,56 +332,19 @@ $user_name_session = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : nu
 </main>
 
 <footer>
-    <p> Las fuentes presentadas en este sitio web son propiedad de sus autores, y son freeware, shareware, demos o dominio público...</p>
-    <p><a href="#">FAQ</a></p>
+           <div class="dat-Page">
+        <p>DaFont es un sitio web de descarga de fuentes tipográficas...</p>
+        <p>© 2023 DaFont. Todos los derechos reservados.</p>
+    <p> Las fuentes presentadas en este sitio web son propiedad de sus autores...</p>
+    <p><a href="DaFont_FAQ.php">FAQ</a></p>
+    <p><a href="DaFont_AuthorsList.php">Autores</a></p>
+</div>
 </footer>
 
 <script src="JS/app.js"></script>
 <script src="JS/script.js"></script>
 <script src="JS/breadcrumbing.js"></script>
 <script src="JS/Favs.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const textInputDetail = document.getElementById("text-input-detail");
-    const fontSizeRangeDetail = document.getElementById("font-size-range-detail");
-    const fontSizeValueDetail = document.getElementById("font-size-value-detail");
-    const fontPreviewDetailed = document.getElementById("font-preview-detailed");
-
-    function updateFontPreviewDetailed() {
-        if (!fontPreviewDetailed || !textInputDetail || !fontSizeRangeDetail) return;
-        const newText = textInputDetail.value;
-        const newSize = fontSizeRangeDetail.value + "px";
-
-        fontPreviewDetailed.textContent = newText || "<?php echo ($font && isset($font['fontName'])) ? htmlspecialchars(addslashes($font['fontName'])) : 'Vista Previa'; ?>";
-        fontPreviewDetailed.style.fontSize = newSize;
-        if(fontSizeValueDetail) fontSizeValueDetail.textContent = newSize;
-    }
-
-    if (textInputDetail) textInputDetail.addEventListener("input", updateFontPreviewDetailed);
-    if (fontSizeRangeDetail) fontSizeRangeDetail.addEventListener("input", updateFontPreviewDetailed);
-
-    if (fontPreviewDetailed) updateFontPreviewDetailed();
-
-    const downloadBtnDetail = document.querySelector('.font-detail-container .download-btn');
-    if (downloadBtnDetail) {
-        downloadBtnDetail.addEventListener('click', function() {
-            const fontId = this.dataset.fontId;
-            const fontName = "<?php echo ($font && isset($font['fontName'])) ? htmlspecialchars(addslashes($font['fontName'])) : 'font'; ?>";
-            
-            console.log("Download clicked for font ID:", fontId, "Name:", fontName);
-            const content = `Este es un archivo de ejemplo para la fuente: ${fontName}\nID: ${fontId}\n\nLorem ipsum dolor sit amet...`;
-            const fileName = `${fontName.replace(/[^a-z0-9]/gi, '_')}_example.txt`;
-            const blob = new Blob([content], { type: "text/plain" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = fileName;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(link.href);
-        });
-    }
-});
-</script>
+<script src="JS/fontDetail.js"></script>
 </body>
 </html>

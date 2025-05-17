@@ -85,6 +85,7 @@ if ($stmt) {
     <title>DaFont</title>
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/styleCards.css">
+    <link rel="stylesheet" href="CSS/fontD.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
     </style>
@@ -146,6 +147,7 @@ if ($stmt) {
         </div>
     </nav>
 </header>
+
 <main>
     <nav id="breadcrumb">
         <span><a href="DaFont_index.php">Inicio</a></span>
@@ -188,10 +190,8 @@ if ($stmt) {
         <?php if (!empty($fonts)): ?>
             <?php foreach ($fonts as $font): ?>
                 <?php
-                // --------------------------------------------------------------------
-                // CORRECCIÓN IMPORTANTE AQUÍ para construir $details_link
-                // Este bloque PHP debe estar ANTES de usar $details_link
-                // --------------------------------------------------------------------
+           
+          
                 $details_link = "Dafont_FontDetails.php?id=" . $font['idFont'];
 
                 // Usamos las variables $category_name y $subcategory_name que se obtuvieron de $_GET
@@ -202,9 +202,7 @@ if ($stmt) {
                 if (isset($subcategory_name) && $subcategory_name) {
                     $details_link .= "&subcategory=" . urlencode($subcategory_name);
                 }
-                // --------------------------------------------------------------------
-                // FIN DE LA CORRECCIÓN para construir $details_link
-                // --------------------------------------------------------------------
+             
                 ?>
                 <div class="font-card" onclick="window.location.href='<?php echo htmlspecialchars($details_link); ?>'">
                     <div class="presentacion">
@@ -229,7 +227,7 @@ if ($stmt) {
                             for ($i = 1; $i <= 5; $i++): ?>
                                 <span class="star <?php echo ($i <= $promedio) ? 'filled' : ''; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
                             <?php endfor; ?>
-                            <span class="rating-average">(<?php echo number_format($font['promedioEstrellas'] ?? 0, 1); ?> de <?php echo $totalVotos; ?> votos)</span>
+        
                         </div>
                     </div>
                     <?php
@@ -247,8 +245,13 @@ if ($stmt) {
 </main>
 
 <footer>
-    <p> Las fuentes presentadas en este sitio web son propiedad de sus autores, y son freeware, shareware, demos o dominio público. La licencia mencionada encima del botón de descarga es sólo una indicación. Por favor, mira en los ficheros "Readme" en los zip o comprueba lo que se indica en la web del autor para los detalles, y contacta con él/ella en caso de duda. Si no hay autor/licencia indicados, es porque no tenemos la información, lo que no significa que sea gratis.</p>
-    <p><a href="#">FAQ</a></p>
+    <div class="dat-Page">
+        <p>DaFont es un sitio web de descarga de fuentes tipográficas...</p>
+        <p>© 2023 DaFont. Todos los derechos reservados.</p>
+    <p> Las fuentes presentadas en este sitio web son propiedad de sus autores...</p>
+    <p><a href="DaFont_FAQ.php">FAQ</a></p>
+    <p><a href="DaFont_AuthorsList.php">Autores</a></p>
+</div>
 </footer>
 
 <script src="JS/app.js"></script>
@@ -257,28 +260,6 @@ if ($stmt) {
 <script src="JS/scriptIndex.js"></script>
 <script src="JS/breadcrumbing.js"></script>
 <script src="JS/Favs.js"></script>
-<script>
-async function handleFavoriteClick(buttonElement, fontId) {
-    console.log("Favorite button clicked for font ID:", fontId);
-    // Tu lógica de Favs.js se encargará del resto
-}
-
-function downloadFontFile(fontId, fontName) {
-    console.log("Download clicked for font ID:", fontId, "Name:", fontName);
-    const content = `Este es un archivo de ejemplo para la fuente: ${fontName}\nID: ${fontId}\n\nLorem ipsum dolor sit amet...`;
-    const fileName = `${fontName.replace(/[^a-z0-9]/gi, '_')}_example.txt`;
-    const blob = new Blob([content], { type: "text/plain" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(link.href);
-}
-document.addEventListener("DOMContentLoaded", function() {
-    // Cualquier inicialización de scriptIndex.js
-});
-</script>
+<script src="JS/fontDetail.js"></script>
 </body>
 </html>

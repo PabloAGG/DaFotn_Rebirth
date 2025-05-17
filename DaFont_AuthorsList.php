@@ -208,8 +208,13 @@ if ($stmt_authors) {
 </main>
 
 <footer>
+    <div class="dat-Page">
+        <p>DaFont es un sitio web de descarga de fuentes tipográficas...</p>
+        <p>© 2023 DaFont. Todos los derechos reservados.</p>
     <p> Las fuentes presentadas en este sitio web son propiedad de sus autores...</p>
-    <p><a href="#">FAQ</a></p>
+    <p><a href="DaFont_FAQ.php">FAQ</a></p>
+    <p><a href="DaFont_AuthorsList.php">Autores</a></p>
+</div>
 </footer>
 
 <script src="JS/app.js"></script>

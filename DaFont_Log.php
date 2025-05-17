@@ -140,10 +140,13 @@
 
 
 <footer>
-       <p> Las fuentes presentadas en este sitio web son propiedad de sus autores, y son freeware, shareware, demos o dominio público. La licencia mencionada encima del botón de descarga es sólo una indicación. Por favor, mira en los ficheros "Readme" en los zip o comprueba lo que se indica en la web del autor para los detalles, y contacta con él/ella en caso de duda. Si no hay autor/licencia indicados, es porque no tenemos la información, lo que no significa que sea gratis.
-    </p> <p><a href="">FAQ</a></p>
-
-
+        <div class="dat-Page">
+        <p>DaFont es un sitio web de descarga de fuentes tipográficas...</p>
+        <p>© 2023 DaFont. Todos los derechos reservados.</p>
+    <p> Las fuentes presentadas en este sitio web son propiedad de sus autores...</p>
+    <p><a href="DaFont_FAQ.php">FAQ</a></p>
+    <p><a href="DaFont_AuthorsList.php">Autores</a></p>
+</div>
   </footer>
 <!-- </div> -->  <script src="JS/script.js"></script>
   <script src="JS/Login.js"></script>

@@ -319,11 +319,17 @@ if ($user_id) {
                 <p>Aún no has publicado ninguna fuente.</p>
             <?php endif; ?>
         </div>
-    </div> </main>
+    </div> 
+</main>
 
 <footer>
-    <p>Las fuentes presentadas en este sitio web son propiedad de sus autores...</p>
-    <p><a href="DaFont_FAQ.php">FAQ</a></p> 
+         <div class="dat-Page">
+        <p>DaFont es un sitio web de descarga de fuentes tipográficas...</p>
+        <p>© 2023 DaFont. Todos los derechos reservados.</p>
+    <p> Las fuentes presentadas en este sitio web son propiedad de sus autores...</p>
+    <p><a href="DaFont_FAQ.php">FAQ</a></p>
+    <p><a href="DaFont_AuthorsList.php">Autores</a></p>
+</div>
 </footer>
 
 <script src="JS/script.js"></script>

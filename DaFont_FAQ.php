@@ -169,6 +169,7 @@ $faq_items = [
 <footer>
     <p> Las fuentes presentadas en este sitio web son propiedad de sus autores...</p>
     <p><a href="DaFont_FAQ.php">FAQ</a></p>
+    <p><a href="DaFont_AuthorsList.php">Autores</a></p>
 </footer>
 
 <script src="JS/app.js"></script>

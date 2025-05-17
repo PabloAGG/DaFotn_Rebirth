@@ -67,3 +67,25 @@ document.addEventListener("DOMContentLoaded", function() {
  // Ejecutamos al cargar y al cambiar el tamaño de la pantalla
  window.addEventListener('load', adjustSliderMax);
  window.addEventListener('resize', adjustSliderMax);
+
+ async function handleFavoriteClick(buttonElement, fontId) {
+    console.log("Favorite button clicked for font ID:", fontId);
+    // Tu lógica de Favs.js se encargará del resto
+}
+
+function downloadFontFile(fontId, fontName) {
+    console.log("Download clicked for font ID:", fontId, "Name:", fontName);
+    const content = `Este es un archivo de ejemplo para la fuente: ${fontName}\nID: ${fontId}\n\nLorem ipsum dolor sit amet...`;
+    const fileName = `${fontName.replace(/[^a-z0-9]/gi, '_')}_example.txt`;
+    const blob = new Blob([content], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+}
+document.addEventListener("DOMContentLoaded", function() {
+    // Cualquier inicialización de scriptIndex.js
+});

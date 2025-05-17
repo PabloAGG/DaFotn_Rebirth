@@ -1,4 +1,4 @@
-Create database Dafont;
+Create drop database Dafont;
 use Dafont;
 
 CREATE TABLE Usuario(
@@ -65,6 +65,18 @@ CREATE TABLE calificaciones(
     UNIQUE KEY `idx_usuario_font_calificacion` (idUsuario, idFont)
 );
 
+CREATE TABLE coment(
+    idComentario int auto_increment primary key,
+    idUsuario int,
+    idFont int,
+    comentario text,
+    fechaComen datetime DEFAULT current_timestamp(),
+    FOREIGN KEY (idFont) REFERENCES Fonts (idFont) ON DELETE CASCADE,
+    FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario) ON DELETE CASCADE
+);
+
+ALTER TABLE comentarios
+DROP INDEX idx_usuario_font_calificacion;
 CREATE TABLE FontCategorias (
     idFont int,
     idCategoria int,
@@ -74,3 +86,33 @@ CREATE TABLE FontCategorias (
 );
 
 INSERT INTO FontCategorias Values (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,3),(8,6);
+
+
+DELIMITER //
+
+CREATE FUNCTION FormatearFecha(fecha DATETIME)
+RETURNS VARCHAR(255)
+DETERMINISTIC
+BEGIN
+    DECLARE resultado VARCHAR(255);
+    DECLARE diff INT;
+    SET diff = TIMESTAMPDIFF(SECOND, fecha, NOW());
+
+    IF diff < 60 THEN
+        SET resultado = 'Hace unos segundos';
+    ELSEIF diff < 3600 THEN
+        SET resultado = CONCAT('Hace ', FLOOR(diff / 60), ' minutos');
+    ELSEIF diff < 86400 AND DATE(fecha) = CURDATE() THEN
+        SET resultado = CONCAT('Hoy a las ', DATE_FORMAT(fecha, '%H:%i'));
+    ELSEIF diff < 172800 AND DATE(fecha) = CURDATE() - INTERVAL 1 DAY THEN
+        SET resultado = CONCAT('Ayer a las ', DATE_FORMAT(fecha, '%H:%i'));
+    ELSEIF YEAR(fecha) = YEAR(NOW()) THEN
+        SET resultado = DATE_FORMAT(fecha, '%d de %M a las %H:%i');
+    ELSE
+        SET resultado = DATE_FORMAT(fecha, '%d de %M de %Y a las %H:%i');
+    END IF;
+
+    RETURN resultado;
+END//
+
+DELIMITER ;
