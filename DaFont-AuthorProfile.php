@@ -98,6 +98,7 @@ if ($author_id_from_url > 0) {
 </head>
 <body>
     
+
 <header>
     <nav class="navbar">
         <div>
@@ -106,29 +107,22 @@ if ($author_id_from_url > 0) {
         <ul class="nav-links" id="navMenu">
             <button id="closeMenu"><i class="fa fa-close"></i></button>
             <?php
-            // $conn ya está disponible
-            $sql_categories_header = "SELECT nombreCategoria FROM Categorias ORDER BY nombreCategoria";
-            $result_categories_header = mysqli_query($conn, $sql_categories_header);
+            $sql_categories = "SELECT nombreCategoria FROM Categorias ORDER BY nombreCategoria";
+            $result_categories_nav = mysqli_query($conn, $sql_categories); // Usar un nombre de variable diferente para el resultado de esta consulta
             $categories_for_header = [];
-            if ($result_categories_header && mysqli_num_rows($result_categories_header) > 0) {
-                while ($cat_row_header = mysqli_fetch_assoc($result_categories_header)) {
-                    $categories_for_header[] = $cat_row_header['nombreCategoria'];
+            if ($result_categories_nav && mysqli_num_rows($result_categories_nav) > 0) {
+                while ($cat_row_nav = mysqli_fetch_assoc($result_categories_nav)) { // Usar un nombre de variable diferente para la fila
+                    $categories_for_header[] = $cat_row_nav['nombreCategoria'];
                 }
             }
 
-            $subcategories_map_header = [
-                'Fantasia' => ['Mágico', 'Épico', 'Oscuro'], 'Tecno' => ['Sci-Fi', 'Moderno', 'Futurista'],
-                'Gotico' => ['Europeo', 'Medieval', 'Vampiro'], 'Basico' => ['Serif', 'Sans-Serif', 'Monospace'],
-                'Script' => ['Caligrafía', 'Manuscrito', 'Firma'], 'Display' => ['Decorativa', 'Titular', 'Retro']
-            ];
-
-            foreach ($categories_for_header as $category_item_name_header) {
+            foreach ($categories_for_header as $category_item_name_nav) { // Usar un nombre de variable diferente
                 echo '<li class="dropdown">';
-                echo '<a href="DaFont_index.php?category=' . urlencode($category_item_name_header) . '" class="category-btn">' . htmlspecialchars($category_item_name_header) . '</a>';
-                if (isset($subcategories_map_header[$category_item_name_header])) {
+                echo '<a href="DaFont_index.php?category=' . urlencode($category_item_name_nav) . '" class="category-btn">' . htmlspecialchars($category_item_name_nav) . '</a>';
+                if (isset($subcategories_map[$category_item_name_nav])) {
                     echo '<ul class="submenu">';
-                    foreach ($subcategories_map_header[$category_item_name_header] as $subcategory_item_name_header) {
-                        echo '<li><a href="DaFont_index.php?category=' . urlencode($category_item_name_header) . '&subcategory=' . urlencode($subcategory_item_name_header) . '">' . htmlspecialchars($subcategory_item_name_header) . '</a></li>';
+                    foreach ($subcategories_map[$category_item_name_nav] as $subcategory_item_name_nav) { // Usar un nombre de variable diferente
+                        echo '<li><a href="DaFont_index.php?category=' . urlencode($category_item_name_nav) . '&subcategory=' . urlencode($subcategory_item_name_nav) . '">' . htmlspecialchars($subcategory_item_name_nav) . '</a></li>';
                     }
                     echo '</ul>';
                 }
@@ -139,19 +133,21 @@ if ($author_id_from_url > 0) {
                 <form action="DaFont_index.php" method="GET" class="search-container-form">
                     <div class="search-container">
                         <input type="text" name="search_term" class="search-bar" placeholder="Buscar fuentes..." value="<?php echo isset($_GET['search_term']) ? htmlspecialchars($_GET['search_term']) : ''; ?>">
-                        <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
+                        <button type="submit" title="Buscar" class="search-button"><i class="fa fa-search"></i></button>
                     </div>
                 </form>
             </li>
         </ul>
+         <?php if(isset($_SESSION['user_id'])){?>
+        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'"><i class="fa-solid fa-heart"></i>Favoritas</button>
+        <?php } ?>
         <button id="btnSesion" 
-            <?php if($visitor_user_id === 0){ // Si el visitante no ha iniciado sesión
-            ?>
-            onclick="window.location.href='Dafont_Log.php'">
+            <?php if(!isset($_SESSION['user_id'])){ ?>
+            title="Iniciar Sesion" onclick="window.location.href='Dafont_Log.php'">
             <i class="fa-solid fa-circle-user"></i></button>
-            <?php } else { // Si el visitante ha iniciado sesión ?>
-            onclick="window.location.href='Dafont_Profile.php'">
-            <?php echo htmlspecialchars($visitor_user_name); ?></button>
+            <?php }else{ ?>
+            title="Mi Perfil" onclick="window.location.href='Dafont_Editar.php'">
+            <?php echo htmlspecialchars($user_name); ?></button>
             <?php } ?>
         <div class="menu-hamburguesa">
             <span></span>
@@ -177,19 +173,21 @@ if ($author_id_from_url > 0) {
         <i class="fa fa-sliders"></i> 
     </button>
     
-    <aside class="Filtros">
-        <button class="hideMenu"><i class="fa fa-solid fa-angles-left"></i></button>
-        <div class="Ajustes">  
+      <aside class="Filtros">
+        <button class="hideMenu"><i class="fa fa-solid fa-angles-left"></i></button> <div class="Ajustes">  
             <div>
                 <label for="text-input">Texto de Prueba:</label>
                 <input type="text" name="text-input" id="text-input" placeholder="Escribe algo...">
             </div><br>
             <div>
-                <label for="font-select">Tamaño de Fuente:</label>
-                <input type="range" class="slider" id="font-size-range" min="10" max="100" value="24">
+                <label for="font-size-range">Tamaño de Fuente:</label> <input type="range" class="slider" id="font-size-range" min="10" max="100" value="24">
             </div><br>
-            <button id="dkmode"><i class="fa-solid fa-circle-half-stroke"></i></button>
-        </div><br>
+            <label for="dkmode">Modo Claro/Oscuro</label> <button id="dkmode" title="Cambio de modo" aria-label="Cambiar modo claro u oscuro"><i class="fa-solid fa-circle-half-stroke"></i></button><br>
+            <?php if(isset($_SESSION['user_id'])){?>
+            <button onclick="window.location.href='BACK/LogOut.php'" aria-label="Cerrar sesión"><i class="fa-solid fa-right-from-bracket"></i></button>
+      <?php } ?>
+        </div>
+        <br>
     </aside>
 
     <?php if ($autor_id && $autor_name !== "Autor no encontrado" && $autor_name !== "Error al cargar perfil"): ?>

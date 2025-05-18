@@ -8,9 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!fontPreviewDetailed || !textInputDetail || !fontSizeRangeDetail) return;
         const newText = textInputDetail.value;
         const newSize = fontSizeRangeDetail.value + "px";
-
-        fontPreviewDetailed.textContent = newText || "<?php echo ($font && isset($font['fontName'])) ? htmlspecialchars(addslashes($font['fontName'])) : 'Vista Previa'; ?>";
-        fontPreviewDetailed.style.fontSize = newSize;
+        fontPreviewDetailed.textContent = newText;
+  fontPreviewDetailed.style.fontSize = newSize;
         if(fontSizeValueDetail) fontSizeValueDetail.textContent = newSize;
     }
 

@@ -127,17 +127,20 @@ if ($stmt) {
                 <form action="DaFont_index.php" method="GET" class="search-container-form">
                     <div class="search-container">
                         <input type="text" name="search_term" class="search-bar" placeholder="Buscar fuentes..." value="<?php echo isset($_GET['search_term']) ? htmlspecialchars($_GET['search_term']) : ''; ?>">
-                        <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
+                        <button type="submit" title="Buscar" class="search-button"><i class="fa fa-search"></i></button>
                     </div>
                 </form>
             </li>
         </ul>
+         <?php if(isset($_SESSION['user_id'])){?>
+        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'"><i class="fa-solid fa-heart"></i>Favoritas</button>
+        <?php } ?>
         <button id="btnSesion" 
             <?php if(!isset($_SESSION['user_id'])){ ?>
-            onclick="window.location.href='Dafont_Log.php'">
+            title="Iniciar Sesion" onclick="window.location.href='Dafont_Log.php'">
             <i class="fa-solid fa-circle-user"></i></button>
             <?php }else{ ?>
-            onclick="window.location.href='Dafont_Profile.php'">
+            title="Mi Perfil" onclick="window.location.href='Dafont_Editar.php'">
             <?php echo htmlspecialchars($user_name); ?></button>
             <?php } ?>
         <div class="menu-hamburguesa">
@@ -147,6 +150,7 @@ if ($stmt) {
         </div>
     </nav>
 </header>
+
 
 <main>
     <nav id="breadcrumb">
@@ -165,25 +169,24 @@ if ($stmt) {
         }
         ?>
     </nav>
-    <button class="btn-filtros" id="btn-filtros">
+    <button class="btn-filtros" id="btn-filtros" title="Abrir menú de filtros" aria-label="Abrir menú de filtros">
         <i class="fa-solid fa-sliders"></i>
     </button>
-    <aside class="Filtros">
-        <button class="hideMenu"><i class="fa-solid fa-angles-left"></i></button>
-        <div class="Ajustes">  
+   <aside class="Filtros">
+        <button class="hideMenu"><i class="fa fa-solid fa-angles-left"></i></button> <div class="Ajustes">  
             <div>
                 <label for="text-input">Texto de Prueba:</label>
                 <input type="text" name="text-input" id="text-input" placeholder="Escribe algo...">
             </div><br>
             <div>
-                <label for="font-select">Tamaño de Fuente:</label>
-                <input type="range" class="slider" id="font-size-range" min="10" max="100" value="24">
+                <label for="font-size-range">Tamaño de Fuente:</label> <input type="range" class="slider" id="font-size-range" min="10" max="100" value="24">
             </div><br>
-            <button id="dkmode"><i class="fa-solid fa-circle-half-stroke"></i></button>
-            <?php if(isset($user_id) && $user_id !== null){ ?>
-            <button onclick="window.location.href='BACK/LogOut.php'"><i class="fa-solid fa-right-from-bracket"></i></button>
-            <?php } ?>
-        </div><br>
+            <label for="dkmode">Modo Claro/Oscuro</label> <button id="dkmode" title="Cambio de modo" aria-label="Cambiar modo claro u oscuro"><i class="fa-solid fa-circle-half-stroke"></i></button><br>
+            <?php if(isset($_SESSION['user_id'])){?>
+            <button onclick="window.location.href='BACK/LogOut.php'" aria-label="Cerrar sesión"><i class="fa-solid fa-right-from-bracket"></i></button>
+      <?php } ?>
+        </div>
+        <br>
     </aside>
 
     <div class="FontContainer">

@@ -1,0 +1,70 @@
+ @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
+        .authors-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+        .author-card {
+            background-color: rgba(30, 30, 30, 0.8); /* Similar a .font-card pero podría ser diferente */
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            width: calc(33.333% - 40px); /* Tres tarjetas por fila, ajusta según sea necesario */
+            min-width: 280px; /* Ancho mínimo para tarjetas */
+            box-sizing: border-box;
+            text-align: center;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        body.light-mode .author-card {
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .author-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
+        }
+        body.light-mode .author-card:hover {
+            box-shadow: 0 8px 20px rgba(200, 0, 0, 0.2);
+        }
+        .author-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid #ff7f50; /* Coral */
+            object-fit: cover;
+        }
+        .author-card h2 {
+            margin-bottom: 8px;
+            font-size: 1.5em;
+        }
+        .author-card h2 a {
+            text-decoration: none;
+            color: #ffaf7a; /* Un tono más claro de coral o naranja */
+        }
+        body.light-mode .author-card h2 a {
+            color: #d9534f;
+        }
+        .author-card h2 a:hover {
+            text-decoration: underline;
+            color: #ff7f50;
+        }
+        .author-card p {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-bottom: 0;
+        }
+        body.light-mode .author-card p {
+            color: #555;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #ff7f50;
+        }
+        body.light-mode .page-title {
+            color: #d9534f;
+        }

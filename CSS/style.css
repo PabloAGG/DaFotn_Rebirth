@@ -302,23 +302,48 @@ footer a:visited{
     background: none;
     font-size: 15px;
     transition: .03s;
-   height: 50px;
-
-   width:fit-content;
+  padding: 10px;
    min-height: 20px;
    min-width: 20px;
-
    font-family: Audiowide, sans-serif;
  }
  body.light-mode #btnSesion{
     color: #0c0c0c;
 }
+ #btnFav{
+    display: flex;
+    justify-content: center;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    background: none;
+    font-size: .8rem;
+    transition: .03s;
+  padding: 10px;
+   min-height: 20px;
+   min-width: 20px;
+   font-family: Audiowide, sans-serif;
+ }
+  body.light-mode #btnFav{
+    color: #0c0c0c;
+}
+ #btnFav:hover{
+    color: black;
+    background-color: white;
+cursor: pointer;
+}
+
  #btnSesion:hover{
     color: black;
     background-color: white;
 cursor: pointer;
 }
 body.light-mode #btnSesion:hover{
+    color: white;
+    background-color: black;
+cursor: pointer;
+}
+body.light-mode #btnFav:hover{
     color: white;
     background-color: black;
 cursor: pointer;
@@ -402,7 +427,7 @@ body.light-mode .category-btn::after{
     list-style: none;
     display: flex;
     justify-content: space-around;
-    align-items: flex-end;
+    align-items:center;
     transition: right 0.5s ease-in-out;
     z-index: 1001;
 }
@@ -604,7 +629,7 @@ body.light-mode .submenu a:hover {
         left: -100%;
         background-color: rgba(0, 0, 0,.92);
     backdrop-filter: blur(8px);
-        top: 135px;
+        top: 72px;
         width: 70%;
         height: 100%;
         z-index: 1000;

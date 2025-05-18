@@ -26,6 +26,7 @@ $userData = mysqli_fetch_assoc($resultado);
     <title>DaFont</title>
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/stylesSign.css">
+    <link rel="stylesheet" href="CSS/Perfil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
@@ -37,98 +38,98 @@ $userData = mysqli_fetch_assoc($resultado);
 <body>
 
     <!-- <div class="contenedorPrincipal"> -->
-    <header>
-        <nav class="navbar">
-            <div>
-                <a href="DaFont_index.php" class="logo"><img id="navImg" src="Dafont1-Dark1.png" alt="Logo pagina Dafont"></a>
-            </div>
+<header>
+    <nav class="navbar">
+        <div>
+            <a href="DaFont_index.php" class="logo"><img id="navImg" src="Dafont1-Dark1.png" alt="Logo pagina Dafont"></a>
+        </div>
+        <ul class="nav-links" id="navMenu">
+            <button id="closeMenu"><i class="fa fa-close"></i></button>
+            <?php
+            $sql_categories = "SELECT nombreCategoria FROM Categorias ORDER BY nombreCategoria";
+            $result_categories_nav = mysqli_query($conn, $sql_categories); // Usar un nombre de variable diferente para el resultado de esta consulta
+            $categories_for_header = [];
+            if ($result_categories_nav && mysqli_num_rows($result_categories_nav) > 0) {
+                while ($cat_row_nav = mysqli_fetch_assoc($result_categories_nav)) { // Usar un nombre de variable diferente para la fila
+                    $categories_for_header[] = $cat_row_nav['nombreCategoria'];
+                }
+            }
 
-         <ul class="nav-links" id="navMenu">
-                <button id="closeMenu"><i class="fa fa-close"></i></button>
-                <li class="dropdown">
-                    <button  class="category-btn" name="Fantasia">Fantasia</button>
-                    <ul class="submenu">
-                        <li><a href="#">Mágico</a></li>
-                        <li><a href="#">Épico</a></li>
-                        <li><a href="#">Oscuro</a></li>
-                    </ul>
-                </li>
-        
-                <li class="dropdown">
-                    <button class="category-btn" name="Tecno" style=" font-family: Audiowide, sans-serif;">Tecno</button>
-                    <ul class="submenu">
-                        <li><a href="#">Mágico</a></li>
-                        <li><a href="#">Épico</a></li>
-                        <li><a href="#">Oscuro</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <button class="category-btn" name="Gotico">Gotico</button>
-                    <ul class="submenu">
-                        <li><a href="#">Europeo</a></li>
-                        <li><a href="#">Latino</a></li>
-                        <li><a href="#">Asiático</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <button class="category-btn" name="Basico" >Basico</button>
-                    <ul class="submenu">
-                        <li><a href="#">Mágico</a></li>
-                        <li><a href="#">Épico</a></li>
-                        <li><a href="#">Oscuro</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <button class="category-btn" name="Script" >Script</button>
-                    <ul class="submenu">
-                        <li><a href="#">Europeo</a></li>
-                        <li><a href="#">Latino</a></li>
-                        <li><a href="#">Asiático</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <button class="category-btn" name="Dingbats">Display</button>
-                    <ul class="submenu">
-                        <li><a href="#">Mágico</a></li>
-                        <li><a href="#">Épico</a></li>
-                        <li><a href="#">Oscuro</a></li>
-                    </ul>
-                </li>
-            
-                <li>
+            foreach ($categories_for_header as $category_item_name_nav) { // Usar un nombre de variable diferente
+                echo '<li class="dropdown">';
+                echo '<a href="DaFont_index.php?category=' . urlencode($category_item_name_nav) . '" class="category-btn">' . htmlspecialchars($category_item_name_nav) . '</a>';
+                if (isset($subcategories_map[$category_item_name_nav])) {
+                    echo '<ul class="submenu">';
+                    foreach ($subcategories_map[$category_item_name_nav] as $subcategory_item_name_nav) { // Usar un nombre de variable diferente
+                        echo '<li><a href="DaFont_index.php?category=' . urlencode($category_item_name_nav) . '&subcategory=' . urlencode($subcategory_item_name_nav) . '">' . htmlspecialchars($subcategory_item_name_nav) . '</a></li>';
+                    }
+                    echo '</ul>';
+                }
+                echo '</li>';
+            }
+            ?>
+            <li>
+                <form action="DaFont_index.php" method="GET" class="search-container-form">
                     <div class="search-container">
-                    <input type="text" class="search-bar" placeholder="Buscar...">
-                    <button class="search-button"><i class="fa fa-search"></i></button>
-                  </div>
-                </li>
-
-                <!-- <li><button id="dkmode"><i class="fa fa-adjust"></i></button></li> -->
-   </ul>
-            <button id="btnSesion"
-                <?php if ($user_id === null) { ?>
-                onclick="window.location.href='Dafont_Log.php'">
-                <i class="fa-solid fa-circle-user"></i></button>
-        <?php } else { ?>
-            onclick="window.location.href='Dafont_Profile.php'">
-            <?php echo $user_name ?></button>
+                        <input type="text" name="search_term" class="search-bar" placeholder="Buscar fuentes..." value="<?php echo isset($_GET['search_term']) ? htmlspecialchars($_GET['search_term']) : ''; ?>">
+                        <button type="submit" title="Buscar" class="search-button"><i class="fa fa-search"></i></button>
+                    </div>
+                </form>
+            </li>
+        </ul>
+         <?php if(isset($_SESSION['user_id'])){?>
+        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'"><i class="fa-solid fa-heart"></i>Favoritas</button>
         <?php } ?>
-
+        <button id="btnSesion" 
+            <?php if(!isset($_SESSION['user_id'])){ ?>
+            title="Iniciar Sesion" onclick="window.location.href='Dafont_Log.php'">
+            <i class="fa-solid fa-circle-user"></i></button>
+            <?php }else{ ?>
+            title="Mi Perfil" onclick="window.location.href='Dafont_Editar.php'">
+            <?php echo htmlspecialchars($user_name); ?></button>
+            <?php } ?>
         <div class="menu-hamburguesa">
             <span></span>
             <span></span>
             <span></span>
         </div>
-        </nav>
-    </header>
+    </nav>
+</header>
+
+
 
     <main>
         <div id="notification-area" class="notification-area" style="display: none;">
         </div>
 
+ <div class="ContDatos">
+        <h1>Tu Perfil</h1>    
+        
+            <?php
+            if (empty($imagen_final_a_mostrar) && isset($_SESSION['user_img']) && !empty($_SESSION['user_img'])) {
+                $imagen_final_a_mostrar = $_SESSION['user_img'];
+            }
+
+            if (empty($imagen_final_a_mostrar)): ?>
+                <img src="IMG/image_default.png" alt="Imagen de perfil por defecto">
+            <?php else: ?>
+                <img src="<?php echo htmlspecialchars($imagen_final_a_mostrar); ?>" alt="Imagen de perfil de <?php echo htmlspecialchars($user_name); ?>">
+            <?php endif; ?>
+            <div class="">
+            <h2><?php echo htmlspecialchars($user_name); ?></h2>
+            <?php if(isset($userData['pagina']) && $userData['pagina'] !== ''): ?>
+                <a href="<?php echo htmlspecialchars($userData['pagina']); ?>" target="_blank" rel="noopener noreferrer">Página oficial</a>
+            <?php else: ?>
+                <h6>Aún no tienes página oficial</h6>
+            <?php endif; ?></div>
+     
+    </div>
+
+
         <form action="BACK/EditPerfil.php" id="FormLogin" method="post" enctype="multipart/form-data">
 
             <div>
-                <h1>Modifica tus Datos</h1><br>
+                <h1>Tus Datos</h1><br>
 
                 <div id="NombreUsuario">
                     <div class="input-group">
@@ -177,8 +178,12 @@ $userData = mysqli_fetch_assoc($resultado);
                     <br>
                     <input class="input" type="file" id="imgRuta" name="imgRuta" accept="image/*" onchange="previewImage()">
                 </div>
-                <label for="#"> <input type="checkbox" name="psw-change" id="psw-change" onclick="togglePasswordVisibility()">Cambiar contraseña</label><br>
-                <div id="botones"><button type="submit" id="btn-REG">Completar</button> <button type="button" id="btn-Cnl" onclick="location.href='DaFont_Profile.php'">Regresar</button></div>
+              <label class="switch-label" for="psw-change"> <input type="checkbox" name="psw-change" id="psw-change" onclick="togglePasswordVisibility()">
+             <span class="slider round"></span>
+  <span class="switch-text">Cambiar contraseña</span>
+            </label>
+                <br>
+                <div id="botones"><button type="submit" id="btn-REG">Guardar</button> </div>
         </form>
 
 

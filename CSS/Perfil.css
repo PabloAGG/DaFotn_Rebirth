@@ -1,4 +1,4 @@
-.DatosUs img{
+.ContDatos img{
 width: 100px;
 height: 100px;
 border-radius: 50%;
@@ -6,14 +6,17 @@ border-radius: 50%;
 
 .DatosUs {
 display: flex;
-flex-direction: row;
+flex-direction: column;
 justify-content: space-evenly;
 
 }
 .ContDatos{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
     padding: 20px 20px;
 
 }
@@ -41,6 +44,77 @@ justify-content: space-evenly;
     /* ...otros estilos que ya tenías para .author-id... */
 }
 
+/* Ocultar el checkbox original */
+#psw-change {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute; /* Asegura que no ocupe espacio */
+}
+
+.switch-label {
+  position: relative;
+  display: inline-flex; /* Para alinear elementos internos */
+  align-items: center;
+  cursor: pointer;
+  font-family: sans-serif;
+  color: #ffffff;
+  user-select: none; /* Evita la selección del texto al hacer clic */
+  margin-bottom: 10px; /* Espacio opcional */
+}
+body.light-mode .switch-label {
+  color: #000000; /* Cambia el color del texto en modo claro */
+}
+/* El fondo del interruptor */
+.switch-label .slider {
+  position: relative; /* Cambiado de absolute para que el texto fluya mejor */
+  width: 44px; /* Ancho del interruptor */
+  height: 24px; /* Alto del interruptor */
+  background-color: #ccc;
+  border-radius: 34px; /* Hace que los extremos sean redondos */
+  transition: background-color .4s;
+  margin-right: 10px; /* Espacio entre el switch y el texto */
+}
+
+/* El círculo que se desliza */
+.switch-label .slider::before {
+  position: absolute;
+  content: "";
+  height: 18px; /* Tamaño del círculo */
+  width: 18px;
+  left: 3px; /* Posición inicial */
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%; /* Hace que sea un círculo */
+  transition: transform .4s; /* Animación del deslizamiento */
+}
+
+/* Texto al lado del switch */
+.switch-label .switch-text {
+  line-height: 24px; /* Alinea verticalmente con el switch */
+}
+
+
+/* Estilos cuando el checkbox (interruptor) está activo */
+#psw-change:checked + .slider {
+  background-color: #2196F3; /* Color del interruptor activo */
+}
+
+#psw-change:checked + .slider::before {
+  transform: translateX(20px); /* Desplaza el círculo */
+}
+
+/* Estilo de foco para accesibilidad */
+#psw-change:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+#botones{
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
 .presentacion img {
 margin: 15px;
 }
