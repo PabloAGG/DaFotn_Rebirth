@@ -30,7 +30,8 @@ $resultado = mysqli_stmt_get_result($stmt);
         if (password_verify($password, $row['contraseña'])) {
             $_SESSION['user_id'] = $row['idUsuario'];
             $_SESSION['user_name'] = $row['usuario'];
-            $_SESSION['user_img'] = $row['imgPath']; // Guardamos el rol
+            $_SESSION['user_Onb'] = $row['onboarding']; // Guardamos el rol
+
         
                 header('Location: ../DaFont_index.php');
                 exit(); 

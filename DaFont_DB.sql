@@ -1,4 +1,4 @@
-Create drop database Dafont;
+Create database Dafont;
 use Dafont;
 
 CREATE TABLE Usuario(
@@ -13,6 +13,8 @@ CREATE TABLE Usuario(
     pagina nvarchar(255) NULL,
     fechaRegistro datetime DEFAULT current_timestamp()
 );
+alter table usuario 
+add column onboarding boolean default 0;
 CREATE TABLE Categorias (
     idCategoria int auto_increment primary key,
     nombreCategoria nvarchar(50) UNIQUE NOT NULL
@@ -35,6 +37,8 @@ CREATE TABLE Fonts(
     fechaSubida datetime DEFAULT current_timestamp(),
     FOREIGN KEY (fontAutor) REFERENCES Usuario (idUsuario) ON DELETE SET NULL
 );
+
+
 INSERT INTO Fonts (fontName, fontFamilyCSS, fontAutor, fontStyleFallback, descargas, licenciaDescripcion) VALUES
 ('Henny Penny', 'Henny Penny', 1, 'system-ui', 23746, 'Gratis para uso personal'),
 ('Iansui', 'Iansui', 1, 'cursive', 15200, 'Gratis para uso personal'),

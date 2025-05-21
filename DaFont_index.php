@@ -86,6 +86,7 @@ if ($stmt) {
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/styleCards.css">
     <link rel="stylesheet" href="CSS/fontD.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@VERSION/dist/css/shepherd.css"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
     </style>
@@ -260,7 +261,259 @@ if ($stmt) {
     <p><a href="DaFont_AuthorsList.php">Autores</a></p>
 </div>
 </footer>
+<script type="module">
+import Shepherd from "./node_modules/shepherd.js/dist/esm/shepherd.mjs";
+const tour = new Shepherd.Tour({
+  useModalOverlay: true,
+  defaultStepOptions: {
+    scrollTo: false,
+    cancelIcon:{
+        enabled:false,
+    },
+     canClickTarget: false,
+  },
+});
 
+
+tour.addSteps([
+  {
+    id: "step-1-navbar",
+    text: "¡Bienvenido! En la barra de navegación superior encontrarás las principales herramientas para explorar las fuentes.",
+    classes:"shadow-md bg-red-dark",
+    attachTo: {
+      element: ".navbar",
+      on: "bottom"
+    },
+    highlightClass: 'elemento-iluminado-custom',
+    buttons: [
+      {
+        text: ">",
+        action: tour.next,
+      }
+    ]
+  },
+  {
+    id: "step-2-categories",
+    text: "Aquí puedes navegar por las diferentes categorías de fuentes. Haz clic en una para ver las fuentes correspondientes.",
+    classes:"shadow-md bg-red-dark",
+    attachTo: {
+      // Targets the first category link in the navigation
+      element: ".nav-links .category-btn", 
+      on: "bottom"
+    },
+    highlightClass: 'elemento-iluminado-custom',
+    buttons: [
+      {
+        text:"<",
+        action: tour.back,
+      },
+      {
+        text: ">",
+        action: tour.next,
+      }
+    ]
+  },
+  {
+    id: "step-3-search",
+    text: "Utiliza esta barra para buscar fuentes por nombre o autor. Escribe tu término y presiona el botón de la lupa.",
+    classes:"shadow-md bg-red-dark",
+    attachTo: {
+      // Targets the container of the search bar and button
+      element: ".search-container", 
+      on: "bottom" 
+    },
+    highlightClass: 'elemento-iluminado-custom',
+    buttons: [
+      {
+        text:"<",
+        action: tour.back,
+      },
+      {
+        text: ">",
+        action: tour.next,
+      }
+    ]
+  },
+  {
+    id: "step-4-btnFav",
+    text: "Si has iniciado sesión, este botón te lleva directamente a tu colección de fuentes favoritas.",
+    classes:"shadow-md bg-red-dark",
+    attachTo: {
+      element: "#btnFav", // Button for favorites page
+      on: "bottom"
+    },
+    // Note: This step will only work if the #btnFav element exists (i.e., user is logged in).
+    // You might need to add JavaScript logic to conditionally add this step
+    // or ensure the tour is appropriate for the user's login state.
+    when: { // Shepherd's built-in way to conditionally show a step
+      show: () => document.querySelector('#btnFav') !== null
+    },
+    highlightClass: 'elemento-iluminado-custom',
+    buttons: [
+      {
+        text:"<",
+        action: tour.back,
+      },
+      {
+        text: ">",
+        action: tour.next,
+      }
+    ]
+  },
+  {
+    id: "step-5-btnSesion",
+    text: "Desde aquí puedes iniciar sesión, registrarte, o si ya has accedido, ir a tu perfil para editar tus datos.",
+    classes:"shadow-md bg-red-dark",
+    attachTo: {
+      element: "#btnSesion", // Login/Profile button
+      on: "bottom" // Or "left" if it visually fits better
+    },
+    highlightClass: 'elemento-iluminado-custom',
+    buttons: [
+      {
+        text:"<",
+        action: tour.back,
+      },
+      {
+        text: ">",
+        action: tour.next,
+      }
+    ]
+  },
+  {
+    id: "step-6-btnFiltros",
+    text: "Este botón abre el panel de filtros. Podrás cambiar el texto de previsualización, ajustar el tamaño de la fuente y activar el modo oscuro/claro.",
+    classes:"shadow-md bg-red-dark",
+    attachTo: {
+      element: "#btn-filtros", // Filters button
+      on: "left" 
+    },
+    highlightClass: 'elemento-iluminado-custom',
+    buttons: [
+      {
+        text:"<",
+        action: tour.back,
+      },
+      {
+        text: ">",
+        action: tour.next,
+      }
+    ]
+  },
+  {
+    id: "step-7-fontCards",
+    text: "Aquí se muestran las fuentes disponibles. Cada tarjeta ofrece una vista previa de la fuente, su nombre y el autor.",
+    classes:"shadow-md bg-red-dark",
+    attachTo: {
+      // Targets the first font card. Assumes at least one card is present.
+      element: ".font-card", 
+      on: "top" 
+    },
+    when: { 
+      show: () => document.querySelector('.font-card') !== null
+    },
+    highlightClass: 'elemento-iluminado-custom',
+    buttons: [
+      {
+        text:"<",
+        action: tour.back,
+      },
+      {
+        text: ">",
+        action: tour.next,
+      }
+    ]
+  },
+  {
+    id: "step-8-fontCard-details",
+    text: "Haz clic en cualquier parte de la tarjeta de una fuente para ver más detalles, como todos sus caracteres, información de licencia y más opciones.",
+    classes:"shadow-md bg-red-dark",
+    attachTo: {
+      // Targets the presentation area of the first font card
+      element: ".font-card .presentacion", 
+      on: "top"
+    },
+    when: {
+      show: () => document.querySelector('.font-card .presentacion') !== null
+    },
+    highlightClass: 'elemento-iluminado-custom',
+    buttons: [
+      {
+        text:"<",
+        action: tour.back,
+      },
+      {
+        text: ">",
+        action: tour.next,
+      }
+    ]
+  },
+  {
+    id: "step-9-fontCard-favBtn",
+    text: "Con el botón del corazón puedes añadir o quitar una fuente de tu lista personal de 'Favoritas' (requiere iniciar sesión).",
+    classes:"shadow-md bg-red-dark",
+    attachTo: {
+      // Targets the favorite button of the first font card
+      element: ".font-card .btn-favorite", 
+      on: "left" 
+    },
+    when: {
+      show: () => document.querySelector('.font-card .btn-favorite') !== null
+    },
+    highlightClass: 'elemento-iluminado-custom',
+    buttons: [
+      {
+        text:"<",
+        action: tour.back,
+      },
+      {
+        text: ">",
+        action: tour.next,
+      }
+    ]
+  },
+  {
+    id: "step-10-fontCard-dlBtn",
+    text: "Usa este botón para descargar directamente el archivo de la fuente a tu dispositivo.",
+    classes:"shadow-md bg-red-dark",
+    attachTo: {
+      // Targets the download button of the first font card
+      element: ".font-card .download-btn", 
+      on: "left"
+    },
+    when: {
+      show: () => document.querySelector('.font-card .download-btn') !== null
+    },
+    highlightClass: 'elemento-iluminado-custom',
+    buttons: [
+      {
+        text:"<",
+        action: tour.back,
+      },
+      {
+        text: ">", // Next step or complete
+        action: tour.next,
+      }
+    ]
+  },
+  {
+    id: "step-11-end",
+    text: "¡Has completado el tour! Ya estás listo para descubrir y descargar miles de fuentes. ¡Disfruta tu experiencia!",
+    classes:"shadow-md bg-red-dark",
+    highlightClass: 'elemento-iluminado-custom',
+    buttons: [
+      {
+        text:"Finalizar",
+        action: tour.complete,
+      }
+    ]
+  }
+]);
+
+// ¡No olvides iniciar el tour!
+ tour.start();
+
+</script>
 <script src="JS/app.js"></script>
 <script src="JS/script.js"></script>
 <script src="JS/scriptCards.js"></script>

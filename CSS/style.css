@@ -754,6 +754,8 @@ body.light-mode .submenu a:hover {
     align-items: center;
 }
 
+
+
 /* Estilos específicos por tipo */
 .notification-area.success {
     background-color: #28a745; /* Verde */
@@ -832,4 +834,80 @@ body.light-mode .notification-area.error {
 }
 .info-area .close-btn:hover {
     opacity: 1;
+}
+
+.bg-red-dark {
+  background-color: #4A0404;
+  color: #FFFFFF;
+  border: 1px solid #8B0000;
+  border-radius: 8px;
+}
+
+/* Clase para la sombra */
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Estilos para el TEXTO del paso cuando tiene la clase .bg-red-dark */
+.shepherd-element.bg-red-dark .shepherd-text {
+  padding: 1em; /* Espaciado interno del texto */
+  font-size: 0.9em;
+  line-height: 1.5;
+  /* Si ya no quieres el margen de 50px porque el margin-bottom del header es suficiente, puedes quitar la regla de abajo.
+     O ajústala si necesitas más espacio. */
+}
+dialog{
+    z-index: 99999;
+    position: fixed;
+}
+.shepherd-text {
+  margin-top: 10px; /* Ajusta este valor según necesites */
+ }
+
+
+/* Estilos para el FOOTER del paso */
+.shepherd-element.bg-red-dark .shepherd-footer {
+  padding: 0.75em;
+  border-top: 1px solid #8B0000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Estilos para los BOTONES */
+.shepherd-element.bg-red-dark .shepherd-button {
+  background-color: #C53030;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 0.5em;
+  transition: background-color 0.2s ease;
+}
+
+.shepherd-element.bg-red-dark .shepherd-button:hover {
+  background-color: #A02828;
+}
+
+/* Estilo para el botón de cancelar (la 'x') */
+.shepherd-element.bg-red-dark .shepherd-cancel-icon {
+  color: #FCC9C9;
+  font-size: 1.5em;
+  background: none; /* Asegúrate que no tenga fondo si no lo quieres */
+  border: none;     /* Y sin borde */
+  padding: 0;       /* Sin padding extra si no es necesario */
+}
+
+.shepherd-element.bg-red-dark .shepherd-cancel-icon:hover {
+  color: #FFFFFF;
+}
+
+.elemento-iluminado-custom {
+  box-shadow: 0 0 20px 8px rgba(255, 0, 0, 0.75); /* Resplandor rojizo, por ejemplo */
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  position: relative;
+  z-index: 9999;
+   transition: all 0.3s ease-in-out;  
 }
