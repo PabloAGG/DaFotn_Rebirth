@@ -80,9 +80,7 @@ session_start();
 
 
 <main>
-    <div id="notification-area" class="notification-area" style="display: none;">
-    </div>
-
+   
     <form action="BACK/Registro.php" method="POST" id="FormLogin">
         <div>
         <h1>Crea tu cuenta Dafont</h1><br>
@@ -118,6 +116,8 @@ session_start();
             <input required="" type="Password" name="contraseña_Check" autocomplete="off" class="input">
             <label class="user-label">Confirma tu contraseña</label>
           </div>
+ <div id="notification-area" class="notification-area" style="display: none;">
+    </div>
 
           <div id="botones"><button id="btn-REG">Registrarme</button> <button type="button" onclick="window.location.href='DaFont_Log.php'" id="btn-Cnl">Cancelar</button></div>
     </form>

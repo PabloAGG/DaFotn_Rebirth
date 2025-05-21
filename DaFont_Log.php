@@ -79,9 +79,7 @@ session_start();
 
 
 <main>
-    <div id="notification-area" class="notification-area" style="display: none;">
-    </div>
-
+ 
         <h1>Inicia Sesión para Guardar tus Fuentes Favoritas</h1><br>
  <div class="Login">
 
@@ -96,6 +94,8 @@ session_start();
             <input required="" type="password" name="password_user" autocomplete="off" class="input">
             <label class="user-label">Contraseña</label>
           </div>
+   <div id="notification-area" class="notification-area" style="display: none;">
+    </div>
 
     <button>Ingresa</button>
     <span>¿Aún no tienes Cuenta?  <a href="Dafont-SignUp.php">Crea una ahora!</a></span>

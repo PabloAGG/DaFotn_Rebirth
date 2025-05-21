@@ -133,7 +133,7 @@ if ($stmt) {
             </li>
         </ul>
          <?php if(isset($_SESSION['user_id'])){?>
-        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'"><i class="fa-solid fa-heart"></i>Favoritas</button>
+        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'"><i class="fa-solid fa-heart"></i> Favoritas</button>
         <?php } ?>
         <button id="btnSesion" 
             <?php if(!isset($_SESSION['user_id'])){ ?>
@@ -244,6 +244,10 @@ if ($stmt) {
         <?php else: ?>
             <p>No hay fuentes disponibles para mostrar que coincidan con tu búsqueda o filtro.</p>
         <?php endif; ?>
+    </div>
+
+    <div class="info-area" id="info-area">
+
     </div>
 </main>
 

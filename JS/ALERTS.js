@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (error) { // Solo procesa si hay un error
         if (typeof showNotification === 'function') {
             switch (error) {
-                case 'user_exists':
+                case 'username_exists':
                     showNotification('El nombre de usuario ya existe.', 'error');
                     break;
                 case 'email_exists':
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Fallback a alert si showNotification no está definida
             console.warn("Función showNotification no encontrada, usando alert como fallback.");
             switch (error) {
-                case 'user_exists':
+                case 'username_exists':
                     alert('El nombre de usuario ya existe.');
                     break;
                 case 'email_exists':

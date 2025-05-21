@@ -48,7 +48,7 @@ WHERE f.idFont = ? ";
 }
 
 // Variable para el nombre de usuario en el encabezado (si está en sesión)
-$user_name_session = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : null;
+$user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : null;
 
 $comentarios_para_fuente = []; 
 if ($font_id_param > 0) { 

@@ -765,9 +765,23 @@ body.light-mode .submenu a:hover {
     border-color: #dc3545;
 }
 
-.notification-area.info { /* Para mensajes informativos */
-    background-color: #17a2b8; /* Azul */
-    border-color: #17a2b8;
+.info-area{
+  position: fixed;
+    bottom: 20px; /* Distancia desde el borde inferior de la pantalla */
+    right: 20px;  /* Distancia desde el borde derecho de la pantalla */
+
+    /* Estilos que ya tenías y están bien */
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    color: #fff;
+    font-size: 0.9em;
+    background-color: rgba(235, 1, 57, .5);
+    display: none; 
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+   
 }
 
 /* Estilos para modo claro */
@@ -784,10 +798,10 @@ body.light-mode .notification-area.error {
     border-color: #f5c6cb;
     color: #721c24;
 }
- body.light-mode .notification-area.info {
-    background-color: #d1ecf1;
-    border-color: #bee5eb;
-    color: #0c5460;
+ body.light-mode .info-area {
+    background-color: #f9c2cf;
+    border-color: #f9c2cf;
+    color: rgb(235, 1, 57);
 }
 
 /* Botón opcional para cerrar */
@@ -802,5 +816,20 @@ body.light-mode .notification-area.error {
     padding: 0 5px;
 }
 .notification-area .close-btn:hover {
+    opacity: 1;
+}
+
+/* Botón opcional para cerrar */
+.info-area .close-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.7;
+    padding: 0 5px;
+}
+.info-area .close-btn:hover {
     opacity: 1;
 }

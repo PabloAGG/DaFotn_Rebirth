@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $error = "email_exists";
         }
-        header("Location: ../DaFont_SignUp.php?error=$error");
+        header("Location: ../DaFont-SignUp.php?error=$error");
         exit();
     }
     
