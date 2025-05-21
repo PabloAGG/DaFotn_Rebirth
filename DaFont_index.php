@@ -86,6 +86,11 @@ if ($stmt) {
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/styleCards.css">
     <link rel="stylesheet" href="CSS/fontD.css">
+<<<<<<< Updated upstream
+=======
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@VERSION/dist/css/shepherd.css"/> 
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css"  crossorigin="anonymous" referrerpolicy="no-referrer" />
+>>>>>>> Stashed changes
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
     </style>
@@ -260,6 +265,91 @@ if ($stmt) {
     <p><a href="DaFont_AuthorsList.php">Autores</a></p>
 </div>
 </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script> 
+document.addEventListener('DOMContentLoaded', function() {
+
+const introSteps = [
+        {
+            element: document.querySelector('.navbar'),
+            intro: "¡Bienvenido! Esta es la barra de navegación principal donde encontrarás todas las opciones importantes.",
+            position: 'bottom'
+        },
+        {
+            element: document.querySelector('.nav-links .category-btn'), // Targets the first category button
+            intro: "Navega por las diferentes categorías de fuentes haciendo clic en sus nombres.",
+            position: 'bottom'
+        },
+        {
+            element: document.querySelector('.search-container'),
+            intro: "Usa esta barra para buscar fuentes por nombre o autor. Escribe y presiona el botón de la lupa.",
+            position: 'bottom'
+        },
+        {
+            element: document.querySelector('#btnFav'),
+            intro: "Si has iniciado sesión, este botón te lleva directamente a tu colección de fuentes favoritas.",
+            position: 'bottom'
+        },
+        {
+            element: document.querySelector('#btnSesion'),
+            intro: "Desde aquí puedes iniciar sesión, registrarte, o si ya has accedido, ir a tu perfil.",
+            position: 'bottom' // Or 'left' depending on layout
+        },
+        {
+            element: document.querySelector('#btn-filtros'),
+            intro: "Este botón abre el panel de filtros. Podrás cambiar el texto de previsualización, el tamaño de la fuente y más.",
+            position: 'right'
+        },
+        {
+            element: document.querySelector('.font-card'), // Targets the first font card
+            intro: "Aquí se muestran las fuentes. Cada tarjeta ofrece una vista previa, nombre y autor.",
+            position: 'top'
+        },
+        {
+            element: document.querySelector('.font-card .presentacion'), // Targets presentation area of the first font card
+            intro: "Haz clic en cualquier parte de la tarjeta de una fuente para ver más detalles como todos sus caracteres y opciones de descarga.",
+            position: 'top'
+        },
+        {
+            element: document.querySelector('.font-card .btn-favorite'), // Targets favorite button of the first font card
+            intro: "Con el botón del corazón puedes añadir o quitar esta fuente de tu lista personal de 'Favoritas' (requiere iniciar sesión).",
+            position: 'left'
+        },
+        {
+            element: document.querySelector('.font-card .download-btn'), // Targets download button of the first font card
+            intro: "Usa este botón para descargar directamente el archivo de la fuente a tu dispositivo.",
+            position: 'left'
+        },
+        {
+            intro: "¡Has completado el tour! Ya estás listo para descubrir y descargar miles de fuentes. ¡Disfruta tu experiencia!",
+            // No element needed for a general final message
+        }
+    ];
+
+    // Filter out steps where the element might not exist on the page
+    const activeIntroSteps = introSteps.filter(step => {
+        if (step.element) {
+            return step.element !== null; // Check if querySelector found the element
+        }
+        return true; // Keep steps that don't have an 'element' (like general intro/outro messages)
+    });
+
+    if (activeIntroSteps.length > 0) {
+        introJs().setOptions({
+            steps: activeIntroSteps,
+            nextLabel: 'Siguiente &rarr;',
+            prevLabel: '&larr; Anterior',
+            doneLabel: 'Finalizar',
+            tooltipClass: 'introjs-custom-tooltip', // Optional: for custom styling
+            showBullets: false, // Optional: hide step bullets
+            // exitOnOverlayClick: false, // Optional: prevent closing by clicking overlay
+        }).start();
+    }
+
+    // --- END INTRO.JS TOUR ---
+});
+</script>
 
 <script src="JS/app.js"></script>
 <script src="JS/script.js"></script>
