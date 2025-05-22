@@ -116,6 +116,7 @@ if ($user_id) {
     <title>DaFont - Mi Perfil</title>
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/Perfil.css">
+    <link rel="stylesheet" href="CSS/fontD.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
     </style>
@@ -239,15 +240,15 @@ if ($user_id) {
                         <div class="font-preview" style="font-family: '<?php echo htmlspecialchars($font_item['fontFamilyCSS']); ?>', <?php echo htmlspecialchars($font_item['fontStyleFallback']); ?>;"><?php echo htmlspecialchars($font_item['fontName']); ?></div>
                         <div class="font-details">
                             <span class="downloads"><?php echo number_format($font_item['descargas']); ?> descargas </span> <span class="license"><?php echo htmlspecialchars($font_item['licenciaDescripcion']); ?></span>
-                            <div class="stars-display" data-font-id="<?php echo $font_item['idFont']; ?>">
-                                <?php
-                                $promedio = round($font_item['promedioEstrellas'] ?? 0);
-                                $totalVotos = (int) ($font_item['totalCalificaciones'] ?? 0);
-                                for ($i = 1; $i <= 5; $i++): ?>
-                                    <span class="star <?php echo ($i <= $promedio) ? 'filled' : ''; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
-                                <?php endfor; ?>
-                                <span class="rating-average">(<?php echo number_format($font_item['promedioEstrellas'] ?? 0, 1); ?> de <?php echo $totalVotos; ?> votos)</span>
-                            </div>
+                                 <div class="stars-display" data-font-id="<?php echo $font_item['idFont']; ?>">
+                            <?php
+                            $promedio = round($font_item['promedioEstrellas'] ?? 0);
+                            $totalVotos = (int) ($font_item['totalCalificaciones'] ?? 0);
+                            for ($i = 1; $i <= 5; $i++): ?>
+                                <span class="star <?php echo ($i <= $promedio) ? 'filled' : ''; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
+                            <?php endfor; ?>
+        
+                        </div>
                         </div>
                         <?php
                         $isFavorite = true; // Todas en esta lista son favoritas
@@ -275,15 +276,15 @@ if ($user_id) {
                         <div class="font-preview" style="font-family: '<?php echo htmlspecialchars($font_item['fontFamilyCSS']); ?>', <?php echo htmlspecialchars($font_item['fontStyleFallback']); ?>;"><?php echo htmlspecialchars($font_item['fontName']); ?></div>
                         <div class="font-details">
                              <span class="downloads"><?php echo number_format($font_item['descargas']); ?> descargas </span> <span class="license"><?php echo htmlspecialchars($font_item['licenciaDescripcion']); ?></span>
-                            <div class="stars-display" data-font-id="<?php echo $font_item['idFont']; ?>">
-                                <?php
-                                $promedio = round($font_item['promedioEstrellas'] ?? 0);
-                                $totalVotos = (int) ($font_item['totalCalificaciones'] ?? 0);
-                                for ($i = 1; $i <= 5; $i++): ?>
-                                    <span class="star <?php echo ($i <= $promedio) ? 'filled' : ''; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
-                                <?php endfor; ?>
-                                <span class="rating-average">(<?php echo number_format($font_item['promedioEstrellas'] ?? 0, 1); ?> de <?php echo $totalVotos; ?> votos)</span>
-                            </div>
+                                 <div class="stars-display" data-font-id="<?php echo $font_item['idFont']; ?>">
+                            <?php
+                            $promedio = round($font_item['promedioEstrellas'] ?? 0);
+                            $totalVotos = (int) ($font_item['totalCalificaciones'] ?? 0);
+                            for ($i = 1; $i <= 5; $i++): ?>
+                                <span class="star <?php echo ($i <= $promedio) ? 'filled' : ''; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
+                            <?php endfor; ?>
+        
+                        </div>
                         </div>
                         <?php
                         $isFavorite = ($font_item['currentUserHasFavorited'] > 0);
@@ -318,5 +319,6 @@ if ($user_id) {
 <script src="JS/scriptIndex.js"></script> 
 <script src="JS/ALERTS.js"></script>
 
+<script></script>
 </body>
 </html>
