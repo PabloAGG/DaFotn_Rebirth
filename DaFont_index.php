@@ -127,7 +127,7 @@ if ($stmt) {
                 <form action="DaFont_index.php" method="GET" class="search-container-form">
                     <div class="search-container">
                         <input type="text" name="search_term" class="search-bar" placeholder="Buscar fuentes..." value="<?php echo isset($_GET['search_term']) ? htmlspecialchars($_GET['search_term']) : ''; ?>">
-                        <button type="submit" title="Buscar" class="search-button"><i class="fa fa-search"></i></button>
+                        <button type="submit" title="Buscar" class="search-button" aria-label="Boton de busqueda"><i class="fa fa-search"></i></button>
                     </div>
                 </form>
             </li>
@@ -152,8 +152,8 @@ if ($stmt) {
 </header>
 
 
-<main>
-    <nav id="breadcrumb">
+<main >
+    <nav id="breadcrumb" aria-label="Ruta de navegacion">
         <span><a href="DaFont_index.php">Inicio</a></span>
         <?php
         // El breadcrumb aquí usa las variables $category_name, $subcategory_name, $search_term
@@ -260,6 +260,7 @@ if ($stmt) {
     <p><a href="DaFont_AuthorsList.php">Autores</a></p>
 </div>
 </footer>
+
 
 <script src="JS/app.js"></script>
 <script src="JS/script.js"></script>

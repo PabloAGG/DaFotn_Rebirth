@@ -126,7 +126,7 @@ $faq_items = [
             <i class="fa-solid fa-circle-user"></i></button>
             <?php }else{ ?>
             title="Mi Perfil" onclick="window.location.href='Dafont_Editar.php'">
-            <?php echo htmlspecialchars($user_name); ?></button>
+            <?php echo htmlspecialchars($visitor_user_name); ?></button>
             <?php } ?>
         <div class="menu-hamburguesa">
             <span></span>
