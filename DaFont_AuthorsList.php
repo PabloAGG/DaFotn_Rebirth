@@ -122,9 +122,9 @@ if ($stmt_authors) {
                 <div class="author-card">
                     <a href="DaFont-AuthorProfile.php?id=<?php echo $author_item['idUsuario']; ?>">
                         <?php if (!empty($author_item['autorImgPath'])): ?>
-                            <img src="<?php echo htmlspecialchars($author_item['autorImgPath']); ?>" alt="Avatar de <?php echo htmlspecialchars($author_item['nombreAutor']); ?>">
+                            <img src="<?php echo htmlspecialchars($author_item['autorImgPath']); ?>" alt="Avatar de <?php echo htmlspecialchars($author_item['nombreAutor']); ?>" loading="lazy">
                         <?php else: ?>
-                            <img src="IMG/DefaultProfile.png" alt="Avatar por defecto">
+                            <img loading="lazy" src="IMG/DefaultProfile.png" alt="Avatar por defecto">
                         <?php endif; ?>
                     </a>
                     <h2><a href="DaFont-AuthorProfile.php?id=<?php echo $author_item['idUsuario']; ?>"><?php echo htmlspecialchars($author_item['nombreAutor']); ?></a></h2>

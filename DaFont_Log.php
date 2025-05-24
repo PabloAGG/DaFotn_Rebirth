@@ -18,14 +18,13 @@ session_start();
   </head>
 <body>
 
-    <!-- <div class="contenedorPrincipal"> -->
 <header>
     <nav class="navbar">
         <div>
-            <a href="DaFont_index.php" class="logo"><img id="navImg" src="Dafont1-Dark1.png" alt="Logo pagina Dafont"></a>
+            <a href="DaFont_index.php" class="logo"><img id="navImg" src="Dafont1-Dark1.png" alt="Logo pagina Dafont" loading="lazy"></a>
         </div>
         <ul class="nav-links" id="navMenu">
-            <button id="closeMenu"><i class="fa fa-close"></i></button>
+            <button id="closeMenu" aria-label="cerrar menu"><i class="fa fa-close"></i></button>
             <?php
             $sql_categories = "SELECT nombreCategoria FROM Categorias ORDER BY nombreCategoria";
             $result_categories_nav = mysqli_query($conn, $sql_categories); // Usar un nombre de variable diferente para el resultado de esta consulta
@@ -53,20 +52,20 @@ session_start();
                 <form action="DaFont_index.php" method="GET" class="search-container-form">
                     <div class="search-container">
                         <input type="text" name="search_term" class="search-bar" placeholder="Buscar fuentes..." value="<?php echo isset($_GET['search_term']) ? htmlspecialchars($_GET['search_term']) : ''; ?>">
-                        <button type="submit" title="Buscar" class="search-button"><i class="fa fa-search"></i></button>
+                        <button type="submit" title="Buscar" class="search-button" aria-label="Boton de busqueda"><i class="fa fa-search"></i></button>
                     </div>
                 </form>
             </li>
         </ul>
          <?php if(isset($_SESSION['user_id'])){?>
-        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'"><i class="fa-solid fa-heart"></i>Favoritas</button>
+        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'" aria-label="Boton pagina favoritos"><i class="fa-solid fa-heart"></i> Favoritas</button>
         <?php } ?>
         <button id="btnSesion" 
             <?php if(!isset($_SESSION['user_id'])){ ?>
-            title="Iniciar Sesion" onclick="window.location.href='Dafont_Log.php'">
+            title="Iniciar Sesion" onclick="window.location.href='Dafont_Log.php'" aria-label="boton para iniciar sesion">
             <i class="fa-solid fa-circle-user"></i></button>
             <?php }else{ ?>
-            title="Mi Perfil" onclick="window.location.href='Dafont_Editar.php'">
+            title="Mi Perfil" onclick="window.location.href='Dafont_Editar.php'" aria-label="Boton Tu perfil">
             <?php echo htmlspecialchars($user_name); ?></button>
             <?php } ?>
         <div class="menu-hamburguesa">

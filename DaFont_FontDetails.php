@@ -111,10 +111,10 @@ if ($font_id_param > 0) {
 <header>
     <nav class="navbar">
         <div>
-            <a href="DaFont_index.php" class="logo"><img id="navImg" src="Dafont1-Dark1.png" alt="Logo pagina Dafont"></a>
+            <a href="DaFont_index.php" class="logo"><img id="navImg" src="Dafont1-Dark1.png" alt="Logo pagina Dafont" loading="lazy"></a>
         </div>
         <ul class="nav-links" id="navMenu">
-            <button id="closeMenu"><i class="fa fa-close"></i></button>
+            <button id="closeMenu" aria-label="cerrar menu"><i class="fa fa-close"></i></button>
             <?php
             $sql_categories = "SELECT nombreCategoria FROM Categorias ORDER BY nombreCategoria";
             $result_categories_nav = mysqli_query($conn, $sql_categories); // Usar un nombre de variable diferente para el resultado de esta consulta
@@ -142,20 +142,20 @@ if ($font_id_param > 0) {
                 <form action="DaFont_index.php" method="GET" class="search-container-form">
                     <div class="search-container">
                         <input type="text" name="search_term" class="search-bar" placeholder="Buscar fuentes..." value="<?php echo isset($_GET['search_term']) ? htmlspecialchars($_GET['search_term']) : ''; ?>">
-                        <button type="submit" title="Buscar" class="search-button"><i class="fa fa-search"></i></button>
+                        <button type="submit" title="Buscar" class="search-button" aria-label="Boton de busqueda"><i class="fa fa-search"></i></button>
                     </div>
                 </form>
             </li>
         </ul>
          <?php if(isset($_SESSION['user_id'])){?>
-        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'"><i class="fa-solid fa-heart"></i>Favoritas</button>
+        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'" aria-label="Boton pagina favoritos"><i class="fa-solid fa-heart"></i> Favoritas</button>
         <?php } ?>
         <button id="btnSesion" 
             <?php if(!isset($_SESSION['user_id'])){ ?>
-            title="Iniciar Sesion" onclick="window.location.href='Dafont_Log.php'">
+            title="Iniciar Sesion" onclick="window.location.href='Dafont_Log.php'" aria-label="boton para iniciar sesion">
             <i class="fa-solid fa-circle-user"></i></button>
             <?php }else{ ?>
-            title="Mi Perfil" onclick="window.location.href='Dafont_Editar.php'">
+            title="Mi Perfil" onclick="window.location.href='Dafont_Editar.php'" aria-label="Boton Tu perfil">
             <?php echo htmlspecialchars($user_name); ?></button>
             <?php } ?>
         <div class="menu-hamburguesa">
@@ -207,8 +207,8 @@ if ($font_id_param > 0) {
                 $isFavorite_detail = ($font['currentUserHasFavorited'] > 0);
                 $favIconClass_detail = $isFavorite_detail ? "fa-solid fa-heart" : "fa-regular fa-heart";
                 ?>
-                <button class="btn btn-favorite" title="<?php echo $isFavorite_detail ? 'Quitar de favoritos' : 'Añadir a favoritos'; ?>" data-fontid="<?php echo $font['idFont']; ?>" data-isfavorite="<?php echo $isFavorite_detail ? 'true' : 'false'; ?>"><i class="<?php echo $favIconClass_detail;?>"></i></button>
-                <button class="download-btn" title="Descargar fuente (ejemplo TXT)" data-font-id="<?php echo $font['idFont']; ?>"><i class="fa-solid fa-download"></i></button>
+                <button class="btn btn-favorite" title="<?php echo $isFavorite_detail ? 'Quitar de favoritos' : 'Añadir a favoritos'; ?>" data-fontid="<?php echo $font['idFont']; ?>" data-isfavorite="<?php echo $isFavorite_detail ? 'true' : 'false'; ?>" aria-label="boton Agregar a favoritos"><i class="<?php echo $favIconClass_detail;?>"></i></button>
+                <button class="download-btn" title="Descargar fuente (ejemplo TXT)" data-font-id="<?php echo $font['idFont']; ?>" aria-label="boton de descarga"><i class="fa-solid fa-download"></i></button>
             </div>
         </div>
             <div class="controls">
@@ -221,7 +221,7 @@ if ($font_id_param > 0) {
                     <input type="range" class="slider" id="font-size-range-detail" min="10" max="150" value="48">
                     <span id="font-size-value-detail">48px</span>
                 </div>
-                 <button id="dkmode"><i class="fa-solid fa-circle-half-stroke"></i></button>
+                 <button id="dkmode" aria-label="cambio de modo claro/oscuro"><i class="fa-solid fa-circle-half-stroke"></i></button>
             </div>
 
             <div id="font-preview-detailed" class="font-preview-detailed" style="font-family: '<?php echo htmlspecialchars($font['fontFamilyCSS']); ?>', <?php echo htmlspecialchars($font['fontStyleFallback']); ?>;">
@@ -233,9 +233,9 @@ if ($font_id_param > 0) {
                 <p>
                     <?php if ($font['idAutor']): ?>
                         <?php if ($font['autorImgPath']): ?>
-                            <img src="<?php echo htmlspecialchars($font['autorImgPath']); ?>" alt="Avatar de <?php echo htmlspecialchars($font['nombreAutor']); ?>">
+                            <img loading="lazy" src="<?php echo htmlspecialchars($font['autorImgPath']); ?>" alt="Avatar de <?php echo htmlspecialchars($font['nombreAutor']); ?>">
                         <?php else: ?>
-                             <img src="IMG/DefaultProfile.png" alt="Avatar por defecto">
+                             <img loading="lazy" src="IMG/DefaultProfile.png" alt="Avatar por defecto">
                         <?php endif; ?>
                         <a href="DaFont-AuthorProfile.php?id=<?php echo $font['idAutor']; ?>"><?php echo htmlspecialchars($font['nombreAutor'] ?? 'Desconocido'); ?></a>
                         <?php if ($font['autorPagina']): ?>
@@ -301,7 +301,7 @@ if ($font_id_param > 0) {
             <textarea name="comentario" placeholder="Escribe un comentario..." required aria-label="Escribe un comentario"></textarea>
             <br>
             <div id="mensaje-comentario" class="mensaje-ajax" style="display:none;"></div>
-            <button type="submit" class="btn-ver-mas"><i class="fa-solid fa-paper-plane"></i></button>
+            <button type="submit" class="btn-ver-mas" aria-label="subir comentario"><i class="fa-solid fa-paper-plane"></i></button>
         </form>
 
         <div id="lista-comentarios">
@@ -313,9 +313,9 @@ if ($font_id_param > 0) {
                             <div class="comenPresent">
                                 <div>
                                 <?php if (!empty($coment['imgPathComentador'])): ?>
-                                    <img class="img-cirUs" src="<?php echo htmlspecialchars($coment['imgPathComentador']); ?>" alt="Avatar de <?php echo htmlspecialchars($coment['nombreUsuarioComentador']); ?>">
+                                    <img loading="lazy" class="img-cirUs" src="<?php echo htmlspecialchars($coment['imgPathComentador']); ?>" alt="Avatar de <?php echo htmlspecialchars($coment['nombreUsuarioComentador']); ?>">
                                 <?php else: ?>
-                                    <img src="IMG/image_default.png" alt="Avatar por defecto" class="img-cirUs"> <?php endif; ?>
+                                    <img loading="lazy" src="IMG/image_default.png" alt="Avatar por defecto" class="img-cirUs"> <?php endif; ?>
                                 <strong><?php echo htmlspecialchars($coment['nombreUsuarioComentador']); ?></strong></div>
                                 <span> (<?php echo htmlspecialchars($coment['fecha_formateada']); ?>):</span>
                             </div>

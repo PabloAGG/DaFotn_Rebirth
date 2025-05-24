@@ -200,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             mysqli_close($conn);
-            header('Location: ../Dafont_Profile.php?success=user_updated');
+            header('Location: ../Dafont_Editar.php?success=user_updated');
             exit();
         } else {
             $error_message = mysqli_stmt_error($stmt);

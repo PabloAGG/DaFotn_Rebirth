@@ -3,8 +3,8 @@ session_start();
 require 'BACK/DB_connection.php';
 
 // Variables para el usuario que está visitando la página (desde la sesión)
-$visitor_user_id = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
-$visitor_user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : null;
+$user_id = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
+$user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : null;
 
 // Obtener el ID del autor desde el parámetro GET de la URL
 $author_id_from_url = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -54,7 +54,7 @@ if ($author_id_from_url > 0) {
 
             $stmt_fonts = mysqli_prepare($conn, $sql_fonts_by_author);
             if ($stmt_fonts) {
-                mysqli_stmt_bind_param($stmt_fonts, "ii", $visitor_user_id, $autor_id);
+                mysqli_stmt_bind_param($stmt_fonts, "ii", $user_id, $autor_id);
                 mysqli_stmt_execute($stmt_fonts);
                 $result_fonts = mysqli_stmt_get_result($stmt_fonts);
 
@@ -91,6 +91,8 @@ if ($author_id_from_url > 0) {
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/styleCards.css">
     <link rel="stylesheet" href="CSS/authors.css"> 
+     <link rel="stylesheet" href="CSS/fontD.css"> 
+   
     <script src="https://kit.fontawesome.com/093074d40c.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bonheur+Royale&family=Creepster&family=Eater&family=Henny+Penny&family=Iansui&family=Meddon&family=UnifrakturMaguntia&display=swap');
@@ -102,10 +104,10 @@ if ($author_id_from_url > 0) {
 <header>
     <nav class="navbar">
         <div>
-            <a href="DaFont_index.php" class="logo"><img id="navImg" src="Dafont1-Dark1.png" alt="Logo pagina Dafont"></a>
+            <a href="DaFont_index.php" class="logo"><img id="navImg" src="Dafont1-Dark1.png" alt="Logo pagina Dafont" loading="lazy"></a>
         </div>
         <ul class="nav-links" id="navMenu">
-            <button id="closeMenu"><i class="fa fa-close"></i></button>
+            <button id="closeMenu" aria-label="cerrar menu"><i class="fa fa-close"></i></button>
             <?php
             $sql_categories = "SELECT nombreCategoria FROM Categorias ORDER BY nombreCategoria";
             $result_categories_nav = mysqli_query($conn, $sql_categories); // Usar un nombre de variable diferente para el resultado de esta consulta
@@ -133,21 +135,21 @@ if ($author_id_from_url > 0) {
                 <form action="DaFont_index.php" method="GET" class="search-container-form">
                     <div class="search-container">
                         <input type="text" name="search_term" class="search-bar" placeholder="Buscar fuentes..." value="<?php echo isset($_GET['search_term']) ? htmlspecialchars($_GET['search_term']) : ''; ?>">
-                        <button type="submit" title="Buscar" class="search-button"><i class="fa fa-search"></i></button>
+                        <button type="submit" title="Buscar" class="search-button" aria-label="Boton de busqueda"><i class="fa fa-search"></i></button>
                     </div>
                 </form>
             </li>
         </ul>
          <?php if(isset($_SESSION['user_id'])){?>
-        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'"><i class="fa-solid fa-heart"></i>Favoritas</button>
+        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'" aria-label="Boton pagina favoritos"><i class="fa-solid fa-heart"></i> Favoritas</button>
         <?php } ?>
         <button id="btnSesion" 
             <?php if(!isset($_SESSION['user_id'])){ ?>
-            title="Iniciar Sesion" onclick="window.location.href='Dafont_Log.php'">
+            title="Iniciar Sesion" onclick="window.location.href='Dafont_Log.php'" aria-label="boton para iniciar sesion">
             <i class="fa-solid fa-circle-user"></i></button>
             <?php }else{ ?>
-            title="Mi Perfil" onclick="window.location.href='Dafont_Editar.php'">
-            <?php echo htmlspecialchars($visitor_user_name); ?></button>
+            title="Mi Perfil" onclick="window.location.href='Dafont_Editar.php'" aria-label="Boton Tu perfil">
+            <?php echo htmlspecialchars($user_name); ?></button>
             <?php } ?>
         <div class="menu-hamburguesa">
             <span></span>
@@ -168,13 +170,11 @@ if ($author_id_from_url > 0) {
         }
         ?>
     </nav>
-
-    <button class="btn-filtros" id="btn-filtros">
-        <i class="fa fa-sliders"></i> 
+<button class="btn-filtros" id="btn-filtros" title="Abrir menú de filtros" aria-label="Abrir menú de filtros">
+        <i class="fa-solid fa-sliders"></i>
     </button>
-    
-      <aside class="Filtros">
-        <button class="hideMenu"><i class="fa fa-solid fa-angles-left"></i></button> <div class="Ajustes">  
+   <aside class="Filtros">
+        <button class="hideMenu" aria-label="ocultar menú filtros"><i class="fa fa-solid fa-angles-left"></i></button> <div class="Ajustes">  
             <div>
                 <label for="text-input">Texto de Prueba:</label>
                 <input type="text" name="text-input" id="text-input" placeholder="Escribe algo...">
@@ -194,9 +194,9 @@ if ($author_id_from_url > 0) {
         <div class="author-id">
         <div class="presentacion">
             <?php if($autor_img): ?>
-                <img src="<?php echo htmlspecialchars($autor_img); ?>" alt="Imagen de perfil de <?php echo htmlspecialchars($autor_name); ?>">
+                <img loading="lazy" src="<?php echo htmlspecialchars($autor_img); ?>" alt="Imagen de perfil de <?php echo htmlspecialchars($autor_name); ?>">
             <?php else: ?>
-                <img src="IMG/DefaultProfile.png" alt="Imagen de perfil por defecto">
+                <img loading="lazy" src="IMG/DefaultProfile.png" alt="Imagen de perfil por defecto">
             <?php endif; ?>
             
             <div> <h2><?php echo htmlspecialchars($autor_name); ?></h2>
@@ -242,8 +242,7 @@ if ($author_id_from_url > 0) {
                                 $totalVotos = (int) ($font_item['totalCalificaciones'] ?? 0);
                                 for ($i = 1; $i <= 5; $i++): ?>
                                     <span class="star <?php echo ($i <= $promedio) ? 'filled' : ''; ?>" data-value="<?php echo $i; ?>">&#9733;</span>
-                                <?php endfor; ?>
-                                <span class="rating-average">(<?php echo number_format($font_item['promedioEstrellas'] ?? 0, 1); ?> de <?php echo $totalVotos; ?> votos)</span>
+                                <?php endfor; ?></span>
                             </div>
                         </div>
                         <?php
@@ -280,7 +279,8 @@ if ($author_id_from_url > 0) {
 <script src="JS/app.js"></script>
 <script src="JS/script.js"></script>
 <script src="JS/scriptCards.js"></script>
-<script src="JS/breadcrumbing.js"></script> <script src="JS/Favs.js"></script>
+<script src="JS/breadcrumbing.js"></script> 
+<script src="JS/Favs.js"></script>
 <script>
     // Estas funciones podrían estar en un archivo JS común si se usan en múltiples páginas
     async function handleFavoriteClick(buttonElement, fontId) {

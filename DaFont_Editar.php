@@ -41,10 +41,10 @@ $userData = mysqli_fetch_assoc($resultado);
 <header>
     <nav class="navbar">
         <div>
-            <a href="DaFont_index.php" class="logo"><img id="navImg" src="Dafont1-Dark1.png" alt="Logo pagina Dafont"></a>
+            <a href="DaFont_index.php" class="logo"><img id="navImg" src="Dafont1-Dark1.png" alt="Logo pagina Dafont" loading="lazy"></a>
         </div>
         <ul class="nav-links" id="navMenu">
-            <button id="closeMenu"><i class="fa fa-close"></i></button>
+            <button id="closeMenu" aria-label="cerrar menu"><i class="fa fa-close"></i></button>
             <?php
             $sql_categories = "SELECT nombreCategoria FROM Categorias ORDER BY nombreCategoria";
             $result_categories_nav = mysqli_query($conn, $sql_categories); // Usar un nombre de variable diferente para el resultado de esta consulta
@@ -72,20 +72,20 @@ $userData = mysqli_fetch_assoc($resultado);
                 <form action="DaFont_index.php" method="GET" class="search-container-form">
                     <div class="search-container">
                         <input type="text" name="search_term" class="search-bar" placeholder="Buscar fuentes..." value="<?php echo isset($_GET['search_term']) ? htmlspecialchars($_GET['search_term']) : ''; ?>">
-                        <button type="submit" title="Buscar" class="search-button"><i class="fa fa-search"></i></button>
+                        <button type="submit" title="Buscar" class="search-button" aria-label="Boton de busqueda"><i class="fa fa-search"></i></button>
                     </div>
                 </form>
             </li>
         </ul>
          <?php if(isset($_SESSION['user_id'])){?>
-        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'"><i class="fa-solid fa-heart"></i>Favoritas</button>
+        <button id="btnFav" onclick="window.location.href='Dafont_Profile.php'" aria-label="Boton pagina favoritos"><i class="fa-solid fa-heart"></i> Favoritas</button>
         <?php } ?>
         <button id="btnSesion" 
             <?php if(!isset($_SESSION['user_id'])){ ?>
-            title="Iniciar Sesion" onclick="window.location.href='Dafont_Log.php'">
+            title="Iniciar Sesion" onclick="window.location.href='Dafont_Log.php'" aria-label="boton para iniciar sesion">
             <i class="fa-solid fa-circle-user"></i></button>
             <?php }else{ ?>
-            title="Mi Perfil" onclick="window.location.href='Dafont_Editar.php'">
+            title="Mi Perfil" onclick="window.location.href='Dafont_Editar.php'" aria-label="Boton Tu perfil">
             <?php echo htmlspecialchars($user_name); ?></button>
             <?php } ?>
         <div class="menu-hamburguesa">
@@ -95,7 +95,6 @@ $userData = mysqli_fetch_assoc($resultado);
         </div>
     </nav>
 </header>
-
 
 
     <main>
@@ -111,9 +110,9 @@ $userData = mysqli_fetch_assoc($resultado);
             }
 
             if (empty($imagen_final_a_mostrar)): ?>
-                <img src="IMG/image_default.png" alt="Imagen de perfil por defecto">
+                <img loading="lazy" src="IMG/image_default.png" alt="Imagen de perfil por defecto">
             <?php else: ?>
-                <img src="<?php echo htmlspecialchars($imagen_final_a_mostrar); ?>" alt="Imagen de perfil de <?php echo htmlspecialchars($user_name); ?>">
+                <img loading="lazy" src="<?php echo htmlspecialchars($imagen_final_a_mostrar); ?>" alt="Imagen de perfil de <?php echo htmlspecialchars($user_name); ?>">
             <?php endif; ?>
             <div class="">
             <h2><?php echo htmlspecialchars($user_name); ?></h2>
@@ -134,45 +133,45 @@ $userData = mysqli_fetch_assoc($resultado);
                 <div id="NombreUsuario">
                     <div class="input-group">
                         <input  type="text" name="nombre" autocomplete="off" class="input" value="<?php echo isset($userData['nombres']) ? htmlspecialchars($userData['nombres']) : ''; ?>">
-                        <label class="user-label">Nombre(s)</label>
+                        <label class="user-label" for="nombre">Nombre(s)</label>
                     </div>
 
                     <div class="input-group">
                         <input  type="text" name="apellido" autocomplete="off" class="input" value="<?php echo isset($userData['apellidos']) ? htmlspecialchars($userData['apellidos']) : ''; ?>">
-                        <label class="user-label">Apellidos</label>
+                        <label class="user-label" for="apellido">Apellidos</label>
                     </div>
                 </div>
                 <div class="input-group">
                     <input  type="email" name="email_usuario" autocomplete="off" class="input" value="<?php echo isset($userData['correo']) ? htmlspecialchars($userData['correo']) : ''; ?>">
-                    <label class="user-label">Correo</label>
+                    <label class="user-label" for="email_usuario">Correo</label>
                 </div>
 
                 <div class="input-group">
                     <input  type="text" name="Pagina_usuario" autocomplete="off" class="input" value="<?php echo isset($userData['pagina']) ? htmlspecialchars($userData['pagina']) : ''; ?>">
-                    <label class="user-label">Pagina</label>
+                    <label class="user-label" for="Pagina_usuario">Pagina</label>
                 </div>
 
                 <div class="input-group">
-                    <label>Fecha de Nacimiento</label><br>
+                    <label for="fecha_usuario">Fecha de Nacimiento</label><br>
                     <input  type="date" name="fecha_usuario" autocomplete="off" class="input" value="<?php echo isset($userData['natal']) ? htmlspecialchars($userData['natal']) : ''; ?>">
                 </div>
 
                 <div class="input-group">
                     <input  type="text" name="nombre_usuario" autocomplete="off" class="input" value="<?php echo isset($userData['usuario']) ? htmlspecialchars($userData['usuario']) : ''; ?>">
-                    <label class="user-label">Usuario</label>
+                    <label class="user-label" for="nombre_usuario">Usuario</label>
                 </div>
                 <div class="input-group" id="psw-contenedor">
                     <input  type="Password" name="contraseña_usuario" autocomplete="off" class="input">
-                    <label class="user-label">Contraseña</label>
+                    <label class="user-label" for="contraseña_usuario">Contraseña</label>
                 </div>
                 <div class="input-group" id="psw-contenedor2">
                     <input  type="Password" name="contraseña_Check" autocomplete="off" class="input">
-                    <label class="user-label">Confirma tu contraseña</label>
+                    <label class="user-label" aria-label="contraseña_Check">Confirma tu contraseña</label>
                 </div>
 
                 <div class="input-group">
                     <!-- <input  type="image" name="image" class="input" onchange="previewImage()"> -->
-                    <label class="user-label">Imagen de perfil</label>
+                    <label class="user-label" for="imgRuta">Imagen de perfil</label>
                     <br>
                     <img id="imgPerfil" src="#" alt="Vista previa de la imagen" style="display: none; width: 100px;">
                     <br>
